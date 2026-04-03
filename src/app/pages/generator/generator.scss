@@ -1,0 +1,719 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+// ── Shared ──────────────────────────────────────────────────
+
+:host { display: block; }
+
+.generator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  gap: 64px;
+  width: 100%;
+  max-width: $page-width;
+  margin: 0 auto;
+  min-height: calc(100vh - #{$navbar-height});
+}
+
+.gen__btn-primary {
+  @include btn-primary;
+  font-size: $font-size-h5;
+  font-weight: 600;
+  padding: 16px 26px;
+  width: 258px;
+  height: 62px;
+  border-radius: $radius-btn;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// STEP 1
+// ══════════════════════════════════════════════════════════════
+
+.gen-step1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  width: 100%;
+  padding: 0 68px 64px;
+}
+
+// Headline
+.gen-step1__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.gen-step1__title {
+  font-family: $font-primary;
+  font-size: $font-size-h2;
+  font-weight: 600;
+  line-height: 65px;
+  color: $color-middle-green;
+  text-align: center;
+}
+
+.gen-step1__subtitle {
+  font-family: $font-primary;
+  font-size: $font-size-h5;
+  font-weight: 500;
+  line-height: 30px;
+  color: $color-green-dark;
+  text-align: center;
+  max-width: 919px;
+}
+
+// Content-Zeile (Input-Box + Liste)
+.gen-step1__content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+  max-width: 1087px;
+}
+
+// Input-Box
+.gen-step1__input-box {
+  @include green-container(0.3);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 25px 0;
+  gap: 32px;
+  width: 577px;
+  min-height: 176px;
+  flex-shrink: 0;
+}
+
+.gen-step1__input-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 510px;
+}
+
+// Label
+.gen-step1__label {
+  font-family: $font-primary;
+  font-size: $font-size-h6;
+  font-weight: 500;
+  color: $color-green-dark;
+  display: block;
+  margin-bottom: 4px;
+}
+
+// Input-Wrapper (relativ für Autocomplete)
+.gen-step1__input-wrap {
+  position: relative;
+  width: 300px;
+}
+
+// Textfeld
+.gen-step1__input {
+  width: 300px;
+  height: 36px;
+  padding: 8px 12px;
+  background: rgba(250, 240, 230, 0.8);
+  border: none;
+  border-radius: $radius-large;
+  font-family: $font-primary;
+  font-size: $font-size-label;
+  font-weight: 500;
+  color: $color-green-dark;
+  outline: none;
+
+  &::placeholder { color: rgba($color-green-dark, 0.4); }
+  &:focus { box-shadow: 0 0 0 2px $color-olive-green; }
+}
+
+// Autocomplete-Dropdown
+.gen-step1__autocomplete {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 300px;
+  background: $color-creamy;
+  border-radius: $radius-card;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 8px 0 8px 16px;
+  list-style: none;
+  z-index: 10;
+}
+
+.gen-step1__autocomplete-item {
+  padding: 8px 12px 8px 0;
+  font-family: $font-primary;
+  font-size: $font-size-label;
+  color: $color-green-dark;
+  cursor: pointer;
+
+  &:hover { color: $color-olive-green; }
+}
+
+// Mengen-Zeile
+.gen-step1__amount-row { width: 100%; }
+
+.gen-step1__serving {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gen-step1__serving-label {
+  font-family: $font-primary;
+  font-size: $font-size-h6;
+  font-weight: 500;
+  color: $color-green-dark;
+}
+
+.gen-step1__amount-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+// Mengen-Chip
+.gen-step1__amount-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 15px;
+  width: 80px;
+  height: 36px;
+  background: $color-creamy;
+  border-radius: 48px;
+}
+
+.gen-step1__amount-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: $font-primary;
+  font-size: $font-size-body;
+  font-weight: 500;
+  color: $color-green-dark;
+  text-align: center;
+  outline: none;
+
+  // Spinner ausblenden
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button { -webkit-appearance: none; }
+  -moz-appearance: textfield;
+}
+
+// Einheit-Chip
+.gen-step1__unit-chip {
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  height: 36px;
+  background: $color-creamy;
+  border-radius: 48px;
+}
+
+.gen-step1__unit-select {
+  border: none;
+  background: transparent;
+  font-family: $font-primary;
+  font-size: $font-size-label;
+  font-weight: 500;
+  color: $color-green-dark;
+  outline: none;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+// Add-Button
+.gen-step1__add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba($color-green-dark, 0.08);
+  border: none;
+  border-radius: $radius-btn;
+  cursor: pointer;
+  color: $color-green-dark;
+
+  &:hover { background: rgba($color-green-dark, 0.16); }
+
+  .material-icons { font-size: 24px; }
+}
+
+// Zutaten-Liste
+.gen-step1__list {
+  @include green-container(0.3);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 16px;
+  width: 478px;
+  min-height: 209px;
+  flex-shrink: 0;
+}
+
+.gen-step1__list-title {
+  font-family: $font-primary;
+  font-size: $font-size-h6;
+  font-weight: 500;
+  color: $color-green-dark;
+}
+
+.gen-step1__list-empty {
+  font-family: $font-primary;
+  font-size: $font-size-label;
+  color: rgba($color-green-dark, 0.5);
+  font-style: italic;
+}
+
+.gen-step1__ingredient-list { display: flex; flex-direction: column; gap: 8px; }
+
+.gen-step1__ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: $font-primary;
+  font-size: $font-size-label;
+  color: $color-green-dark;
+}
+
+.gen-step1__ingredient-amount {
+  font-weight: 600;
+  color: $color-middle-green;
+  min-width: 42px;
+}
+
+.gen-step1__ingredient-name { flex: 1; }
+
+.gen-step1__remove-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba($color-green-dark, 0.5);
+  padding: 2px;
+
+  &:hover { color: $color-green-dark; }
+  .material-icons { font-size: 18px; }
+}
+
+// Footer
+.gen-step1__footer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 1087px;
+}
+
+// ══════════════════════════════════════════════════════════════
+// STEP 2
+// ══════════════════════════════════════════════════════════════
+
+.gen-step2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+  width: 100%;
+  padding: 0 68px 64px;
+}
+
+.gen-step2__title {
+  font-family: $font-primary;
+  font-size: $font-size-card;
+  font-weight: 600;
+  line-height: 35px;
+  color: $color-green-dark;
+  text-align: center;
+}
+
+.gen-step2__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+  width: 721px;
+}
+
+// Portions + Chefs Zeile
+.gen-step2__row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 120px;
+  width: 100%;
+}
+
+.gen-step2__stepper-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gen-step2__stepper-label {
+  font-family: $font-primary;
+  font-size: $font-size-h6;
+  font-weight: 500;
+  color: $color-green-dark;
+}
+
+.gen-step2__stepper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.gen-step2__stepper-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: rgba($color-olive-green, 0.15);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: $color-green-dark;
+
+  &:hover { background: rgba($color-olive-green, 0.25); }
+  .material-icons { font-size: 20px; }
+}
+
+.gen-step2__stepper-val {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 5px 1px;
+  background: rgba($color-olive-green, 0.2);
+  font-family: $font-primary;
+  font-size: $font-size-h6;
+  font-weight: 500;
+  color: $color-green-dark;
+}
+
+.gen-step2__stepper-unit {
+  font-family: $font-primary;
+  font-size: $font-size-h6;
+  font-weight: 500;
+  color: $color-green-dark;
+}
+
+// Präferenzen-Formular
+.gen-step2__form {
+  @include green-container(0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 32px 24px;
+  width: 721px;
+}
+
+.gen-step2__fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.gen-step2__fieldset-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: $font-primary;
+  font-size: $font-size-h5;
+  font-weight: 500;
+  color: $color-green-dark;
+  margin-bottom: 0;
+}
+
+.gen-step2__icon {
+  font-size: 24px;
+  color: $color-green-dark;
+  background: $color-input-bg;
+  border-radius: 4px;
+  padding: 3px;
+}
+
+.gen-step2__chips {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+// Chip mit Subtext (Kochzeit)
+.gen-step2__chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  // Chip-Pill
+  &-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    background: $color-creamy;
+    border-radius: $radius-pill;
+    height: 28px;
+    font-family: $font-primary;
+    font-size: $font-size-h6;
+    font-weight: 500;
+    color: $color-middle-green;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+
+  &-sub {
+    font-family: $font-primary;
+    font-size: $font-size-small;
+    font-weight: 500;
+    color: $color-middle-green;
+    white-space: nowrap;
+  }
+
+  // Einfacher Chip (Cuisine, Diät) — kein Subtext
+  &--single {
+    padding: 6px 12px;
+    background: $color-creamy;
+    border-radius: $radius-pill;
+    height: 28px;
+    font-family: $font-primary;
+    font-size: $font-size-h6;
+    font-weight: 500;
+    color: $color-middle-green;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  // Aktiver Zustand
+  &--active .gen-step2__chip-label,
+  &--active#{&}--single {
+    background: $color-olive-green;
+    color: $color-creamy;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// LOADING
+// ══════════════════════════════════════════════════════════════
+
+.gen-loading {
+  display: flex;
+  flex-direction: column;
+  background: $color-olive-green;
+  min-height: 100vh;
+}
+
+.gen-loading__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex: 1;
+  padding: 64px;
+}
+
+.gen-loading__placeholder {
+  width: 200px;
+  height: 260px;
+  background: $color-card-bg;
+  border-radius: $radius-large;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1;   }
+}
+
+.gen-loading__text {
+  font-family: $font-primary;
+  font-size: $font-size-h2;
+  font-weight: 600;
+  color: $color-creamy;
+  text-align: center;
+}
+
+// ══════════════════════════════════════════════════════════════
+// RESULTS
+// ══════════════════════════════════════════════════════════════
+
+.gen-results {
+  display: flex;
+  flex-direction: column;
+  background: $color-olive-green;
+  min-height: 100vh;
+}
+
+.gen-results__main {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding: 0 68px 64px;
+  max-width: $page-width;
+  width: 100%;
+  margin: 0 auto;
+}
+
+// Header
+.gen-results__header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 96px;
+}
+
+.gen-results__header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 610px;
+}
+
+.gen-results__title {
+  font-family: $font-primary;
+  font-size: $font-size-h2;
+  font-weight: 600;
+  color: $color-creamy;
+}
+
+.gen-results__subtitle {
+  font-family: $font-primary;
+  font-size: $font-size-h5;
+  font-weight: 500;
+  color: $color-creamy;
+  line-height: 1.5;
+}
+
+.gen-results__tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.gen-results__tag {
+  @include tag-chip($color-creamy);
+  color: $color-middle-green;
+  font-size: $font-size-h6;
+}
+
+.gen-results__header-img {
+  width: 260px;
+  height: 200px;
+  background: $color-card-bg;
+  border-radius: $radius-large;
+  flex-shrink: 0;
+}
+
+// Karten
+.gen-results__cards {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.gen-results__card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  background: $color-card-bg;
+  border-radius: $radius-large;
+  padding: 32px 24px;
+}
+
+.gen-results__card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gen-results__card-icon {
+  font-size: 24px;
+  color: $color-middle-green;
+}
+
+.gen-results__card-num {
+  font-family: $font-primary;
+  font-size: $font-size-h5;
+  font-weight: 600;
+  color: $color-middle-green;
+}
+
+.gen-results__card-title {
+  font-family: $font-primary;
+  font-size: 32px;
+  font-weight: 600;
+  color: $color-green-dark;
+  line-height: 1.25;
+}
+
+.gen-results__card-time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: $font-primary;
+  font-size: $font-size-h6;
+  font-weight: 500;
+  color: $color-olive-green;
+
+  .material-icons { font-size: 20px; }
+}
+
+.gen-results__card-btn {
+  @include btn-secondary;
+  margin-top: auto;
+  align-self: flex-start;
+  width: auto;
+  height: auto;
+  padding: 8px 20px;
+  color: $color-heart;
+  font-size: $font-size-label;
+  font-weight: 600;
+}
+
+// Footer
+.gen-results__footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.gen-results__new-link {
+  background: none;
+  border: none;
+  font-family: $font-primary;
+  font-size: $font-size-label;
+  font-weight: 500;
+  color: $color-creamy;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover { opacity: 0.8; }
+}

@@ -1,0 +1,30 @@
+<app-navbar [showGetStarted]="false"></app-navbar>
+
+<main class="landing">
+
+  <!-- Hero Visuals (rechte Seite, überlappende Kreise) -->
+  <div class="landing__visuals" aria-hidden="true">
+    <div class="landing__visual landing__visual--top"></div>
+    <div class="landing__visual landing__visual--mid"></div>
+    <div class="landing__visual landing__visual--bot"></div>
+  </div>
+
+  <!-- Main CTA (links, oben) -->
+  <section class="landing__main-cta" aria-label="Willkommen bei Code à Cuisine">
+    <div class="landing__text">
+      <p class="landing__subtitle">AI-Powered recipe generator</p>
+      <h1 class="landing__title">Code à Cuisine</h1>
+    </div>
+    <a class="landing__btn-primary" routerLink="/generator">Get started</a>
+  </section>
+
+  <!-- Secondary CTA (links, unten) -->
+  <div class="landing__secondary-cta">
+    <span class="landing__inspiration">Hungry for inspiration?</span>
+    <a class="landing__btn-secondary" routerLink="/cookbook">
+      Go to cookbook
+      <span class="landing__btn-arrow" aria-hidden="true"></span>
+    </a>
+  </div>
+
+</main>

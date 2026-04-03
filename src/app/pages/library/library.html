@@ -1,0 +1,78 @@
+<app-navbar
+  [showGetStarted]="false"
+  [showBackButton]="true"
+  backLabel="← Cookbook"
+  backRoute="/cookbook"
+></app-navbar>
+
+<main class="library">
+
+  <!-- ── Hero banner ───────────────────────────────────────── -->
+  <div
+    class="library__hero"
+    [style.background-image]="'url(' + cuisineImage() + ')'"
+    role="img"
+    [attr.aria-label]="cuisineLabel() + ' cuisine'"
+  >
+    <h1 class="library__hero-title">{{ cuisineLabel() }} cuisine</h1>
+  </div>
+
+  <!-- ── Recipe list ───────────────────────────────────────── -->
+  <section class="library__list" aria-label="Recipe list">
+
+    @if (loading()) {
+      <p class="library__loading">Loading recipes...</p>
+    } @else if (recipes().length === 0) {
+      <p class="library__empty">No {{ cuisineLabel() }} recipes yet — generate some!</p>
+    } @else {
+
+      <ul class="library__recipe-list">
+        @for (recipe of pagedRecipes(); track recipe.id; let i = $index) {
+          <li class="library__recipe-row">
+
+            <div class="library__num" aria-hidden="true">
+              {{ (page() - 1) * 8 + i + 1 }}.
+            </div>
+
+            <div class="library__recipe-info">
+              <div class="library__recipe-time">
+                <span class="material-icons" aria-hidden="true">schedule</span>
+                <span>Cooking time: {{ recipe.time }}</span>
+              </div>
+              <span class="library__recipe-title">{{ recipe.title }}</span>
+            </div>
+
+            <div class="library__recipe-actions">
+              <div class="library__tags">
+                @for (tag of recipe.tags; track tag) {
+                  <span class="library__tag">{{ tag }}</span>
+                }
+                <span class="library__liked-count">
+                  <span class="material-icons" aria-hidden="true">favorite</span>
+                  {{ recipe.likes }}
+                </span>
+              </div>
+              <a class="library__view-btn" [routerLink]="['/recipe', recipe.id]">View</a>
+            </div>
+
+          </li>
+        }
+      </ul>
+
+      @if (totalPages() > 1) {
+        <div class="library__pagination">
+          <button class="library__page-btn" type="button" (click)="prevPage()" [disabled]="page() === 1" aria-label="Previous page">
+            <span class="material-icons">chevron_left</span>
+          </button>
+          <span class="library__page-info">{{ page() }} / {{ totalPages() }}</span>
+          <button class="library__page-btn" type="button" (click)="nextPage()" [disabled]="page() === totalPages()" aria-label="Next page">
+            <span class="material-icons">chevron_right</span>
+          </button>
+        </div>
+      }
+
+    }
+
+  </section>
+
+</main>

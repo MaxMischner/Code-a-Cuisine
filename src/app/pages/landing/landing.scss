@@ -1,0 +1,202 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+// Landing Page — Olive Green Hintergrund
+:host {
+  display: block;
+  background: $color-olive-green;
+  min-height: 100vh;
+  color: $color-creamy;
+}
+
+.landing {
+  position: relative;
+  width: 100%;
+  max-width: $page-width;
+  height: 1024px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+// ── Hero Visuals ────────────────────────────────────────────
+// Drei überlappende Kreise rechts (aus Figma: left: 911px, top: -42px)
+.landing__visuals {
+  position: absolute;
+  width: 480px;
+  height: 1145px;
+  left: 911px;
+  top: -42px;
+  pointer-events: none;
+}
+
+.landing__visual {
+  position: absolute;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  filter: drop-shadow(6px -2px 4px rgba(0, 0, 0, 0.25));
+
+  // Platzhalter-Farbe bis User-Bilder vorliegen
+  background-color: rgba(255, 255, 255, 0.15);
+
+  // Top circle — Ellipse 29 (470×470, left:5, top:0)
+  &--top {
+    width: 470px;
+    height: 470px;
+    left: 5px;
+    top: 0;
+    background-image: url('/hero_1.svg');
+  }
+
+  // Middle circle — Ellipse 30 (484×484, left:-8, top:315)
+  &--mid {
+    width: 484px;
+    height: 484px;
+    left: -8px;
+    top: 315px;
+    background-image: url('/hero_2.svg');
+  }
+
+  // Bottom circle — Ellipse 31 (480×505, left:-68.87, top:553.86, rotate 18.91°)
+  &--bot {
+    width: 480px;
+    height: 505px;
+    left: -68.87px;
+    top: 553.86px;
+    transform: rotate(18.91deg);
+    background-image: url('/hero_3.svg');
+  }
+}
+
+// ── Main CTA ─────────────────────────────────────────────────
+// Figma: position absolute, left:65, top:240, width:755, height:303, gap:64
+.landing__main-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 64px;
+
+  position: absolute;
+  left: 65px;
+  top: 240px;
+  width: 755px;
+}
+
+.landing__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+}
+
+// "AI-Powered recipe generator" — Quicksand 600 48px #F5F5DC
+.landing__subtitle {
+  font-family: $font-primary;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 60px;
+  color: #F5F5DC;
+  margin: 0;
+}
+
+// "Code à Cuisine" — Ubuntu 700 104px #FAF0E6
+.landing__title {
+  font-family: $font-display;
+  font-size: 104px;
+  font-weight: 700;
+  line-height: 119px;
+  color: $color-creamy;
+  margin: 0;
+}
+
+// Primary Button (crème) — 183×60px, background #FAF0E6, text #008000
+.landing__btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 26px;
+  gap: 10px;
+  width: 183px;
+  height: 60px;
+  background: $color-creamy;
+  border-radius: $radius-btn;
+  font-family: $font-primary;
+  font-size: $font-size-h5;
+  font-weight: 600;
+  color: $color-heart;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    opacity: 0.92;
+  }
+}
+
+// ── Secondary CTA ────────────────────────────────────────────
+// Figma: position absolute, left:65, top:846, gap:16
+.landing__secondary-cta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+
+  position: absolute;
+  left: 65px;
+  top: 846px;
+}
+
+// "Hungry for inspiration?" — Ubuntu 500 32px #FAF0E6
+.landing__inspiration {
+  font-family: $font-display;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 104%;
+  color: $color-creamy;
+  white-space: nowrap;
+}
+
+// "Go to cookbook" Button — 236×52px, border-radius:5px
+.landing__btn-secondary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 236px;
+  height: 52px;
+  padding: 16px 26px;
+  border-radius: $radius-btn;
+  border: 2px solid $color-creamy;
+  font-family: $font-primary;
+  font-size: $font-size-h6;
+  font-weight: 500;
+  color: $color-creamy;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+// Pfeil-Linie — 24px Linie aus Figma (border: 2px solid #FAF0E6)
+.landing__btn-arrow {
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  background: $color-creamy;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: -4px;
+    border: solid $color-creamy;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg);
+  }
+}

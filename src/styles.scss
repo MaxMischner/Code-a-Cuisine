@@ -1,0 +1,61 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+// ============================================================
+// Code-a-Cuisine — Global Styles
+// ============================================================
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: $font-primary;
+  font-size: $font-size-body;
+  color: $color-green-dark;
+  background: $color-white;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+// --- Typografie-Basisklassen ---
+h1 { font-family: $font-primary; font-size: $font-size-h1; font-weight: 700; }
+h2 { font-family: $font-primary; font-size: $font-size-h2; font-weight: 600; }
+h3 { font-family: $font-primary; font-size: $font-size-h3; font-weight: 700; }
+h4 { font-family: $font-primary; font-size: $font-size-h5; font-weight: 600; }
+h5 { font-family: $font-primary; font-size: $font-size-h6; font-weight: 500; }
+
+p  { font-family: $font-primary; font-size: $font-size-body; font-weight: 500; line-height: 1.5; }
+
+// Kein Text kleiner als 14px (Anforderung)
+small { font-size: $font-size-small; }
+
+// --- Utility ---
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}

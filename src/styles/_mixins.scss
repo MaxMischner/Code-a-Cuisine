@@ -1,0 +1,108 @@
+// ============================================================
+// Code-a-Cuisine — SCSS Mixins
+// ============================================================
+@use 'variables' as *;
+@use 'sass:color';
+
+/// Flex Row zentriert
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/// Flex Row space-between
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/// Pill-förmiger Tag/Chip
+@mixin tag-chip($bg: $color-tag-bg) {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: $bg;
+  border-radius: $radius-pill;
+  font-family: $font-primary;
+  font-size: $font-size-body;
+  font-weight: 500;
+  color: $color-green-dark;
+}
+
+/// Primary Button
+@mixin btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 26px;
+  background: $color-olive-green;
+  border: none;
+  border-radius: $radius-btn;
+  font-family: $font-primary;
+  font-size: $font-size-h5;
+  font-weight: 600;
+  color: $color-creamy;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    background: color.scale($color-olive-green, $lightness: -8%);
+  }
+}
+
+/// Secondary Button
+@mixin btn-secondary {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: $color-btn-secondary-bg;
+  border: 1px solid $color-tag-border;
+  border-radius: $radius-card;
+  font-family: $font-primary;
+  font-size: $font-size-label;
+  font-weight: 500;
+  color: $color-middle-green;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/// Nummernkreis (Zubereitungsschritte / Listeneinträge)
+@mixin number-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: $color-peach-light;
+  border-radius: $radius-circle;
+  font-family: $font-primary;
+  font-size: $font-size-body;
+  font-weight: 500;
+  color: $color-middle-green;
+  flex-shrink: 0;
+}
+
+/// Container mit grünem Hintergrund (Formulare)
+@mixin green-container($opacity: 0.2) {
+  background: rgba(57, 96, 57, $opacity);
+  border-radius: $radius-large;
+}
+
+/// Text-Link mit Pfeil ("Generate new recipe →")
+@mixin arrow-link($color: $color-middle-green) {
+  display: inline-flex;
+  align-items: center;
+  gap: $gap-xs;
+  font-family: $font-primary;
+  font-size: $font-size-label;
+  font-weight: 500;
+  color: $color;
+  text-decoration: none;
+  cursor: pointer;
+
+  &::after {
+    content: '→';
+  }
+}

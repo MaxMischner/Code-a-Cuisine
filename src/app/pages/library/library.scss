@@ -1,0 +1,234 @@
+@use '../../../styles/variables' as *;
+
+// ── Host ──────────────────────────────────────────────────────
+:host {
+  display: block;
+  background: $color-white;
+}
+
+// ── Page wrapper ──────────────────────────────────────────────
+.library {
+  max-width: $page-width;
+  margin: 0 auto;
+  padding-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+// ── Hero banner ───────────────────────────────────────────────
+.library__hero {
+  position: relative;
+  width: 100%;
+  height: 148px;
+  background-size: cover;
+  background-position: center;
+  background-color: $color-card-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.library__hero-title {
+  font-family: $font-primary;
+  font-weight: 700;
+  font-size: $font-size-h3;    // 40px
+  line-height: 104%;
+  color: $color-green-dark;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+// ── Recipe list ───────────────────────────────────────────────
+.library__list {
+  width: $content-width;      // 900px
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.library__recipe-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+// ── Single recipe row ─────────────────────────────────────────
+.library__recipe-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  gap: 8px;
+  border-radius: $radius-card;
+  background: transparent;
+  transition: background 0.15s;
+
+  &:hover {
+    background: rgba($color-card-bg, 0.5);
+  }
+}
+
+// ── Number circle ─────────────────────────────────────────────
+.library__num {
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  border-radius: $radius-circle;
+  background: $color-peach-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: $font-size-body;   // 18px
+  color: $color-middle-green;
+}
+
+// ── Recipe info ───────────────────────────────────────────────
+.library__recipe-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+.library__recipe-time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: $font-size-label;  // 16px
+  line-height: 20px;
+  color: $color-olive-green;
+
+  .material-icons {
+    font-size: 18px;
+  }
+}
+
+.library__recipe-title {
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: $font-size-h5;     // 24px
+  line-height: 30px;
+  color: $color-middle-green;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ── Actions (tags + view) ─────────────────────────────────────
+.library__recipe-actions {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.library__tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.library__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  background: $color-tag-bg;
+  border-radius: $radius-pill;
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: $font-size-body;
+  color: $color-green-dark;
+}
+
+.library__liked-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: $color-tag-bg-strong;
+  border-radius: $radius-pill;
+  font-family: $font-secondary;
+  font-weight: 500;
+  font-size: $font-size-label;
+  color: $color-green-dark;
+
+  .material-icons {
+    font-size: 18px;
+  }
+}
+
+.library__view-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 20px;
+  background: $color-olive-green;
+  color: $color-creamy;
+  border-radius: $radius-btn;
+  font-family: $font-primary;
+  font-weight: 600;
+  font-size: $font-size-label;
+  text-decoration: none;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+// ── Pagination ────────────────────────────────────────────────
+.library__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.library__page-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 2px solid $color-olive-green;
+  border-radius: $radius-btn;
+  background: transparent;
+  color: $color-olive-green;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover:not(:disabled) {
+    background: $color-olive-green;
+    color: $color-creamy;
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .material-icons {
+    font-size: 20px;
+  }
+}
+
+.library__page-info {
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: $font-size-h6;
+  color: $color-green-dark;
+}

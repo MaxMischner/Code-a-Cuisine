@@ -1,0 +1,200 @@
+@use '../../../styles/variables' as *;
+
+// ── Host ──────────────────────────────────────────────────────
+:host {
+  display: block;
+  background: $color-white;
+}
+
+// ── Page wrapper ──────────────────────────────────────────────
+.cookbook {
+  max-width: $page-width;
+  margin: 0 auto;
+  padding: 64px $padding-page;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+// ── Section header ────────────────────────────────────────────
+.cookbook__section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.cookbook__section-title {
+  font-family: $font-primary;
+  font-weight: 600;
+  font-size: $font-size-h5;      // 24px
+  line-height: 30px;
+  color: $color-middle-green;
+  margin: 0;
+}
+
+.cookbook__heart {
+  font-size: 22px;
+  color: $color-heart;
+}
+
+// ── Most liked scroll row ─────────────────────────────────────
+.cookbook__scroll-row {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  overflow-x: auto;
+  padding-right: 20px;
+  border-radius: $radius-card;
+  scrollbar-width: thin;
+  scrollbar-color: rgba($color-olive-green, 0.3) transparent;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba($color-olive-green, 0.3);
+    border-radius: 3px;
+  }
+}
+
+// ── Liked card ────────────────────────────────────────────────
+.cookbook__liked-card {
+  flex: 0 0 370px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 12px;
+  gap: 8px;
+  background: $color-liked-card;
+  border-radius: $radius-card;
+  text-decoration: none;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(219, 224, 219, 0.9);
+  }
+}
+
+.cookbook__liked-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cookbook__liked-clock {
+  font-size: 20px;
+  color: $color-olive-green;
+}
+
+.cookbook__liked-time {
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: $font-size-label;   // 16px
+  line-height: 20px;
+  color: $color-olive-green;
+}
+
+.cookbook__liked-title {
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: $font-size-h5;      // 24px
+  line-height: 30px;
+  color: $color-middle-green;
+  margin: 0;
+}
+
+.cookbook__liked-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.cookbook__tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cookbook__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  background: $color-tag-bg;
+  border-radius: $radius-pill;
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: $font-size-body;    // 18px
+  color: $color-green-dark;
+}
+
+.cookbook__liked-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: $color-tag-bg-strong;
+  border-radius: $radius-pill;
+  font-family: $font-secondary;
+  font-weight: 500;
+  font-size: $font-size-label;   // 16px
+  color: $color-green-dark;
+  margin-left: auto;
+
+  .material-icons {
+    font-size: 20px;
+  }
+}
+
+// ── Cuisine grid ──────────────────────────────────────────────
+.cookbook__cuisine-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 29px;
+}
+
+// ── Cuisine card ──────────────────────────────────────────────
+.cookbook__cuisine-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.cookbook__cuisine-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.cookbook__cuisine-name {
+  font-family: $font-primary;
+  font-weight: 600;
+  font-size: $font-size-card;    // 28px
+  line-height: 35px;
+  color: $color-middle-green;
+}
+
+.cookbook__cuisine-emoji {
+  font-size: 28px;
+  line-height: 35px;
+}
+
+.cookbook__cuisine-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center;
+  background-color: $color-card-bg;
+  border-radius: $radius-card;
+}

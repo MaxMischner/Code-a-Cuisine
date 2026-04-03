@@ -1,0 +1,21 @@
+<header class="navbar">
+  <div class="navbar__inner">
+    <!-- Logo -->
+    <a class="navbar__logo" routerLink="/" aria-label="Code à Cuisine – Startseite">
+      <img src="/Logo.svg" alt="Code à Cuisine Logo" width="142" height="48" />
+    </a>
+
+    <!-- Back-Button (nur auf Unterseiten sichtbar) -->
+    @if (showBackButton) {
+      <a class="navbar__back" [routerLink]="backRoute">
+        <span class="navbar__back-arrow" aria-hidden="true">←</span>
+        {{ backLabel }}
+      </a>
+    }
+
+    <!-- Get started Button -->
+    @if (showGetStarted) {
+      <a class="navbar__cta" routerLink="/generator">Get started</a>
+    }
+  </div>
+</header>

@@ -1,0 +1,62 @@
+<app-navbar [showGetStarted]="false"></app-navbar>
+
+<main class="cookbook">
+
+  <!-- ── Most liked ─────────────────────────────────────────── -->
+  <section class="cookbook__most-liked" aria-label="Most liked recipes">
+    <div class="cookbook__section-header">
+      <h2 class="cookbook__section-title">Most liked recipes</h2>
+      <span class="material-icons cookbook__heart" aria-hidden="true">favorite</span>
+    </div>
+
+    @if (loading()) {
+      <p class="cookbook__loading">Loading recipes...</p>
+    } @else if (mostLiked().length === 0) {
+      <p class="cookbook__empty">No recipes yet — generate your first one!</p>
+    } @else {
+      <div class="cookbook__scroll-row" role="list">
+        @for (recipe of mostLiked(); track recipe.id) {
+          <a class="cookbook__liked-card" [routerLink]="['/recipe', recipe.id]" role="listitem">
+            <div class="cookbook__liked-meta">
+              <span class="material-icons cookbook__liked-clock" aria-hidden="true">schedule</span>
+              <span class="cookbook__liked-time">Cooking time: {{ recipe.time }}</span>
+            </div>
+            <h3 class="cookbook__liked-title">{{ recipe.title }}</h3>
+            <div class="cookbook__liked-footer">
+              <div class="cookbook__tags">
+                @for (tag of recipe.tags; track tag) {
+                  <span class="cookbook__tag">{{ tag }}</span>
+                }
+              </div>
+              <span class="cookbook__liked-count">
+                <span class="material-icons" aria-hidden="true">favorite</span>
+                {{ recipe.likes }}
+              </span>
+            </div>
+          </a>
+        }
+      </div>
+    }
+  </section>
+
+  <!-- ── Cuisine categories ─────────────────────────────────── -->
+  <section class="cookbook__cuisines" aria-label="Cuisine categories">
+    <div class="cookbook__cuisine-grid">
+      @for (c of cuisines; track c.slug) {
+        <a class="cookbook__cuisine-card" [routerLink]="['/library', c.slug]">
+          <div class="cookbook__cuisine-label">
+            <span class="cookbook__cuisine-name">{{ c.name }}</span>
+            <span class="cookbook__cuisine-emoji" aria-hidden="true">{{ c.emoji }}</span>
+          </div>
+          <div
+            class="cookbook__cuisine-img"
+            [style.background-image]="'url(' + c.image + ')'"
+            role="img"
+            [attr.aria-label]="c.name + ' cuisine'"
+          ></div>
+        </a>
+      }
+    </div>
+  </section>
+
+</main>

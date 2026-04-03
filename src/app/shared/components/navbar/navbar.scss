@@ -1,0 +1,49 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.navbar {
+  width: 100%;
+  padding: 40px 40px 0 $padding-page;
+  height: $navbar-height;
+}
+
+.navbar__inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: $page-width;
+  height: 48px;
+}
+
+.navbar__logo {
+  flex-shrink: 0;
+}
+
+.navbar__back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: $font-primary;
+  font-size: $font-size-small;
+  font-weight: 500;
+  color: $color-middle-green;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.navbar__back-arrow {
+  font-size: $font-size-label;
+}
+
+.navbar__cta {
+  @include btn-primary;
+  font-size: $font-size-h5;
+  font-weight: 600;
+  width: 258px;
+  height: 62px;
+}

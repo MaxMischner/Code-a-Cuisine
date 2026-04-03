@@ -1,0 +1,154 @@
+@if (loading()) {
+  <app-navbar [showGetStarted]="false"></app-navbar>
+  <div class="recipe__loading">
+    <p>Loading recipe...</p>
+  </div>
+}
+
+@if (error()) {
+  <app-navbar [showGetStarted]="false"></app-navbar>
+  <div class="recipe__error">
+    <p>{{ error() }}</p>
+  </div>
+}
+
+@if (recipe(); as r) {
+
+  <app-navbar
+    [showGetStarted]="false"
+    [showBackButton]="true"
+    backLabel="← Results"
+    backRoute="/generator"
+  ></app-navbar>
+
+  <main class="recipe">
+
+    <!-- ── Name + Nutrition header ─────────────────────────── -->
+    <div class="recipe__header">
+
+      <!-- Left: title, time, chefs -->
+      <div class="recipe__header-left">
+        <div class="recipe__time">
+          <span class="material-icons recipe__time-icon" aria-hidden="true">schedule</span>
+          <span>Cooking time: {{ r.time }}</span>
+        </div>
+        <h1 class="recipe__title">{{ r.title }}</h1>
+        <div class="recipe__chefs">
+          <span class="recipe__chefs-label">Cooking person: {{ r.portions }}</span>
+          <span class="recipe__chef-badge recipe__chef-badge--1">
+            <span class="material-icons recipe__chef-icon" aria-hidden="true">face</span>
+            Chef 1
+          </span>
+          @if (hasChef2) {
+            <span class="recipe__chef-badge recipe__chef-badge--2">
+              <span class="material-icons recipe__chef-icon" aria-hidden="true">face_2</span>
+              Chef 2
+            </span>
+          }
+        </div>
+      </div>
+
+      <!-- Right: tags + nutrition -->
+      <div class="recipe__header-right">
+        <div class="recipe__tags">
+          @for (tag of r.tags; track tag) {
+            <span class="recipe__tag">{{ tag }}</span>
+          }
+          <span class="recipe__tag recipe__tag--liked">
+            <span class="material-icons" aria-hidden="true">favorite</span>
+          </span>
+        </div>
+
+        <div class="recipe__nutrition">
+          <p class="recipe__nutrition-label">Nutritional information</p>
+          <div class="recipe__nutrition-row">
+            @for (n of r.nutrition; track n.label) {
+              <div class="recipe__nutrition-item">
+                <span class="recipe__nutrition-name">{{ n.label }}</span>
+                <span class="recipe__nutrition-val">{{ n.value }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Ingredients ──────────────────────────────────────── -->
+    <div class="recipe__section">
+
+      <div class="recipe__section-hero recipe__section-hero--ingredients">
+        <h2 class="recipe__section-title">Ingredients</h2>
+      </div>
+
+      <div class="recipe__ingredients-cols">
+
+        <!-- Your ingredients -->
+        <div class="recipe__ingredients-group">
+          <h3 class="recipe__ingredients-subtitle">Your ingredients</h3>
+          <ul class="recipe__ingredient-list">
+            @for (ing of r.your_ingredients; track ing.name) {
+              <li class="recipe__ingredient-item">
+                <span class="recipe__ingredient-amount">{{ ing.amount }}</span>
+                <span class="recipe__ingredient-name">{{ ing.name }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+
+        <!-- Additional ingredients -->
+        <div class="recipe__ingredients-group">
+          <h3 class="recipe__ingredients-subtitle">Additional ingredients</h3>
+          <ul class="recipe__ingredient-list">
+            @for (ing of r.additional_ingredients; track ing.name) {
+              <li class="recipe__ingredient-item">
+                <span class="recipe__ingredient-amount">{{ ing.amount }}</span>
+                <span class="recipe__ingredient-name">{{ ing.name }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Directions ───────────────────────────────────────── -->
+    <div class="recipe__section">
+
+      <div class="recipe__section-hero recipe__section-hero--directions">
+        <h2 class="recipe__section-title">Directions</h2>
+      </div>
+
+      <ol class="recipe__steps">
+        @for (step of r.steps; track $index; let i = $index) {
+          <li class="recipe__step" [class.recipe__step--chef2]="step.chef === 2">
+            <div class="recipe__step-header">
+              <span class="recipe__step-num">{{ i + 1 }}</span>
+              <span
+                class="recipe__chef-badge"
+                [class.recipe__chef-badge--1]="step.chef === 1"
+                [class.recipe__chef-badge--2]="step.chef === 2"
+              >
+                <span class="material-icons recipe__chef-icon" aria-hidden="true">
+                  {{ step.chef === 1 ? 'face' : 'face_2' }}
+                </span>
+                Chef {{ step.chef }}
+              </span>
+            </div>
+            <p class="recipe__step-text">{{ step.text }}</p>
+          </li>
+        }
+      </ol>
+
+    </div>
+
+    <!-- ── Footer link ───────────────────────────────────────── -->
+    <div class="recipe__footer">
+      <a class="recipe__cookbook-link" routerLink="/cookbook">
+        Go to cookbook →
+      </a>
+    </div>
+
+  </main>
+
+}

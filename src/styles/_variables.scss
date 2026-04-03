@@ -1,0 +1,76 @@
+// ============================================================
+// Code-a-Cuisine — Design Tokens
+// Alle Werte direkt aus Figma-Export
+// ============================================================
+
+// --- FARBEN ---
+$color-olive-green:   #396039;
+$color-middle-green:  #1E5515;
+$color-green-dark:    #10310B;
+$color-creamy:        #FAF0E6;
+$color-peach-light:   #F6E3CF;
+$color-white:         #FFFFFF;
+$color-input-bg:      #D9D9D9;
+$color-chef1-bg:      #D7DFD7;
+$color-chef2-bg:      #FFD9B3;
+$color-card-bg:       #DBE0DB;
+$color-heart:         #008000;
+
+$color-tag-bg:        rgba(57, 96, 57, 0.2);
+$color-tag-bg-strong: rgba(57, 96, 57, 0.3);
+$color-tag-border:    rgba(57, 96, 57, 0.5);
+$color-liked-card:    rgba(219, 224, 219, 0.7);
+$color-btn-secondary-bg: rgba(250, 240, 230, 0.6);
+
+// CSS Custom Properties (für Templates)
+:root {
+  --color-olive-green:      #{$color-olive-green};
+  --color-middle-green:     #{$color-middle-green};
+  --color-green-dark:       #{$color-green-dark};
+  --color-creamy:           #{$color-creamy};
+  --color-peach-light:      #{$color-peach-light};
+  --color-white:            #{$color-white};
+  --color-input-bg:         #{$color-input-bg};
+  --color-chef1-bg:         #{$color-chef1-bg};
+  --color-chef2-bg:         #{$color-chef2-bg};
+  --color-card-bg:          #{$color-card-bg};
+  --color-tag-bg:           #{$color-tag-bg};
+  --color-tag-bg-strong:    #{$color-tag-bg-strong};
+}
+
+// --- TYPOGRAFIE ---
+$font-primary:   'Quicksand', sans-serif;
+$font-secondary: 'Mulish', sans-serif;
+$font-display:   'Ubuntu', sans-serif;   // Landing Page Headlines
+
+$font-size-landing-h1: 104px;   // Ubuntu, Landing Page "Code à Cuisine"
+$font-size-h1:   64px;
+$font-size-h2:   54px;
+$font-size-h3:   40px;
+$font-size-card: 28px;
+$font-size-h5:   24px;
+$font-size-h6:   20px;
+$font-size-body: 18px;
+$font-size-label: 16px;
+$font-size-small: 14px;   // Minimum! Nur für Captions & Back-Button
+
+// --- SPACING ---
+$gap-xs:  8px;
+$gap-sm:  10px;
+$gap-md:  32px;
+$gap-lg:  64px;
+$gap-xl:  96px;
+
+// --- BORDER RADIUS ---
+$radius-btn:   5px;
+$radius-label: 6px;
+$radius-card:  16px;
+$radius-large: 20px;
+$radius-pill:  30px;
+$radius-circle: 50%;
+
+// --- LAYOUT ---
+$page-width:     1440px;
+$content-width:  900px;
+$padding-page:   68px;
+$navbar-height:  136px;

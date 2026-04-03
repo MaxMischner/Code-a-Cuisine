@@ -1,0 +1,357 @@
+<!-- ════════════════════════════════════════════════════════════
+     STEP 1 — Zutaten eingeben
+     ════════════════════════════════════════════════════════════ -->
+@if (step() === 'step1') {
+  <app-navbar [showGetStarted]="false"></app-navbar>
+
+  <main class="generator">
+    <section class="gen-step1" aria-label="Zutaten eingeben">
+
+      <!-- Überschrift -->
+      <div class="gen-step1__header">
+        <h1 class="gen-step1__title">Generate recipe</h1>
+        <p class="gen-step1__subtitle">
+          Got random stuff in your kitchen? Pop it in—we've got the perfect recipe waiting.
+        </p>
+      </div>
+
+      <!-- Input + Liste -->
+      <div class="gen-step1__content">
+
+        <!-- Eingabe-Container -->
+        <div class="gen-step1__input-box" role="form" aria-label="Zutat hinzufügen">
+          <div class="gen-step1__input-inner">
+
+            <!-- Zutat-Feld -->
+            <div class="gen-step1__field">
+              <label class="gen-step1__label" for="ingredient-input">Ingredient</label>
+
+              <div class="gen-step1__input-wrap">
+                <input
+                  id="ingredient-input"
+                  class="gen-step1__input"
+                  type="text"
+                  placeholder="e.g. Pasta"
+                  [value]="ingredientInput"
+                  (input)="onIngredientInput($any($event.target).value)"
+                  (keydown.enter)="addIngredient()"
+                  autocomplete="off"
+                  aria-autocomplete="list"
+                  [attr.aria-expanded]="autocompleteVisible()"
+                />
+
+                <!-- Autocomplete Dropdown -->
+                @if (autocompleteVisible()) {
+                  <ul class="gen-step1__autocomplete" role="listbox">
+                    @for (item of autocompleteResults(); track item) {
+                      <li
+                        class="gen-step1__autocomplete-item"
+                        role="option"
+                        (click)="selectSuggestion(item)"
+                      >{{ item }}</li>
+                    }
+                  </ul>
+                }
+              </div>
+            </div>
+
+            <!-- Menge + Einheit + Add -->
+            <div class="gen-step1__amount-row">
+              <div class="gen-step1__serving">
+                <span class="gen-step1__serving-label">Serving size</span>
+                <div class="gen-step1__amount-controls">
+                  <!-- Mengen-Eingabe -->
+                  <div class="gen-step1__amount-chip">
+                    <input
+                      class="gen-step1__amount-input"
+                      type="number"
+                      min="1"
+                      [(ngModel)]="amountInput"
+                      aria-label="Menge"
+                    />
+                  </div>
+
+                  <!-- Einheit-Dropdown -->
+                  <div class="gen-step1__unit-chip">
+                    <select
+                      class="gen-step1__unit-select"
+                      [(ngModel)]="unitInput"
+                      aria-label="Einheit"
+                    >
+                      @for (unit of units; track unit) {
+                        <option [value]="unit">{{ unit }}</option>
+                      }
+                    </select>
+                  </div>
+
+                  <!-- Add Button -->
+                  <button
+                    class="gen-step1__add-btn"
+                    type="button"
+                    (click)="addIngredient()"
+                    aria-label="Zutat hinzufügen"
+                  >
+                    <span class="material-icons" aria-hidden="true">add</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Zutaten-Liste -->
+        <div class="gen-step1__list" aria-label="Deine Zutaten" aria-live="polite">
+          <h2 class="gen-step1__list-title">List of your Ingredients</h2>
+
+          @if (ingredients().length === 0) {
+            <p class="gen-step1__list-empty">No ingredients added yet.</p>
+          } @else {
+            <ul class="gen-step1__ingredient-list">
+              @for (item of ingredients(); track $index) {
+                <li class="gen-step1__ingredient-item">
+                  <span class="gen-step1__ingredient-amount">
+                    {{ item.amount }}{{ formatUnit(item.unit) }}
+                  </span>
+                  <span class="gen-step1__ingredient-name">{{ item.name }}</span>
+                  <button
+                    class="gen-step1__remove-btn"
+                    type="button"
+                    (click)="removeIngredient($index)"
+                    [attr.aria-label]="'Entferne ' + item.name"
+                  >
+                    <span class="material-icons" aria-hidden="true">close</span>
+                  </button>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+
+      </div>
+
+      <!-- Next Step Button -->
+      @if (canProceedToStep2()) {
+        <div class="gen-step1__footer">
+          <button class="gen__btn-primary" type="button" (click)="goToStep2()">
+            Next step
+          </button>
+        </div>
+      }
+
+    </section>
+  </main>
+}
+
+
+<!-- ════════════════════════════════════════════════════════════
+     STEP 2 — Präferenzen wählen
+     ════════════════════════════════════════════════════════════ -->
+@if (step() === 'step2') {
+  <app-navbar
+    [showGetStarted]="false"
+    [showBackButton]="true"
+    backLabel="← Ingredients"
+    backRoute="/generator"
+    (click)="goToStep1()"
+  ></app-navbar>
+
+  <main class="generator">
+    <section class="gen-step2" aria-label="Präferenzen wählen">
+
+      <h1 class="gen-step2__title">Choose your preferences</h1>
+
+      <div class="gen-step2__content">
+
+        <!-- Portions + Chefs -->
+        <div class="gen-step2__row">
+
+          <!-- Portionen -->
+          <div class="gen-step2__stepper-group">
+            <p class="gen-step2__stepper-label">How many portions you need?</p>
+            <div class="gen-step2__stepper">
+              <button class="gen-step2__stepper-btn" type="button" (click)="decreasePortions()" aria-label="Weniger Portionen">
+                <span class="material-icons" aria-hidden="true">remove</span>
+              </button>
+              <span class="gen-step2__stepper-val" aria-live="polite">{{ portions() }}</span>
+              <span class="gen-step2__stepper-unit">Portions</span>
+              <button class="gen-step2__stepper-btn" type="button" (click)="increasePortions()" aria-label="Mehr Portionen">
+                <span class="material-icons" aria-hidden="true">add</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Kochhelfer -->
+          <div class="gen-step2__stepper-group">
+            <p class="gen-step2__stepper-label">How many are cooking?</p>
+            <div class="gen-step2__stepper">
+              <button class="gen-step2__stepper-btn" type="button" (click)="decreaseChefs()" aria-label="Weniger Personen">
+                <span class="material-icons" aria-hidden="true">remove</span>
+              </button>
+              <span class="gen-step2__stepper-val" aria-live="polite">{{ chefs() }}</span>
+              <span class="gen-step2__stepper-unit">Person{{ chefs() > 1 ? 'en' : '' }}</span>
+              <button class="gen-step2__stepper-btn" type="button" (click)="increaseChefs()" aria-label="Mehr Personen">
+                <span class="material-icons" aria-hidden="true">add</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Präferenzen-Formular -->
+        <div class="gen-step2__form">
+
+          <!-- Kochzeit -->
+          <fieldset class="gen-step2__fieldset">
+            <legend class="gen-step2__fieldset-legend">
+              <span class="material-icons gen-step2__icon" aria-hidden="true">schedule</span>
+              Cooking time:
+            </legend>
+            <div class="gen-step2__chips">
+              @for (t of cookingTimes; track t.value) {
+                <button
+                  class="gen-step2__chip"
+                  type="button"
+                  [class.gen-step2__chip--active]="selectedTime() === t.value"
+                  (click)="selectedTime.set(t.value)"
+                  [attr.aria-pressed]="selectedTime() === t.value"
+                >
+                  <span class="gen-step2__chip-label">{{ t.label }}</span>
+                  <span class="gen-step2__chip-sub">{{ t.sub }}</span>
+                </button>
+              }
+            </div>
+          </fieldset>
+
+          <!-- Küche -->
+          <fieldset class="gen-step2__fieldset">
+            <legend class="gen-step2__fieldset-legend">
+              <span class="material-icons gen-step2__icon" aria-hidden="true">public</span>
+              Cuisine
+            </legend>
+            <div class="gen-step2__chips">
+              @for (c of cuisines; track c) {
+                <button
+                  class="gen-step2__chip gen-step2__chip--single"
+                  type="button"
+                  [class.gen-step2__chip--active]="selectedCuisine() === c"
+                  (click)="selectedCuisine.set(c)"
+                  [attr.aria-pressed]="selectedCuisine() === c"
+                >{{ c }}</button>
+              }
+            </div>
+          </fieldset>
+
+          <!-- Diät -->
+          <fieldset class="gen-step2__fieldset">
+            <legend class="gen-step2__fieldset-legend">
+              <span class="material-icons gen-step2__icon" aria-hidden="true">restaurant</span>
+              Diet preferences
+            </legend>
+            <div class="gen-step2__chips">
+              @for (d of diets; track d) {
+                <button
+                  class="gen-step2__chip gen-step2__chip--single"
+                  type="button"
+                  [class.gen-step2__chip--active]="selectedDiet() === d"
+                  (click)="selectedDiet.set(d)"
+                  [attr.aria-pressed]="selectedDiet() === d"
+                >{{ d }}</button>
+              }
+            </div>
+          </fieldset>
+
+        </div>
+
+        <!-- Fehlermeldung -->
+        @if (errorMsg()) {
+          <p class="gen-step2__error" role="alert">{{ errorMsg() }}</p>
+        }
+
+        <!-- Generate Button -->
+        <button
+          class="gen__btn-primary"
+          type="button"
+          (click)="generate()"
+          [disabled]="!canGenerate()"
+        >
+          Generate a recipe
+        </button>
+
+      </div>
+    </section>
+  </main>
+}
+
+
+<!-- ════════════════════════════════════════════════════════════
+     LOADING
+     ════════════════════════════════════════════════════════════ -->
+@if (step() === 'loading') {
+  <div class="gen-loading" role="status" aria-label="Rezepte werden generiert">
+    <app-navbar [showGetStarted]="false"></app-navbar>
+    <div class="gen-loading__content">
+      <div class="gen-loading__placeholder" aria-hidden="true"></div>
+      <p class="gen-loading__text">Generating ...</p>
+    </div>
+  </div>
+}
+
+
+<!-- ════════════════════════════════════════════════════════════
+     RESULTS — 3 Rezeptvorschläge
+     ════════════════════════════════════════════════════════════ -->
+@if (step() === 'results') {
+  <div class="gen-results">
+    <app-navbar [showGetStarted]="false"></app-navbar>
+
+    <main class="gen-results__main" aria-label="Deine Rezeptvorschläge">
+
+      <!-- Header -->
+      <div class="gen-results__header">
+        <div class="gen-results__header-text">
+          <h1 class="gen-results__title">The recipe results</h1>
+          <p class="gen-results__subtitle">
+            We took what you have and let our AI do the thinking.<br>
+            Here are 3 easy recipes you can make right now!
+          </p>
+          <div class="gen-results__tags">
+            @if (selectedCuisine()) {
+              <span class="gen-results__tag">{{ selectedCuisine() }}</span>
+            }
+            @if (selectedTime()) {
+              <span class="gen-results__tag">{{ selectedTime() }}</span>
+            }
+          </div>
+        </div>
+        <div class="gen-results__header-img" aria-hidden="true"></div>
+      </div>
+
+      <!-- 3 Rezept-Karten -->
+      <div class="gen-results__cards" aria-label="Rezeptvorschläge">
+        @for (recipe of results(); track recipe.id; let i = $index) {
+          <article class="gen-results__card">
+            <header class="gen-results__card-header">
+              <span class="material-icons gen-results__card-icon" aria-hidden="true">restaurant</span>
+              <span class="gen-results__card-num">Recipe {{ i + 1 }}</span>
+            </header>
+            <h2 class="gen-results__card-title">{{ recipe.title }}</h2>
+            <p class="gen-results__card-time">
+              <span class="material-icons" aria-hidden="true">schedule</span>
+              Cooking time: {{ recipe.time }}
+            </p>
+            <a class="gen-results__card-btn" [routerLink]="['/recipe', recipe.id]">View</a>
+          </article>
+        }
+      </div>
+
+      <!-- Footer-Link -->
+      <div class="gen-results__footer">
+        <button class="gen-results__new-link" type="button" (click)="reset()">
+          Generate new recipe →
+        </button>
+      </div>
+
+    </main>
+  </div>
+}
