@@ -8,13 +8,8 @@
 <main class="library">
 
   <!-- ── Hero banner ───────────────────────────────────────── -->
-  <div
-    class="library__hero"
-    [style.background-image]="'url(' + cuisineImage() + ')'"
-    role="img"
-    [attr.aria-label]="cuisineLabel() + ' cuisine'"
-  >
-    <h1 class="library__hero-title">{{ cuisineLabel() }} cuisine</h1>
+  <div class="library__hero">
+    <img class="library__hero-img" [src]="cuisineImage()" [alt]="cuisineLabel() + ' cuisine'" />
   </div>
 
   <!-- ── Recipe list ───────────────────────────────────────── -->
@@ -52,7 +47,8 @@
                   {{ recipe.likes }}
                 </span>
               </div>
-              <a class="library__view-btn" [routerLink]="['/recipe', recipe.id]">View</a>
+              <a class="library__view-btn" [routerLink]="['/recipe', recipe.id]"
+                 [state]="{ backRoute: '/library/' + cuisineSlug(), backLabel: cuisineLabel() + ' Cookbook' }">View</a>
             </div>
 
           </li>
@@ -61,13 +57,16 @@
 
       @if (totalPages() > 1) {
         <div class="library__pagination">
-          <button class="library__page-btn" type="button" (click)="prevPage()" [disabled]="page() === 1" aria-label="Previous page">
-            <span class="material-icons">chevron_left</span>
-          </button>
-          <span class="library__page-info">{{ page() }} / {{ totalPages() }}</span>
-          <button class="library__page-btn" type="button" (click)="nextPage()" [disabled]="page() === totalPages()" aria-label="Next page">
-            <span class="material-icons">chevron_right</span>
-          </button>
+          @for (p of pageNumbers(); track p) {
+            <button
+              class="library__page-num"
+              [class.library__page-num--active]="p === page()"
+              type="button"
+              (click)="page.set(p)"
+              [attr.aria-label]="'Page ' + p"
+              [attr.aria-current]="p === page() ? 'page' : null"
+            >{{ p }}</button>
+          }
         </div>
       }
 

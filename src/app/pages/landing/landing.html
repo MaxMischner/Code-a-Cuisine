@@ -1,12 +1,12 @@
-<app-navbar [showGetStarted]="false"></app-navbar>
-
 <main class="landing">
+
+  <app-navbar [showGetStarted]="false" [logoLight]="true"></app-navbar>
 
   <!-- Hero Visuals (rechte Seite, überlappende Kreise) -->
   <div class="landing__visuals" aria-hidden="true">
-    <div class="landing__visual landing__visual--top"></div>
-    <div class="landing__visual landing__visual--mid"></div>
-    <div class="landing__visual landing__visual--bot"></div>
+    <img class="landing__visual landing__visual--top" src="/hero_1.svg" alt="" />
+    <img class="landing__visual landing__visual--mid" src="/hero_2.svg" alt="" />
+    <img class="landing__visual landing__visual--bot" src="/hero_3.svg" alt="" />
   </div>
 
   <!-- Main CTA (links, oben) -->
@@ -23,7 +23,7 @@
     <span class="landing__inspiration">Hungry for inspiration?</span>
     <a class="landing__btn-secondary" routerLink="/cookbook">
       Go to cookbook
-      <span class="landing__btn-arrow" aria-hidden="true"></span>
+      <img src="/recipe view/Arrow 11.svg" class="landing__btn-arrow" width="20" alt="" aria-hidden="true" />
     </a>
   </div>
 

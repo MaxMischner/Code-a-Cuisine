@@ -27,6 +27,10 @@ export interface GenerateResponse {
 @Injectable({ providedIn: 'root' })
 export class RecipeGeneratorService {
 
+  /** Letzte Ergebnisse — bleibt bei Navigation erhalten */
+  lastResults: GeneratedRecipe[] = [];
+
+
   /**
    * Sendet die Nutzereingaben an den n8n-Webhook.
    * n8n ruft Gemini auf, speichert 3 Rezepte in Supabase
@@ -47,16 +51,17 @@ export class RecipeGeneratorService {
       body: JSON.stringify(payload),
     });
 
-    if (response.status === 429) {
-      throw new Error('quota_exceeded');
-    }
-
     if (!response.ok) {
       throw new Error(`n8n Webhook Fehler: ${response.status} ${response.statusText}`);
     }
 
-    const data: GenerateResponse = await response.json();
-    return data.recipes;
+    const data = await response.json();
+
+    if (data?.error === 'quota_exceeded' || data?.[0]?.json?.error === 'quota_exceeded') {
+      throw new Error('quota_exceeded');
+    }
+
+    return (data as GenerateResponse).recipes;
   }
 
   private mockResponse(): GeneratedRecipe[] {

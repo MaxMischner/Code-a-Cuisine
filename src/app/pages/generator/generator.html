@@ -1,4 +1,23 @@
 <!-- ════════════════════════════════════════════════════════════
+     QUOTA MODAL
+     ════════════════════════════════════════════════════════════ -->
+@if (showQuotaModal()) {
+  <div class="quota-modal__overlay" role="dialog" aria-modal="true" aria-labelledby="quota-title">
+    <div class="quota-modal">
+      <div class="quota-modal__icon" aria-hidden="true">🍽️</div>
+      <h2 class="quota-modal__title" id="quota-title">Daily limit reached</h2>
+      <p class="quota-modal__text">
+        You've used all <strong>3 recipe generations</strong> for today.<br>
+        Come back tomorrow for fresh inspiration!
+      </p>
+      <button class="quota-modal__btn" type="button" (click)="goToCookbook()">
+        Cookbook
+      </button>
+    </div>
+  </div>
+}
+
+<!-- ════════════════════════════════════════════════════════════
      STEP 1 — Zutaten eingeben
      ════════════════════════════════════════════════════════════ -->
 @if (step() === 'step1') {
@@ -291,7 +310,7 @@
   <div class="gen-loading" role="status" aria-label="Rezepte werden generiert">
     <app-navbar [showGetStarted]="false"></app-navbar>
     <div class="gen-loading__content">
-      <div class="gen-loading__placeholder" aria-hidden="true"></div>
+      <img class="gen-loading__gif" src="/Code_Cuisine_Loading_Spinner.gif" alt="" aria-hidden="true" />
       <p class="gen-loading__text">Generating ...</p>
     </div>
   </div>
@@ -303,7 +322,7 @@
      ════════════════════════════════════════════════════════════ -->
 @if (step() === 'results') {
   <div class="gen-results">
-    <app-navbar [showGetStarted]="false"></app-navbar>
+    <app-navbar [showGetStarted]="false" [logoLight]="true"></app-navbar>
 
     <main class="gen-results__main" aria-label="Deine Rezeptvorschläge">
 
@@ -324,22 +343,33 @@
             }
           </div>
         </div>
-        <div class="gen-results__header-img" aria-hidden="true"></div>
+        <div class="gen-results__header-img" aria-hidden="true">
+          <img src="/Results/Visual.svg" alt="" />
+        </div>
       </div>
 
       <!-- 3 Rezept-Karten -->
       <div class="gen-results__cards" aria-label="Rezeptvorschläge">
         @for (recipe of results(); track recipe.id; let i = $index) {
           <article class="gen-results__card">
-            <header class="gen-results__card-header">
-              <span class="material-icons gen-results__card-icon" aria-hidden="true">restaurant</span>
-              <span class="gen-results__card-num">Recipe {{ i + 1 }}</span>
-            </header>
-            <h2 class="gen-results__card-title">{{ recipe.title }}</h2>
-            <p class="gen-results__card-time">
-              <span class="material-icons" aria-hidden="true">schedule</span>
-              Cooking time: {{ recipe.time }}
-            </p>
+            <div class="gen-results__card-frame">
+              <header class="gen-results__card-header">
+                <img
+                  class="gen-results__card-img"
+                  src="/Results/Dish_icon.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <span class="gen-results__card-num">Recipe {{ i + 1 }}</span>
+              </header>
+              <div class="gen-results__card-text">
+                <h2 class="gen-results__card-title">{{ recipe.title }}</h2>
+                <p class="gen-results__card-time">
+                  <span class="material-icons" aria-hidden="true">schedule</span>
+                  Cooking time: {{ recipe.time }}
+                </p>
+              </div>
+            </div>
             <a class="gen-results__card-btn" [routerLink]="['/recipe', recipe.id]">View</a>
           </article>
         }

@@ -1,62 +1,119 @@
 <app-navbar [showGetStarted]="false"></app-navbar>
 
 <main class="cookbook">
+  <div class="cookbook__content-wrapper">
+    <div class="cookbook__content">
 
-  <!-- ── Most liked ─────────────────────────────────────────── -->
-  <section class="cookbook__most-liked" aria-label="Most liked recipes">
-    <div class="cookbook__section-header">
-      <h2 class="cookbook__section-title">Most liked recipes</h2>
-      <span class="material-icons cookbook__heart" aria-hidden="true">favorite</span>
-    </div>
+      <!-- ── Upper part: Intro + Most liked ────────────────────── -->
+      <div class="cookbook__upper">
 
-    @if (loading()) {
-      <p class="cookbook__loading">Loading recipes...</p>
-    } @else if (mostLiked().length === 0) {
-      <p class="cookbook__empty">No recipes yet — generate your first one!</p>
-    } @else {
-      <div class="cookbook__scroll-row" role="list">
-        @for (recipe of mostLiked(); track recipe.id) {
-          <a class="cookbook__liked-card" [routerLink]="['/recipe', recipe.id]" role="listitem">
-            <div class="cookbook__liked-meta">
-              <span class="material-icons cookbook__liked-clock" aria-hidden="true">schedule</span>
-              <span class="cookbook__liked-time">Cooking time: {{ recipe.time }}</span>
-            </div>
-            <h3 class="cookbook__liked-title">{{ recipe.title }}</h3>
-            <div class="cookbook__liked-footer">
-              <div class="cookbook__tags">
-                @for (tag of recipe.tags; track tag) {
-                  <span class="cookbook__tag">{{ tag }}</span>
+        <!-- Left: Cookbook intro -->
+        <div class="cookbook__intro">
+          <h1 class="cookbook__headline">Cookbook</h1>
+          <p class="cookbook__desc">Browse recipes from different cuisines around the world. Click on a category to discover delicious recipes and find your next culinary inspiration.</p>
+        </div>
+
+        <!-- Right: Most liked -->
+        <section class="cookbook__most-liked" aria-label="Most liked recipes">
+          <div class="cookbook__most-liked-header">
+            <h2 class="cookbook__most-liked-title">Most liked recipes</h2>
+            <span class="material-icons cookbook__heart" aria-hidden="true">favorite</span>
+          </div>
+
+          @if (loading()) {
+            <p class="cookbook__loading">Loading...</p>
+          } @else if (mostLiked().length === 0) {
+            <p class="cookbook__empty">No recipes yet — generate your first one!</p>
+          } @else {
+            <div class="cookbook__scroll-wrapper">
+
+              <!-- Left arrow -->
+              @if (canScrollLeft) {
+                <button class="cookbook__scroll-btn cookbook__scroll-btn--left"
+                  type="button" aria-label="Scroll left"
+                  (click)="scrollBy(scrollRow, -394)">
+                  <span class="material-icons">chevron_left</span>
+                </button>
+                <div class="cookbook__scroll-fade cookbook__scroll-fade--left"></div>
+              }
+
+              <div
+                class="cookbook__scroll-row"
+                [class.cookbook__scroll-row--dragging]="isDraggingActive"
+                role="list"
+                #scrollRow
+                (mousedown)="onScrollMouseDown($event, scrollRow)"
+                (mousemove)="onScrollMouseMove($event, scrollRow)"
+                (mouseup)="onScrollMouseUp(scrollRow)"
+                (mouseleave)="onScrollMouseUp(scrollRow)"
+                (touchstart)="onScrollTouchStart($event, scrollRow)"
+                (touchmove)="onScrollTouchMove($event, scrollRow)"
+                (touchend)="onScrollTouchEnd(scrollRow)"
+                (scroll)="onScroll(scrollRow)"
+              >
+                @for (recipe of mostLiked(); track recipe.id) {
+                  <a
+                    class="cookbook__liked-card"
+                    href="/recipe/{{ recipe.id }}"
+                    role="listitem"
+                    (click)="onCardClick($event, recipe.id)"
+                  >
+                    <div class="cookbook__liked-info">
+                      <div class="cookbook__liked-meta">
+                        <span class="material-icons cookbook__liked-clock" aria-hidden="true">schedule</span>
+                        <span class="cookbook__liked-time">Cooking time: {{ recipe.time }}</span>
+                      </div>
+                      <h3 class="cookbook__liked-title">{{ recipe.title }}</h3>
+                    </div>
+                    <span class="cookbook__liked-count">
+                      <span class="material-icons" aria-hidden="true">favorite</span>
+                      {{ recipe.likes }}
+                    </span>
+                  </a>
                 }
               </div>
-              <span class="cookbook__liked-count">
-                <span class="material-icons" aria-hidden="true">favorite</span>
-                {{ recipe.likes }}
-              </span>
+
+              <!-- Right arrow -->
+              @if (canScrollRight) {
+                <div class="cookbook__scroll-fade cookbook__scroll-fade--right"></div>
+                <button class="cookbook__scroll-btn cookbook__scroll-btn--right"
+                  type="button" aria-label="Scroll right"
+                  (click)="scrollBy(scrollRow, 394)">
+                  <span class="material-icons">chevron_right</span>
+                </button>
+              }
+
             </div>
-          </a>
-        }
+          }
+        </section>
+
       </div>
-    }
-  </section>
 
-  <!-- ── Cuisine categories ─────────────────────────────────── -->
-  <section class="cookbook__cuisines" aria-label="Cuisine categories">
-    <div class="cookbook__cuisine-grid">
-      @for (c of cuisines; track c.slug) {
-        <a class="cookbook__cuisine-card" [routerLink]="['/library', c.slug]">
-          <div class="cookbook__cuisine-label">
-            <span class="cookbook__cuisine-name">{{ c.name }}</span>
-            <span class="cookbook__cuisine-emoji" aria-hidden="true">{{ c.emoji }}</span>
-          </div>
-          <div
-            class="cookbook__cuisine-img"
-            [style.background-image]="'url(' + c.image + ')'"
-            role="img"
-            [attr.aria-label]="c.name + ' cuisine'"
-          ></div>
-        </a>
-      }
+      <!-- ── Cuisine categories ─────────────────────────────────── -->
+      <section class="cookbook__categories" aria-label="Cuisine categories">
+        <div class="cookbook__cuisine-grid">
+          @for (c of cuisines; track c.slug) {
+            <a class="cookbook__cuisine-card" [routerLink]="['/library', c.slug]">
+              <div class="cookbook__cuisine-label">
+                <span class="cookbook__cuisine-name">{{ c.name }}</span>
+              </div>
+              <div
+                class="cookbook__cuisine-img"
+                [style.background-image]="'url(' + c.image + ')'"
+                role="img"
+                [attr.aria-label]="c.name + ' cuisine'"
+              ></div>
+            </a>
+          }
+        </div>
+      </section>
+
     </div>
-  </section>
 
+    <!-- Footer button -->
+    <a class="cookbook__footer-btn" routerLink="/generator">
+      Generate a recipe
+      <img src="/recipe view/Arrow 11.svg" class="cookbook__footer-arrow" width="20" alt="" aria-hidden="true" />
+    </a>
+  </div>
 </main>

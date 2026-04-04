@@ -15,7 +15,7 @@ export interface DbRecipe {
   nutrition: { label: string; value: string }[];
   your_ingredients: { amount: string; name: string }[];
   additional_ingredients: { amount: string; name: string }[];
-  steps: { chef: 1 | 2; text: string }[];
+  steps: { chef: 1 | 2; title?: string; text: string }[];
   likes: number;
   created_at: string;
 }

@@ -4,15 +4,15 @@ import { Navbar } from '../../shared/components/navbar/navbar';
 import { SupabaseService, DbRecipe } from '../../core/services/supabase.service';
 
 const CUISINE_IMAGES: Record<string, string> = {
-  italian:  '/Cuisine-Bilder/card-1.svg',
-  german:   '/Cuisine-Bilder/card-2.svg',
-  japanese: '/Cuisine-Bilder/card-3.svg',
-  indian:   '/Cuisine-Bilder/card-4.svg',
-  gourmet:  '/Cuisine-Bilder/card-5.svg',
-  fusion:   '/Cuisine-Bilder/card.svg',
+  italian:  '/cookbook_recipes/Property 1=Italian.svg',
+  german:   '/cookbook_recipes/Property 1=German.svg',
+  japanese: '/cookbook_recipes/Property 1=Japanese.svg',
+  indian:   '/cookbook_recipes/Property 1=Indian.svg',
+  gourmet:  '/cookbook_recipes/Property 1=Gourmet.svg',
+  fusion:   '/cookbook_recipes/Property 1=Fusion.svg',
 };
 
-const PER_PAGE = 8;
+const PER_PAGE = 10;
 
 @Component({
   selector: 'app-library',
@@ -38,6 +38,10 @@ export class Library implements OnInit {
     const start = (this.page() - 1) * PER_PAGE;
     return this.recipes().slice(start, start + PER_PAGE);
   });
+
+  readonly pageNumbers = computed(() =>
+    Array.from({ length: this.totalPages() }, (_, i) => i + 1)
+  );
 
   constructor(
     private route: ActivatedRoute,

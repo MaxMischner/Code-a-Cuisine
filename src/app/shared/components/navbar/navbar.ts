@@ -28,4 +28,13 @@ export class Navbar {
 
   /** Zeigt den "Get started"-Button rechts an */
   @Input() showGetStarted = true;
+
+  /** Logo in cremy (#FAF0E6) färben — für dunkle Hintergründe */
+  @Input() logoLight = false;
+
+  /** Optionales Icon vor dem Back-Label */
+  @Input() backIcon: string | null = null;
+
+  /** Optionaler Router-State für den Back-Link */
+  @Input() backState: Record<string, unknown> = {};
 }

@@ -1,6 +1,6 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { Navbar } from '../../shared/components/navbar/navbar';
 import { RecipeGeneratorService } from '../../core/services/recipe-generator.service';
 
@@ -36,9 +36,17 @@ export type GeneratorStep = 'step1' | 'step2' | 'loading' | 'results';
   templateUrl: './generator.html',
   styleUrl: './generator.scss',
 })
-export class Generator {
+export class Generator implements OnInit {
 
-  constructor(private generatorService: RecipeGeneratorService) {}
+  constructor(private generatorService: RecipeGeneratorService, private router: Router) {}
+
+  ngOnInit(): void {
+    const state = window.history.state;
+    if (state?.restoreResults && this.generatorService.lastResults.length > 0) {
+      this.results.set(this.generatorService.lastResults);
+      this.step.set('results');
+    }
+  }
 
   // ── State ──────────────────────────────────────────────────
 
@@ -57,11 +65,61 @@ export class Generator {
 
   // Beispiel-Zutatenliste für Autocomplete
   private readonly allIngredients = [
-    'Pasta', 'Parmesan', 'Pastinake', 'Paprika', 'Passata',
-    'Tomatoes', 'Chicken', 'Onion', 'Garlic', 'Spinach',
-    'Egg', 'Butter', 'Olive oil', 'Flour', 'Sugar',
-    'Rice', 'Broccoli', 'Carrot', 'Potato', 'Mushrooms',
-    'Salmon', 'Lemon', 'Cream', 'Milk', 'Cheese',
+    // Grains & Pasta
+    'Pasta', 'Spaghetti', 'Penne', 'Fusilli', 'Tagliatelle', 'Lasagne sheets',
+    'Rice', 'Basmati rice', 'Jasmine rice', 'Brown rice', 'Risotto rice',
+    'Bread', 'Breadcrumbs', 'Flour', 'Whole wheat flour', 'Cornstarch',
+    'Oats', 'Couscous', 'Quinoa', 'Polenta', 'Noodles', 'Udon noodles', 'Rice noodles',
+    // Vegetables
+    'Onion', 'Red onion', 'Spring onion', 'Garlic', 'Shallot',
+    'Tomato', 'Cherry tomatoes', 'Passata', 'Paprika', 'Bell pepper',
+    'Broccoli', 'Cauliflower', 'Spinach', 'Kale', 'Lettuce', 'Arugula',
+    'Carrot', 'Parsnip', 'Pastinake', 'Celery', 'Celeriac',
+    'Potato', 'Sweet potato', 'Zucchini', 'Eggplant', 'Cucumber',
+    'Mushrooms', 'Champignons', 'Shiitake', 'Portobello mushrooms',
+    'Peas', 'Edamame', 'Green beans', 'Asparagus', 'Artichoke',
+    'Corn', 'Leek', 'Fennel', 'Bok choy', 'Bean sprouts',
+    'Beetroot', 'Radish', 'Turnip', 'Kohlrabi', 'Pumpkin', 'Butternut squash',
+    // Proteins — Meat & Fish
+    'Chicken', 'Chicken breast', 'Chicken thighs', 'Chicken wings',
+    'Beef', 'Ground beef', 'Beef steak', 'Pork', 'Pork belly', 'Bacon',
+    'Lamb', 'Turkey', 'Duck',
+    'Salmon', 'Tuna', 'Cod', 'Sea bass', 'Shrimp', 'Prawns', 'Squid',
+    'Anchovies', 'Sardines', 'Mackerel', 'Trout', 'Mussels', 'Clams',
+    // Proteins — Plant
+    'Egg', 'Tofu', 'Tempeh', 'Lentils', 'Chickpeas', 'Black beans',
+    'Kidney beans', 'White beans', 'Edamame beans',
+    // Dairy & Alternatives
+    'Milk', 'Cream', 'Heavy cream', 'Sour cream', 'Crème fraîche',
+    'Butter', 'Ghee', 'Yogurt', 'Greek yogurt',
+    'Cheese', 'Parmesan', 'Mozzarella', 'Cheddar', 'Feta', 'Ricotta',
+    'Brie', 'Gouda', 'Emmental', 'Cream cheese', 'Mascarpone',
+    'Oat milk', 'Almond milk', 'Coconut milk', 'Coconut cream',
+    // Herbs & Spices
+    'Basil', 'Oregano', 'Thyme', 'Rosemary', 'Parsley', 'Cilantro',
+    'Mint', 'Sage', 'Bay leaves', 'Tarragon', 'Chives', 'Dill',
+    'Cumin', 'Coriander', 'Turmeric', 'Paprika powder', 'Smoked paprika',
+    'Chili flakes', 'Cayenne pepper', 'Ginger', 'Cinnamon', 'Nutmeg',
+    'Cardamom', 'Cloves', 'Star anise', 'Saffron', 'Vanilla',
+    'Black pepper', 'White pepper', 'Salt', 'Curry powder', 'Garam masala',
+    // Oils, Vinegars & Sauces
+    'Olive oil', 'Sunflower oil', 'Sesame oil', 'Coconut oil',
+    'Balsamic vinegar', 'Red wine vinegar', 'Rice vinegar', 'Apple cider vinegar',
+    'Soy sauce', 'Tamari', 'Fish sauce', 'Oyster sauce', 'Hoisin sauce',
+    'Worcestershire sauce', 'Tabasco', 'Sriracha', 'Miso paste',
+    'Tomato paste', 'Tomato sauce', 'Pesto', 'Tahini', 'Hummus',
+    // Sweeteners & Baking
+    'Sugar', 'Brown sugar', 'Honey', 'Maple syrup', 'Agave syrup',
+    'Baking powder', 'Baking soda', 'Yeast', 'Cocoa powder', 'Dark chocolate',
+    // Fruits & Nuts
+    'Lemon', 'Lime', 'Orange', 'Lemon zest', 'Orange zest',
+    'Apple', 'Banana', 'Mango', 'Avocado', 'Strawberry', 'Blueberry',
+    'Raspberry', 'Grapes', 'Pineapple', 'Pomegranate', 'Peach', 'Plum',
+    'Walnuts', 'Almonds', 'Cashews', 'Pine nuts', 'Pistachios',
+    'Peanuts', 'Peanut butter', 'Sesame seeds', 'Chia seeds', 'Sunflower seeds',
+    // Stocks & Liquids
+    'Vegetable stock', 'Chicken stock', 'Beef stock', 'White wine', 'Red wine',
+    'Beer', 'Water', 'Sparkling water',
   ];
 
   // Step 2 — Präferenzen
@@ -71,8 +129,9 @@ export class Generator {
   selectedCuisine = signal<Cuisine | null>(null);
   selectedDiet = signal<Diet | null>(null);
 
-  readonly results  = signal<{ id: string; title: string; time: string }[]>([]);
-  readonly errorMsg = signal<string | null>(null);
+  readonly results       = signal<{ id: string; title: string; time: string }[]>([]);
+  readonly errorMsg      = signal<string | null>(null);
+  readonly showQuotaModal = signal(false);
 
   // ── Computed ───────────────────────────────────────────────
 
@@ -166,8 +225,8 @@ export class Generator {
   /** Verringert die Portionsanzahl (min 1) */
   decreasePortions(): void { if (this.portions() > 1)  this.portions.update(v => v - 1); }
 
-  /** Erhöht die Kochhelfer-Anzahl (max 3) */
-  increaseChefs(): void { if (this.chefs() < 3) this.chefs.update(v => v + 1); }
+  /** Erhöht die Kochhelfer-Anzahl (max 4) */
+  increaseChefs(): void { if (this.chefs() < 4) this.chefs.update(v => v + 1); }
 
   /** Verringert die Kochhelfer-Anzahl (min 1) */
   decreaseChefs(): void { if (this.chefs() > 1) this.chefs.update(v => v - 1); }
@@ -200,20 +259,29 @@ export class Generator {
         diet:        this.selectedDiet()!,
       });
       this.results.set(recipes);
+      this.generatorService.lastResults = recipes;
       this.step.set('results');
     } catch (err: any) {
       console.error('Generierung fehlgeschlagen:', err);
       if (err?.message === 'quota_exceeded') {
-        this.errorMsg.set('You have reached your daily limit of 3 recipes. Please try again tomorrow.');
+        this.showQuotaModal.set(true);
+        // step bleibt 'loading' — GIF bleibt sichtbar hinter dem Modal
       } else {
         this.errorMsg.set('Something went wrong. Please try again.');
+        this.step.set('step2');
       }
-      this.step.set('step2');
     }
+  }
+
+  goToCookbook(): void {
+    this.showQuotaModal.set(false);
+    this.generatorService.lastResults = [];
+    this.router.navigate(['/cookbook']);
   }
 
   /** Startet den Generator neu */
   reset(): void {
+    this.generatorService.lastResults = [];
     this.step.set('step1');
     this.ingredients.set([]);
     this.ingredientInput = '';
