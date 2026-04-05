@@ -29,9 +29,12 @@
   display: block;
 }
 
+.library__hero-img--mobile { display: none; }
+
 // ── Recipe list ───────────────────────────────────────────────
 .library__list {
   width: $content-width;      // 900px
+  max-width: calc(100% - 32px);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -218,5 +221,141 @@
     background: $color-olive-green;
     color: #FAF0E6;
     cursor: default;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// TABLET  (≤ 768px)
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 768px) {
+
+  .library__list {
+    width: calc(100% - 32px);
+  }
+
+  .library__hero-img--desktop { display: none; }
+  .library__hero-img--mobile  { display: block; }
+
+  .library__recipe-title {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+
+  .library__recipe-actions {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// MOBILE  (≤ 480px) — Figma Mobile Specs
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 480px) {
+
+  // ── Page ────────────────────────────────────────────────
+  .library {
+    gap: 40px;
+    padding-top: 24px;
+    padding-bottom: 40px;
+    align-items: center;
+  }
+
+  // ── Hero: 340×94px ──────────────────────────────────────
+  .library__hero {
+    width: 340px;
+    height: 94px;
+  }
+
+  .library__hero-img--desktop { display: none; }
+  .library__hero-img--mobile  { display: block; }
+
+  .library__hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // ── Recipe list ─────────────────────────────────────────
+  .library__list {
+    width: min(340px, calc(100% - 32px));
+    gap: 32px;
+  }
+
+  .library__recipe-list {
+    gap: 32px;
+  }
+
+  // Recipe row: flex-wrap so [num + info] on row 1, [actions] on row 2
+  // row-gap 16px (between the two rows), column-gap 8px (between num and info)
+  .library__recipe-row {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    width: 100%;
+    padding: 6px 10px;
+    gap: 16px 8px;
+    border-radius: 16px;
+  }
+
+  // Alternating backgrounds: even rows = creamy
+  .library__recipe-row:nth-child(even) {
+    background: rgba(250, 240, 230, 0.7);
+  }
+
+  // Num circle: stays fixed at start of row 1
+  .library__num {
+    flex: 0 0 30px;
+    font-size: 18px;
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+
+  // Info: takes remaining width in row 1
+  .library__recipe-info {
+    flex: 1;
+    min-width: 0;
+    gap: 4px;
+  }
+
+  .library__recipe-time {
+    .material-icons { font-size: 16px; }
+  }
+
+  // Title: 18px/600, wraps instead of ellipsis
+  .library__recipe-title {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+
+  // Actions: full-width second row — tags left, view-btn right
+  .library__recipe-actions {
+    flex-basis: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .library__tags {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .library__tag {
+    font-size: 18px;
+    height: 32px;
+    padding: 6px 12px;
+  }
+
+  .library__liked-count {
+    height: 32px;
+    padding: 6px 12px;
+
+    .material-icons { font-size: 18px; }
   }
 }

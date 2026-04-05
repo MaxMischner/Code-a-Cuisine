@@ -8,6 +8,7 @@ interface CuisineCategory {
   emoji: string;
   slug: string;
   image: string;
+  mobileImage: string;
 }
 
 @Component({
@@ -22,12 +23,12 @@ export class Cookbook implements OnInit {
   loading   = signal(true);
 
   cuisines: CuisineCategory[] = [
-    { name: 'Italian',  emoji: '🍝', slug: 'italian',  image: '/Cuisine-Bilder/Italian.svg'  },
-    { name: 'German',   emoji: '🍻', slug: 'german',   image: '/Cuisine-Bilder/German.svg'   },
-    { name: 'Japanese', emoji: '🍢', slug: 'japanese', image: '/Cuisine-Bilder/Japanese.svg' },
-    { name: 'Indian',   emoji: '🍛', slug: 'indian',   image: '/Cuisine-Bilder/Indian.svg'   },
-    { name: 'Gourmet',  emoji: '🤌', slug: 'gourmet',  image: '/Cuisine-Bilder/Gourmet.svg'  },
-    { name: 'Fusion',   emoji: '🫕', slug: 'fusion',   image: '/Cuisine-Bilder/Fusion.svg'   },
+    { name: 'Italian',  emoji: '🍝', slug: 'italian',  image: '/Cuisine-Bilder/Italian.svg',  mobileImage: '/Cuisine-Bilder/Italian.svg'  },
+    { name: 'German',   emoji: '🍻', slug: 'german',   image: '/Cuisine-Bilder/German.svg',   mobileImage: '/Cuisine-Bilder/German.svg'   },
+    { name: 'Japanese', emoji: '🍢', slug: 'japanese', image: '/Cuisine-Bilder/Japanese.svg', mobileImage: '/Cuisine-Bilder/Japanese.svg' },
+    { name: 'Indian',   emoji: '🍛', slug: 'indian',   image: '/Cuisine-Bilder/Indian.svg',   mobileImage: '/Cuisine-Bilder/Indian.svg'   },
+    { name: 'Gourmet',  emoji: '🤌', slug: 'gourmet',  image: '/Cuisine-Bilder/Gourmet.svg',  mobileImage: '/Cuisine-Bilder/Gourmet.svg'  },
+    { name: 'Fusion',   emoji: '🫕', slug: 'fusion',   image: '/Cuisine-Bilder/Fusion.svg',   mobileImage: '/Cuisine-Bilder/Fusion.svg'   },
   ];
 
   // ── Drag-to-scroll state ──────────────────────────────────────
@@ -163,6 +164,10 @@ export class Cookbook implements OnInit {
   scrollBy(el: HTMLElement, amount: number): void {
     this.stopMomentum();
     el.scrollBy({ left: amount, behavior: 'smooth' });
+  }
+
+  cuisineStyle(c: CuisineCategory): string {
+    return `--img: url("${c.image}"); --img-mob: url("${c.mobileImage}")`;
   }
 
   onCardClick(event: MouseEvent, recipeId: string): void {

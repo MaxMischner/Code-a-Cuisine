@@ -1,1 +1,41 @@
-<p>impressum works!</p>
+<app-navbar
+  [showGetStarted]="false"
+  [showBackButton]="true"
+  backLabel="Home"
+  backRoute="/"
+  backIcon="/recipe view/Arrow 11.svg"
+></app-navbar>
+
+<main class="impressum">
+  <div class="impressum__content">
+
+    <h1 class="impressum__title">Impressum</h1>
+    <p class="impressum__meta">Angaben gemäß § 5 DDG</p>
+
+    <section class="impressum__section">
+      <p>Maximilian Mischner</p>
+      <p>Thomasstr. 14<br>77955 Ettenheim</p>
+    </section>
+
+    <section class="impressum__section">
+      <h2 class="impressum__heading">Vertreten durch:</h2>
+      <p>Maximilian Mischner</p>
+    </section>
+
+    <section class="impressum__section">
+      <h2 class="impressum__heading">Kontakt:</h2>
+      <p>Telefon: 01515-6915275</p>
+      <p>E-Mail: <a class="impressum__link" href="mailto:max.mischner@gmail.com">max.mischner@gmail.com</a></p>
+    </section>
+
+    <section class="impressum__section">
+      <h2 class="impressum__heading">Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
+      <p>Wir nehmen nicht an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teil und sind dazu auch nicht verpflichtet.</p>
+    </section>
+
+    <p class="impressum__footer-note">
+      Erstellt mit dem Impressum-Generator von WebsiteWissen.com, dem Ratgeber für Website-Erstellung, Homepage-Baukästen und Shopsysteme. Rechtstext von der Kanzlei Hasselbach.
+    </p>
+
+  </div>
+</main>

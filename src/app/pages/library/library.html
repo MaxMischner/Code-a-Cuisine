@@ -1,15 +1,17 @@
 <app-navbar
   [showGetStarted]="false"
   [showBackButton]="true"
-  backLabel="← Cookbook"
+  backLabel="Cookbook"
   backRoute="/cookbook"
+  backIcon="/recipe view/Arrow 11.svg"
 ></app-navbar>
 
 <main class="library">
 
   <!-- ── Hero banner ───────────────────────────────────────── -->
   <div class="library__hero">
-    <img class="library__hero-img" [src]="cuisineImage()" [alt]="cuisineLabel() + ' cuisine'" />
+    <img class="library__hero-img library__hero-img--desktop" [src]="cuisineImage()" [alt]="cuisineLabel() + ' cuisine'" />
+    <img class="library__hero-img library__hero-img--mobile" [src]="cuisineMobileImage()" [alt]="cuisineLabel() + ' cuisine'" />
   </div>
 
   <!-- ── Recipe list ───────────────────────────────────────── -->

@@ -98,8 +98,9 @@
 
 .gen-step1__input-inner {
   display: flex;
-  flex-direction: column;
-  gap: 32px;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 24px;
   width: 510px;
 }
 
@@ -161,8 +162,10 @@
   &:hover { color: $color-olive-green; }
 }
 
+.gen-step1__field { flex: 1; }
+
 // Mengen-Zeile
-.gen-step1__amount-row { width: 100%; }
+.gen-step1__amount-row { flex-shrink: 0; padding-right: 16px; }
 
 .gen-step1__serving {
   display: flex;
@@ -310,6 +313,39 @@
 
   &:hover { color: $color-green-dark; }
   .material-icons { font-size: 18px; }
+}
+
+.gen-step1__edit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  opacity: 0.45;
+
+  &:hover { opacity: 1; }
+}
+
+.gen-step1__save-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $color-olive-green;
+  padding: 2px;
+
+  &:hover { color: $color-middle-green; }
+  .material-icons { font-size: 18px; }
+}
+
+.gen-step1__ingredient-item--editing {
+  background: rgba(57, 96, 57, 0.06);
+  border-radius: 8px;
+  padding: 4px 8px;
 }
 
 // Footer
@@ -638,6 +674,8 @@
   color: $color-middle-green;
 }
 
+.gen-results__header-img--mobile { display: none; }
+
 .gen-results__header-img {
   position: relative;
   width: 574px;
@@ -796,6 +834,501 @@
 }
 
 // ══════════════════════════════════════════════════════════════
+// TABLET  (≤ 768px)
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 768px) {
+
+  .gen-step1 {
+    padding: 0 24px 40px;
+  }
+
+  .gen-step1__content {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .gen-step1__input-box {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .gen-step1__list {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  // ── Results ────────────────────────────────────────────
+  .gen-results__header {
+    flex-direction: column;
+    padding: 0 24px;
+    gap: 24px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .gen-results__header-text {
+    width: 100%;
+  }
+
+  .gen-results__title,
+  .gen-results__subtitle {
+    width: 100%;
+  }
+
+  .gen-results__header-img--desktop {
+    width: 100%;
+    height: auto;
+    min-height: 160px;
+  }
+
+  .gen-results__cards {
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 48px);
+    gap: 16px;
+  }
+
+  .gen-results__card {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+  }
+
+  .gen-results__card-frame,
+  .gen-results__card-text {
+    width: 100%;
+  }
+
+  .gen-results__card-title {
+    width: 100%;
+  }
+
+  .gen-results__footer {
+    width: calc(100% - 48px);
+    justify-content: center;
+    margin-top: 0;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// MOBILE  (≤ 480px) — Figma Mobile Specs
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 480px) {
+
+  :host { background: #FFFFFF; }
+
+  .generator {
+    gap: 0;
+  }
+
+  // ── Step 1 ────────────────────────────────────────────────
+  .gen-step1 {
+    padding: 0 0 40px;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .gen-step1__header {
+    width: 327px;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .gen-step1__title {
+    font-size: 32px;
+    line-height: 40px;
+    text-align: left;
+    color: $color-middle-green;
+  }
+
+  .gen-step1__subtitle {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 22px;
+    text-align: left;
+    max-width: 327px;
+  }
+
+  // Content: column statt row
+  .gen-step1__content {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 340px;
+    max-width: 100%;
+  }
+
+  // Input-Box: column layout
+  .gen-step1__input-box {
+    width: 340px;
+    min-height: unset;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 0;
+    gap: 16px;
+  }
+
+  .gen-step1__input-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 300px;
+  }
+
+  .gen-step1__field { width: 300px; flex: unset; }
+
+  .gen-step1__input-wrap { width: 300px; }
+
+  .gen-step1__input {
+    width: 300px;
+    height: 36px;
+    border-radius: 20px;
+  }
+
+  .gen-step1__autocomplete { width: 300px; }
+
+  .gen-step1__amount-row {
+    padding-right: 0;
+    width: 300px;
+  }
+
+  // Zutaten-Liste
+  .gen-step1__list {
+    width: 340px;
+    min-height: unset;
+    padding: 24px 16px;
+  }
+
+  .gen-step1__ingredient-item {
+    justify-content: space-between;
+    height: 30px;
+    padding: 2px 2px 2px 0;
+    gap: 0;
+  }
+
+  .gen-step1__ingredient-amount {
+    font-size: 18px;
+    line-height: 22px;
+    min-width: 52px;
+  }
+
+  .gen-step1__ingredient-name {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  // Footer + Button
+  .gen-step1__footer {
+    width: 340px;
+    justify-content: center;
+  }
+
+  .gen__btn-primary {
+    width: 106px;
+    height: 52px;
+    padding: 4px 16px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  // ── Step 2 ────────────────────────────────────────────────
+  .gen-step2 {
+    padding: 0 0 40px;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .gen-step2__title {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 600;
+    color: $color-green-dark;
+    text-align: left;
+    width: 340px;
+  }
+
+  .gen-step2__content {
+    width: 340px;
+    gap: 32px;
+  }
+
+  // Portions + Chefs: column statt row, left-aligned
+  .gen-step2__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    width: 340px;
+  }
+
+  // Label-Abstand zum Stepper verkleinern
+  .gen-step2__stepper-group {
+    gap: 8px;
+  }
+
+  .gen-step2__stepper-label {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  // Stepper-Wert: 20px ("small H + Labels")
+  .gen-step2__stepper-val {
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  // Stepper-Einheit: H6 18px
+  .gen-step2__stepper-unit {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  // Preferences form box: 340px, gleiche Padding wie Figma
+  .gen-step2__form {
+    width: 340px;
+    padding: 32px 24px;
+    gap: 40px;
+  }
+
+  // Fieldset legend: Mob. H3 (24px, 600)
+  .gen-step2__fieldset-legend {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 600;
+  }
+
+  .gen-step2__fieldset {
+    gap: 24px;
+  }
+
+  .gen-step2__fieldset-legend {
+    margin-bottom: 24px;
+  }
+
+  // Cooking time: alle drei Chips in einer Zeile, gleiche Höhe (50px)
+  .gen-step2__fieldset:first-child .gen-step2__chips {
+    flex-wrap: nowrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .gen-step2__fieldset:first-child .gen-step2__chip {
+    flex: none;
+    height: 50px;
+    gap: 12px;
+    justify-content: flex-start;
+    padding: 0;
+  }
+
+  // Chip-Label-Pill: original Größe beibehalten
+  .gen-step2__chip-label {
+    font-size: 20px;
+    line-height: 20px;
+    padding: 6px 12px;
+    height: 28px;
+    white-space: nowrap;
+  }
+
+  // Sub-Text: 14px / line-height 10px, kein Wrap
+  .gen-step2__chip-sub {
+    font-size: 14px;
+    line-height: 10px;
+    white-space: nowrap;
+  }
+
+  // Cuisine + Diet: gap 16px, umbrechen
+  .gen-step2__fieldset:not(:first-child) .gen-step2__chips {
+    gap: 16px;
+  }
+
+  // Einzelner Chip (Cuisine, Diet): 20px
+  .gen-step2__chip--single {
+    font-size: 20px;
+    line-height: 20px;
+    height: auto;
+    padding: 6px 12px;
+  }
+
+  // Generate-Button: 155×52px
+  .gen-step2 .gen__btn-primary {
+    width: 155px;
+    height: 52px;
+    padding: 4px 16px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  // ── Results ───────────────────────────────────────────────
+  .gen-results__main {
+    gap: 48px;
+    padding: 0;
+  }
+
+  // Header: column statt row
+  .gen-results__header {
+    flex-direction: column;
+    padding: 0;
+    gap: 16px;
+    width: 340px;
+  }
+
+  .gen-results__header-text {
+    width: 340px;
+    gap: 16px;
+  }
+
+  .gen-results__title {
+    font-size: 32px;
+    line-height: 40px;
+    width: 340px;
+  }
+
+  .gen-results__subtitle {
+    font-size: 18px;
+    line-height: 22px;
+    width: 340px;
+
+    br { display: none; }
+  }
+
+  // Tags: 18px
+  .gen-results__tag {
+    font-size: 18px;
+    line-height: 22px;
+    height: 32px;
+  }
+
+  // Visual Box: 340×131px — Mobile-Version im Text-Container
+  .gen-results__header-img--desktop {
+    display: none;
+  }
+
+  .gen-results__header-img--mobile {
+    display: block;
+    width: 340px;
+    height: 131px;
+    flex-shrink: 0;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  // Karten: column statt row
+  .gen-results__cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 340px;
+    background: rgba(57, 96, 57, 0.2);
+    border-radius: 20px;
+    padding: 0;
+  }
+
+  .gen-results__card {
+    width: 340px;
+    height: 294px;
+    padding: 32px 24px;
+    gap: 32px;
+    background: #D7DFD7;
+    border-radius: 20px;
+  }
+
+  .gen-results__card-frame {
+    width: 299px;
+    height: auto;
+    gap: 16px;
+  }
+
+  .gen-results__card-header {
+    height: 30px;
+  }
+
+  .gen-results__card-num {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .gen-results__card-text {
+    width: 299px;
+    gap: 16px;
+  }
+
+  .gen-results__card-title {
+    font-size: 24px;
+    line-height: 30px;
+    width: 299px;
+  }
+
+  .gen-results__card-time {
+    font-size: 18px;
+    line-height: 22px;
+    color: $color-olive-green;
+
+    .material-icons { font-size: 24px; }
+  }
+
+  // View-Button: 68×52px, creamy background
+  .gen-results__card-btn {
+    width: 68px;
+    height: 52px;
+    padding: 4px 16px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  // Footer: Generate new recipe
+  .gen-results__footer {
+    width: 340px;
+    justify-content: center;
+    margin-top: 0;
+  }
+
+  .gen-results__new-link {
+    width: auto;
+    height: 52px;
+    font-size: 18px;
+    line-height: 22px;
+    white-space: nowrap;
+    padding: 4px 24px;
+  }
+
+  // ── Loading ───────────────────────────────────────────────
+  .gen-loading {
+    min-height: 812px;
+  }
+
+  .gen-loading__content {
+    gap: 32px;
+    padding: 0;
+  }
+
+  .gen-loading__gif {
+    width: 243px;
+    height: 280px;
+    background: #C4D0C4;
+    border-radius: 20px;
+    padding: 0;
+    object-fit: contain;
+  }
+
+  .gen-loading__text {
+    font-family: $font-display;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 41px;
+    width: 340px;
+    text-align: center;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
 // QUOTA MODAL
 // ══════════════════════════════════════════════════════════════
 
@@ -832,6 +1365,33 @@
 @keyframes slideUp {
   from { transform: translateY(24px); opacity: 0; }
   to   { transform: translateY(0);    opacity: 1; }
+}
+
+@media (max-width: 480px) {
+  .quota-modal {
+    padding: 32px 24px;
+    width: 90%;
+    max-width: 340px;
+    gap: 12px;
+  }
+
+  .quota-modal__icon { font-size: 40px; }
+
+  .quota-modal__title {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  .quota-modal__text {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .quota-modal__btn {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 24px;
+  }
 }
 
 .quota-modal__icon {

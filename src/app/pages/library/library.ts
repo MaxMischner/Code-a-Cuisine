@@ -12,6 +12,15 @@ const CUISINE_IMAGES: Record<string, string> = {
   fusion:   '/cookbook_recipes/Property 1=Fusion.svg',
 };
 
+const CUISINE_MOBILE_IMAGES: Record<string, string> = {
+  italian:  '/cookbook_recipes/Mobil/Property 1=Italian.svg',
+  german:   '/cookbook_recipes/Mobil/Property 1=German.svg',
+  japanese: '/cookbook_recipes/Mobil/Property 1=Japanese.svg',
+  indian:   '/cookbook_recipes/Mobil/Property 1=Indian.svg',
+  gourmet:  '/cookbook_recipes/Mobil/Property 1=Gourmet.svg',
+  fusion:   '/cookbook_recipes/Mobil/Property 1=Fusion.svg',
+};
+
 const PER_PAGE = 10;
 
 @Component({
@@ -22,9 +31,10 @@ const PER_PAGE = 10;
 })
 export class Library implements OnInit {
 
-  cuisineSlug  = signal('');
-  cuisineLabel = signal('');
-  cuisineImage = signal('');
+  cuisineSlug        = signal('');
+  cuisineLabel       = signal('');
+  cuisineImage       = signal('');
+  cuisineMobileImage = signal('');
 
   recipes = signal<DbRecipe[]>([]);
   loading = signal(true);
@@ -52,7 +62,8 @@ export class Library implements OnInit {
     const slug = this.route.snapshot.paramMap.get('cuisine') ?? 'italian';
     this.cuisineSlug.set(slug);
     this.cuisineLabel.set(slug.charAt(0).toUpperCase() + slug.slice(1));
-    this.cuisineImage.set(CUISINE_IMAGES[slug] ?? '/Cuisine-Bilder/card-1.svg');
+    this.cuisineImage.set(CUISINE_IMAGES[slug] ?? '/cookbook_recipes/Property 1=Italian.svg');
+    this.cuisineMobileImage.set(CUISINE_MOBILE_IMAGES[slug] ?? '/cookbook_recipes/Mobil/Property 1=Italian.svg');
 
     try {
       const recipes = await this.supabase.getRecipesByCuisine(slug);

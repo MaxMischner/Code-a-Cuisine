@@ -1,0 +1,111 @@
+@use '../../../styles/variables' as *;
+
+:host {
+  display: block;
+  background: $color-white;
+}
+
+.impressum {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+.impressum__content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 720px;
+  max-width: calc(100% - 32px);
+  padding-top: 48px;
+  text-align: left;
+}
+
+.impressum__title {
+  font-family: $font-primary;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 56px;
+  color: $color-middle-green;
+  margin: 0;
+}
+
+.impressum__meta {
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: 16px;
+  color: $color-olive-green;
+  margin: -16px 0 0;
+}
+
+.impressum__section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  p {
+    font-family: $font-primary;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    color: $color-green-dark;
+    margin: 0;
+  }
+}
+
+.impressum__heading {
+  font-family: $font-primary;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 26px;
+  color: $color-middle-green;
+  margin: 0;
+}
+
+.impressum__link {
+  color: $color-olive-green;
+  text-decoration: underline;
+}
+
+.impressum__footer-note {
+  font-family: $font-primary;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: $color-olive-green;
+  margin: 0;
+  border-top: 1px solid rgba(57, 96, 57, 0.15);
+  padding-top: 24px;
+}
+
+// ══════════════════════════════════════════════════════════════
+// MOBILE  (≤ 480px)
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 480px) {
+
+  .impressum {
+    padding-bottom: 40px;
+  }
+
+  .impressum__content {
+    padding-top: 24px;
+    gap: 24px;
+  }
+
+  .impressum__title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .impressum__heading {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .impressum__section p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}

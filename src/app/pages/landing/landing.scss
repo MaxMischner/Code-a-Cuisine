@@ -182,3 +182,212 @@
   transform: scaleX(-1);
   filter: brightness(0) invert(1) sepia(1) saturate(0.3) hue-rotate(345deg);
 }
+
+// ══════════════════════════════════════════════════════════════
+// TABLET  (≤ 768px)
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 768px) {
+
+  .landing__visuals {
+    width: 300px;
+    left: calc(100% - 240px);
+    top: 0;
+  }
+
+  .landing__visual {
+    &--top {
+      width: 240px;
+      height: 240px;
+      top: 20px;
+    }
+    &--mid {
+      width: 250px;
+      height: 250px;
+      top: 220px;
+    }
+    &--bot {
+      width: 245px;
+      height: 260px;
+      top: 460px;
+    }
+  }
+
+  .landing__main-cta {
+    width: calc(100% - 80px);
+    left: 40px;
+    top: 180px;
+    gap: 40px;
+  }
+
+  .landing__text {
+    width: 100%;
+    height: auto;
+  }
+
+  .landing__subtitle {
+    font-size: 36px;
+    line-height: 44px;
+    width: 100%;
+  }
+
+  .landing__title {
+    font-size: 80px;
+    line-height: 90px;
+    width: 100%;
+  }
+
+  .landing__btn-primary {
+    width: 160px;
+    height: 56px;
+  }
+
+  .landing__secondary-cta {
+    width: calc(100% - 80px);
+    left: 40px;
+    top: 700px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    height: auto;
+  }
+
+  .landing__inspiration {
+    font-size: 26px;
+    white-space: normal;
+    width: auto;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// MOBILE  (≤ 480px) — Figma Mobile Specs
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 480px) {
+
+  .landing {
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    min-height: 667px;
+    max-height: unset;
+  }
+
+  // ── Visuals: Container nach rechts verschoben ─────────────
+  // Figma: left 238, top 23, width 371, height 810
+  .landing__visuals {
+    width: 371px;
+    height: 810px;
+    left: 238px;
+    top: 23px;
+  }
+
+  // Figma Mapping (Bildinhalt → CSS-Klasse):
+  // Ellipse 29  Hero Visual 03 = hero_3.svg → .landing__visual--bot
+  // Ellipse 30  Hero Visual 02 = hero_2.svg → .landing__visual--mid
+  // Ellipse 31  Hero Visual 01 = hero_1.svg → .landing__visual--top
+  //
+  // transform-origin: top left weil Figma-Matrizes von (0,0) ausgehen
+  .landing__visual {
+    filter: drop-shadow(-6px 2px 4px rgba(0, 0, 0, 0.25));
+
+    // hero_1.svg → oben rechts
+    &--top {
+      width: 295px;
+      height: 296px;
+      left: 0.55px;
+      top: 0px;
+      transform: none;
+    }
+
+    // hero_2.svg → mitte
+    &--mid {
+      width: 303px;
+      height: 303px;
+      left: 0.55px;
+      top: 238.25px;
+      transform: scaleX(-1) rotate(60deg);
+    }
+
+    // hero_3.svg → unten
+    &--bot {
+      width: 300.71px;
+      height: 316.37px;
+      left: 0.55px;
+      top: 511.62px;
+      transform: rotate(240deg) scaleX(-1);
+    }
+  }
+
+  // ── Main CTA ──────────────────────────────────────────────
+  .landing__main-cta {
+    width: 240px;
+    height: 304px;
+    left: 16px;
+    top: 96px;
+    gap: 40px;
+  }
+
+  .landing__text {
+    width: 240px;
+    height: 212px;
+    gap: 8px;
+  }
+
+  .landing__subtitle {
+    font-size: 24px;
+    line-height: 30px;
+    width: 203px;
+    height: 60px;
+  }
+
+  .landing__title {
+    font-size: 64px;
+    line-height: 72px;
+    width: 222px;
+    height: 144px;
+  }
+
+  .landing__btn-primary {
+    width: 119px;
+    height: 52px;
+    padding: 4px 16px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  // ── Secondary CTA ─────────────────────────────────────────
+  .landing__secondary-cta {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 197px;
+    height: 120px;
+    left: 16px;
+    top: min(654px, calc(100dvh - 160px));
+  }
+
+  .landing__inspiration {
+    font-size: 24px;
+    line-height: 120%;
+    width: 164px;
+    height: 52px;
+    white-space: normal;
+  }
+
+  .landing__btn-secondary {
+    width: 197px;
+    height: 52px;
+    padding: 4px 16px;
+    font-size: 18px;
+    line-height: 22px;
+    justify-content: center;
+  }
+
+  .landing__btn-arrow {
+    display: block;
+    width: 20px;
+    height: auto;
+    transform: scaleX(-1);
+    filter: brightness(0) invert(1) sepia(1) saturate(0.3) hue-rotate(345deg);
+    flex-shrink: 0;
+  }
+}

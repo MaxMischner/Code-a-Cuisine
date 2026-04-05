@@ -127,20 +127,54 @@
             <p class="gen-step1__list-empty">No ingredients added yet.</p>
           } @else {
             <ul class="gen-step1__ingredient-list">
-              @for (item of ingredients(); track $index) {
-                <li class="gen-step1__ingredient-item">
-                  <span class="gen-step1__ingredient-amount">
-                    {{ item.amount }}{{ formatUnit(item.unit) }}
-                  </span>
-                  <span class="gen-step1__ingredient-name">{{ item.name }}</span>
-                  <button
-                    class="gen-step1__remove-btn"
-                    type="button"
-                    (click)="removeIngredient($index)"
-                    [attr.aria-label]="'Entferne ' + item.name"
-                  >
-                    <span class="material-icons" aria-hidden="true">close</span>
-                  </button>
+              @for (item of ingredients(); track $index; let i = $index) {
+                <li class="gen-step1__ingredient-item" [class.gen-step1__ingredient-item--editing]="editingIndex() === i">
+
+                  @if (editingIndex() === i) {
+                    <!-- Edit mode -->
+                    <div class="gen-step1__amount-controls">
+                      <div class="gen-step1__amount-chip">
+                        <input
+                          class="gen-step1__amount-input"
+                          type="number"
+                          min="1"
+                          [(ngModel)]="editAmount"
+                          aria-label="Menge"
+                        />
+                      </div>
+                      <div class="gen-step1__unit-chip">
+                        <select
+                          class="gen-step1__unit-select"
+                          [(ngModel)]="editUnit"
+                          aria-label="Einheit"
+                        >
+                          @for (unit of units; track unit) {
+                            <option [value]="unit">{{ unit }}</option>
+                          }
+                        </select>
+                      </div>
+                    </div>
+                    <span class="gen-step1__ingredient-name">{{ item.name }}</span>
+                    <button class="gen-step1__save-btn" type="button" (click)="saveEdit(i)" aria-label="Speichern">
+                      <span class="material-icons" aria-hidden="true">check</span>
+                    </button>
+                    <button class="gen-step1__remove-btn" type="button" (click)="cancelEdit()" aria-label="Abbrechen">
+                      <span class="material-icons" aria-hidden="true">close</span>
+                    </button>
+                  } @else {
+                    <!-- Display mode -->
+                    <span class="gen-step1__ingredient-amount">
+                      {{ item.amount }}{{ formatUnit(item.unit) }}
+                    </span>
+                    <span class="gen-step1__ingredient-name">{{ item.name }}</span>
+                    <button class="gen-step1__edit-btn" type="button" (click)="startEdit(i)" [attr.aria-label]="'Bearbeite ' + item.name">
+                      <img src="/edit.svg" width="18" alt="" aria-hidden="true" />
+                    </button>
+                    <button class="gen-step1__remove-btn" type="button" (click)="removeIngredient(i)" [attr.aria-label]="'Entferne ' + item.name">
+                      <img src="/delete.svg" width="18" alt="" aria-hidden="true" />
+                    </button>
+                  }
+
                 </li>
               }
             </ul>
@@ -308,7 +342,7 @@
      ════════════════════════════════════════════════════════════ -->
 @if (step() === 'loading') {
   <div class="gen-loading" role="status" aria-label="Rezepte werden generiert">
-    <app-navbar [showGetStarted]="false"></app-navbar>
+    <app-navbar [showGetStarted]="false" [logoLight]="true"></app-navbar>
     <div class="gen-loading__content">
       <img class="gen-loading__gif" src="/Code_Cuisine_Loading_Spinner.gif" alt="" aria-hidden="true" />
       <p class="gen-loading__text">Generating ...</p>
@@ -329,7 +363,10 @@
       <!-- Header -->
       <div class="gen-results__header">
         <div class="gen-results__header-text">
-          <h1 class="gen-results__title">The recipe results</h1>
+          <h1 class="gen-results__title">Generated recipes</h1>
+          <div class="gen-results__header-img gen-results__header-img--mobile" aria-hidden="true">
+            <img src="/Results/Visual.svg" alt="" />
+          </div>
           <p class="gen-results__subtitle">
             We took what you have and let our AI do the thinking.<br>
             Here are 3 easy recipes you can make right now!
@@ -343,7 +380,7 @@
             }
           </div>
         </div>
-        <div class="gen-results__header-img" aria-hidden="true">
+        <div class="gen-results__header-img gen-results__header-img--desktop" aria-hidden="true">
           <img src="/Results/Visual.svg" alt="" />
         </div>
       </div>

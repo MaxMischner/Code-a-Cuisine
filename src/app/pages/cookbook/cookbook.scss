@@ -337,13 +337,34 @@
   line-height: 35px;
 }
 
-// Figma "card": width 400, height 400, background url(...)
+// Figma "card": width 400, height 400
 .cookbook__cuisine-img {
   width: 400px;
   height: 400px;
-  background-size: cover;
-  background-position: center;
-  background-color: $color-card-bg;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.cookbook__cuisine-img--mobile { display: none; }
+
+// ── Footer row ────────────────────────────────────────────────
+.cookbook__footer-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 1330px;
+}
+
+.cookbook__impressum-link {
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: 14px;
+  color: $color-olive-green;
+  text-decoration: none;
+
+  &:hover { text-decoration: underline; }
 }
 
 // ── Footer button ─────────────────────────────────────────────
@@ -373,4 +394,242 @@
   flex-shrink: 0;
   transform: scaleX(-1);
   filter: invert(35%) sepia(30%) saturate(500%) hue-rotate(80deg) brightness(60%);
+}
+
+// ══════════════════════════════════════════════════════════════
+// FLUID  (≤ 1380px) — Content breiter als Viewport verhindern
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 1380px) {
+
+  .cookbook__content-wrapper,
+  .cookbook__content {
+    width: calc(100% - 40px);
+  }
+
+  .cookbook__upper {
+    width: 100%;
+    height: auto;
+  }
+
+  .cookbook__most-liked {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cookbook__scroll-wrapper,
+  .cookbook__scroll-row {
+    width: 100%;
+  }
+
+  .cookbook__categories,
+  .cookbook__footer-row {
+    width: 100%;
+  }
+
+  .cookbook__cuisine-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 24px;
+  }
+
+  .cookbook__cuisine-card {
+    width: 100%;
+  }
+
+  .cookbook__cuisine-img,
+  .cookbook__cuisine-img--desktop {
+    width: 100%;
+    height: 300px;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// TABLET  (≤ 900px)
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 900px) {
+
+  .cookbook__upper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    padding: 24px 20px;
+  }
+
+  .cookbook__intro {
+    width: 100%;
+  }
+
+  .cookbook__headline {
+    font-size: 48px;
+    line-height: 56px;
+    width: 100%;
+  }
+
+  .cookbook__desc {
+    font-size: 20px;
+    width: 100%;
+  }
+
+  .cookbook__most-liked {
+    width: 100%;
+    gap: 16px;
+  }
+
+  .cookbook__most-liked-header {
+    width: 100%;
+  }
+
+  .cookbook__cuisine-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 24px;
+  }
+
+  .cookbook__cuisine-img,
+  .cookbook__cuisine-img--desktop {
+    height: 260px;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// MOBILE  (≤ 480px) — Figma Mobile Specs
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 480px) {
+
+  // ── Page ────────────────────────────────────────────────
+  .cookbook {
+    gap: 40px;
+    padding-top: 24px;
+    padding-bottom: 40px;
+    align-items: center;
+  }
+
+  .cookbook__content-wrapper {
+    width: min(340px, calc(100% - 32px));
+    gap: 40px;
+    align-items: center;
+  }
+
+  .cookbook__content {
+    width: min(340px, calc(100% - 32px));
+    gap: 40px;
+    align-items: center;
+  }
+
+  // ── Upper / "First information" card ────────────────────
+  // Column layout, narrow, keeps the green-tinted background
+  .cookbook__upper {
+    flex-direction: column;
+    align-items: flex-start;
+    width: min(340px, calc(100% - 32px));
+    height: auto;
+    padding: 16px 24px;
+    gap: 24px;
+  }
+
+  .cookbook__intro {
+    width: 100%;
+    gap: 16px;
+  }
+
+  .cookbook__headline {
+    font-size: 40px;
+    line-height: 50px;
+    font-weight: 700;
+    width: 100%;
+  }
+
+  .cookbook__desc {
+    font-size: 18px;
+    line-height: 22px;
+    width: 100%;
+  }
+
+  // ── Most liked ──────────────────────────────────────────
+  .cookbook__most-liked {
+    width: 100%;
+    gap: 16px;
+  }
+
+  .cookbook__most-liked-header {
+    width: 100%;
+    gap: 22px;
+  }
+
+  .cookbook__scroll-wrapper {
+    width: 100%;
+  }
+
+  .cookbook__scroll-row {
+    width: 100%;
+    gap: 12px;
+  }
+
+  // Mob. card: 285×106, gap 16
+  .cookbook__liked-card {
+    width: 285px;
+    min-width: 285px;
+    height: 106px;
+    padding: 16px 12px;
+    gap: 16px;
+  }
+
+  .cookbook__liked-info {
+    width: 195px;
+    gap: 8px;
+  }
+
+  .cookbook__liked-clock {
+    font-size: 16px;
+  }
+
+  .cookbook__liked-title {
+    font-size: 18px;
+    line-height: 22px;
+    width: 195px;
+  }
+
+  // Liked count badge: 50×24, padding 2px 6px
+  .cookbook__liked-count {
+    padding: 2px 6px;
+    height: 24px;
+    width: 50px;
+
+    .material-icons { font-size: 20px; }
+  }
+
+  // ── Cuisine categories ──────────────────────────────────
+  // Single column, 320px cards, 260px image height
+  .cookbook__categories {
+    width: 100%;
+  }
+
+  .cookbook__cuisine-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .cookbook__cuisine-card {
+    width: 100%;
+  }
+
+  .cookbook__cuisine-img {
+    width: 100%;
+    height: 260px;
+  }
+
+  .cookbook__cuisine-img--desktop { display: none; }
+  .cookbook__cuisine-img--mobile  { display: block; }
+
+  // ── Footer ──────────────────────────────────────────────
+  .cookbook__footer-row {
+    width: min(340px, calc(100% - 32px));
+  }
+
+  .cookbook__footer-btn {
+    width: 237px;
+    height: 52px;
+    padding: 4px 16px;
+    font-size: 18px;
+    line-height: 22px;
+  }
 }

@@ -1,4 +1,10 @@
-<app-navbar [showGetStarted]="false"></app-navbar>
+<app-navbar
+  [showGetStarted]="false"
+  [showBackButton]="true"
+  backLabel="Home"
+  backRoute="/"
+  backIcon="/recipe view/Arrow 11.svg"
+></app-navbar>
 
 <main class="cookbook">
   <div class="cookbook__content-wrapper">
@@ -97,12 +103,8 @@
               <div class="cookbook__cuisine-label">
                 <span class="cookbook__cuisine-name">{{ c.name }}</span>
               </div>
-              <div
-                class="cookbook__cuisine-img"
-                [style.background-image]="'url(' + c.image + ')'"
-                role="img"
-                [attr.aria-label]="c.name + ' cuisine'"
-              ></div>
+              <img class="cookbook__cuisine-img cookbook__cuisine-img--desktop" [src]="c.image" [alt]="c.name + ' cuisine'" />
+              <img class="cookbook__cuisine-img cookbook__cuisine-img--mobile"  [src]="c.mobileImage" [alt]="c.name + ' cuisine'" />
             </a>
           }
         </div>
@@ -110,10 +112,13 @@
 
     </div>
 
-    <!-- Footer button -->
-    <a class="cookbook__footer-btn" routerLink="/generator">
-      Generate a recipe
-      <img src="/recipe view/Arrow 11.svg" class="cookbook__footer-arrow" width="20" alt="" aria-hidden="true" />
-    </a>
+    <!-- Footer row: Impressum links + Generate button -->
+    <div class="cookbook__footer-row">
+      <a class="cookbook__impressum-link" routerLink="/impressum">Impressum</a>
+      <a class="cookbook__footer-btn" routerLink="/generator">
+        Generate a recipe
+        <img src="/recipe view/Arrow 11.svg" class="cookbook__footer-arrow" width="20" alt="" aria-hidden="true" />
+      </a>
+    </div>
   </div>
 </main>

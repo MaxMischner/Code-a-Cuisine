@@ -468,11 +468,23 @@
 // ── Footer ────────────────────────────────────────────────────
 .recipe__footer {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  padding: 0 97px 0 0;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 97px 0 97px;
   width: 100%;
   max-width: 1440px;
+  box-sizing: border-box;
+}
+
+.recipe__impressum-link {
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: 14px;
+  color: $color-olive-green;
+  text-decoration: none;
+
+  &:hover { text-decoration: underline; }
 }
 
 .recipe__footer-arrow {
@@ -498,6 +510,329 @@
   color: $color-olive-green;
   text-decoration: none;
   cursor: pointer;
+}
+
+// ══════════════════════════════════════════════════════════════
+// FLUID  (≤ 1300px)
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 1300px) {
+
+  .recipe__content {
+    width: calc(100% - 40px);
+  }
+
+  .recipe__card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .recipe__header {
+    width: 100%;
+    gap: 32px;
+    box-sizing: border-box;
+  }
+
+  .recipe__header-left {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  .recipe__title {
+    width: 100%;
+    font-size: 44px;
+    line-height: 52px;
+  }
+
+  .recipe__header-right {
+    width: 280px;
+    flex-shrink: 0;
+  }
+
+  .recipe__nutrition {
+    width: 100%;
+  }
+
+  .recipe__body,
+  .recipe__section,
+  .recipe__section-hero {
+    width: 100%;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// TABLET  (≤ 768px)
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 768px) {
+
+  .recipe__card {
+    padding: 24px 16px;
+    gap: 32px;
+  }
+
+  .recipe__header {
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px;
+  }
+
+  .recipe__header-left {
+    width: 100%;
+  }
+
+  .recipe__title {
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .recipe__header-right {
+    width: 100%;
+  }
+
+  .recipe__nutrition {
+    padding-left: 0;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// MOBILE  (≤ 480px) — Figma Mobile Specs
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 480px) {
+
+  .recipe__page {
+    gap: 40px;
+    padding-bottom: 40px;
+    align-items: center;
+  }
+
+  // ── Outer wrapper (no border) ────────────────────────────
+  .recipe__content {
+    width: min(360px, calc(100% - 16px));
+    padding: 0 0 40px;
+    gap: 40px;
+    align-items: center;
+    background: none;
+    border: none;
+    border-radius: 0;
+  }
+
+  // ── Recipe frame ────────────────────────────────────────
+  .recipe__card {
+    width: 100%;
+    padding: 12px 8px 32px;
+    gap: 40px;
+    background: rgba(250, 240, 230, 0.2);
+    border: 3px solid #FAF0E6;
+    border-radius: 16px;
+    box-sizing: border-box;
+    align-items: center;
+  }
+
+  // ── Header card ─────────────────────────────────────────
+  .recipe__header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+    gap: 48px;
+    width: 340px;
+    border-radius: 20px;
+  }
+
+  .recipe__header-left {
+    width: 300px;
+    gap: 16px;
+  }
+
+  .recipe__time {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .recipe__title {
+    font-size: 24px;
+    line-height: 30px;
+    width: 300px;
+    color: $color-middle-green;
+  }
+
+  .recipe__chefs {
+    gap: 16px;
+  }
+
+  .recipe__header-right {
+    width: 300px;
+    gap: 24px;
+  }
+
+  // Tags: 18px
+  .recipe__tags {
+    gap: 8px;
+  }
+
+  .recipe__tag {
+    font-size: 18px;
+    line-height: 22px;
+    height: 32px;
+    padding: 6px 12px;
+  }
+
+  // Nutrition: 18px, column
+  .recipe__nutrition {
+    width: 300px;
+    padding-left: 0;
+    gap: 8px;
+  }
+
+  .recipe__nutrition-label {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .recipe__nutrition-row {
+    gap: 24px;
+  }
+
+  .recipe__nutrition-name,
+  .recipe__nutrition-val {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+  }
+
+  // ── Body ────────────────────────────────────────────────
+  .recipe__body {
+    width: 320px;
+    gap: 40px;
+  }
+
+  .recipe__section {
+    width: 320px;
+  }
+
+  .recipe__section-hero {
+    width: 320px;
+    height: 90px;
+  }
+
+  // Ingredients hero is taller per Figma (120px container with 10px padding)
+  .recipe__body .recipe__section:first-child .recipe__section-hero {
+    height: 120px;
+  }
+
+  .recipe__section-title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  // Ingredients: column statt row
+  .recipe__ingredients-cols {
+    flex-direction: column;
+    gap: 24px;
+    padding: 0;
+    width: 312px;
+  }
+
+  .recipe__ingredients-subtitle {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .recipe__ingredient-item {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  // Steps: single column
+  .recipe__steps-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    width: 320px;
+    padding: 0;
+  }
+
+  .recipe__step {
+    width: 320px;
+    gap: 16px;
+  }
+
+  .recipe__step-header {
+    width: 320px;
+    height: 32px;
+  }
+
+  .recipe__step-num {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .recipe__step-title {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+  }
+
+  .recipe__step-text {
+    font-size: 16px;
+    line-height: 20px;
+    width: 320px;
+  }
+
+  // ── Like CTA ────────────────────────────────────────────
+  .recipe__like-cta {
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 320px;
+    gap: 0;
+  }
+
+  .recipe__like-cta-text {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .recipe__like-cta-title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .recipe__like-cta-desc {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  // ── Cookbook CTA ────────────────────────────────────────
+  .recipe__cookbook-cta {
+    flex-direction: row;
+    width: 360px;
+    padding: 16px 14px;
+    gap: 16px;
+    border-radius: 16px;
+    height: 84px;
+    box-sizing: border-box;
+  }
+
+  .recipe__cookbook-cta-text {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    width: 187px;
+  }
+
+  .recipe__cookbook-cta-btn {
+    width: 110px;
+    height: 52px;
+    padding: 4px 16px;
+    font-size: 16px;
+    line-height: 20px;
+    border-radius: 5px;
+  }
+
+  // ── Footer ──────────────────────────────────────────────
+  .recipe__footer {
+    padding: 0 16px;
+  }
 }
 
 // ── Loading / Error ───────────────────────────────────────────

@@ -63,6 +63,11 @@ export class Generator implements OnInit {
   readonly autocompleteVisible = signal(false);
   readonly autocompleteResults = signal<string[]>([]);
 
+  // Inline edit
+  readonly editingIndex = signal<number | null>(null);
+  editAmount = 100;
+  editUnit: Unit = 'gram';
+
   // Beispiel-Zutatenliste für Autocomplete
   private readonly allIngredients = [
     // Grains & Pasta
@@ -207,6 +212,27 @@ export class Generator implements OnInit {
    */
   removeIngredient(index: number): void {
     this.ingredients.update(list => list.filter((_, i) => i !== index));
+    if (this.editingIndex() === index) this.editingIndex.set(null);
+  }
+
+  startEdit(index: number): void {
+    const item = this.ingredients()[index];
+    this.editAmount = item.amount;
+    this.editUnit   = item.unit;
+    this.editingIndex.set(index);
+  }
+
+  saveEdit(index: number): void {
+    this.ingredients.update(list =>
+      list.map((item, i) =>
+        i === index ? { ...item, amount: this.editAmount, unit: this.editUnit } : item
+      )
+    );
+    this.editingIndex.set(null);
+  }
+
+  cancelEdit(): void {
+    this.editingIndex.set(null);
   }
 
   /** Formatiert eine Einheit für die Anzeige */

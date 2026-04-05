@@ -1,0 +1,21 @@
+@use '../../../../styles/variables' as *;
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  border-top: 1px solid rgba(57, 96, 57, 0.1);
+}
+
+.footer__link {
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: 14px;
+  color: $color-olive-green;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
