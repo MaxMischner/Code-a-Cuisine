@@ -23,6 +23,12 @@ const CUISINE_MOBILE_IMAGES: Record<string, string> = {
 
 const PER_PAGE = 10;
 
+/**
+ * Bibliotheks-Seite — zeigt alle Rezepte einer Küche paginiert an.
+ *
+ * Die Küche wird aus dem Route-Parameter `:cuisine` gelesen.
+ * Rezepte werden nach Likes absteigend sortiert.
+ */
 @Component({
   selector: 'app-library',
   imports: [RouterLink, Navbar],
@@ -40,15 +46,18 @@ export class Library implements OnInit {
   loading = signal(true);
   page    = signal(1);
 
+  /** Gesamtanzahl der Seiten basierend auf den geladenen Rezepten */
   readonly totalPages = computed(() =>
     Math.ceil(this.recipes().length / PER_PAGE)
   );
 
+  /** Rezepte der aktuellen Seite (Slice aus dem vollständigen Array) */
   readonly pagedRecipes = computed(() => {
     const start = (this.page() - 1) * PER_PAGE;
     return this.recipes().slice(start, start + PER_PAGE);
   });
 
+  /** Array mit Seitenzahlen [1, 2, …, n] für die Paginierungs-UI */
   readonly pageNumbers = computed(() =>
     Array.from({ length: this.totalPages() }, (_, i) => i + 1)
   );
@@ -58,6 +67,10 @@ export class Library implements OnInit {
     private supabase: SupabaseService,
   ) {}
 
+  /**
+   * Liest den Küchen-Slug aus der Route und lädt die passenden Rezepte.
+   * Setzt Bild-Pfade für Desktop und Mobile anhand des Slugs.
+   */
   async ngOnInit(): Promise<void> {
     const slug = this.route.snapshot.paramMap.get('cuisine') ?? 'italian';
     this.cuisineSlug.set(slug);
@@ -73,6 +86,9 @@ export class Library implements OnInit {
     }
   }
 
+  /** Geht zur vorherigen Seite (kein Effekt auf Seite 1) */
   prevPage(): void { if (this.page() > 1) this.page.update(p => p - 1); }
+
+  /** Geht zur nächsten Seite (kein Effekt auf der letzten Seite) */
   nextPage(): void { if (this.page() < this.totalPages()) this.page.update(p => p + 1); }
 }

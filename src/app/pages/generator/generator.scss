@@ -42,7 +42,7 @@
   align-items: center;
   gap: 64px;
   width: 100%;
-  padding: 0 68px 64px;
+  padding: 0 $padding-page-fluid 64px;
 }
 
 // Headline
@@ -91,9 +91,9 @@
   align-items: flex-start;
   padding: 25px 0;
   gap: 32px;
-  width: 577px;
+  flex: 1;
+  min-width: 0;
   min-height: 176px;
-  flex-shrink: 0;
 }
 
 .gen-step1__input-inner {
@@ -101,7 +101,7 @@
   flex-direction: row;
   align-items: flex-end;
   gap: 24px;
-  width: 510px;
+  width: calc(100% - 48px);
 }
 
 // Label
@@ -117,12 +117,13 @@
 // Input-Wrapper (relativ für Autocomplete)
 .gen-step1__input-wrap {
   position: relative;
-  width: 300px;
+  flex: 1;
+  min-width: 0;
 }
 
 // Textfeld
 .gen-step1__input {
-  width: 300px;
+  width: 100%;
   height: 36px;
   padding: 8px 12px;
   background: rgba(250, 240, 230, 0.8);
@@ -143,7 +144,7 @@
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
-  width: 300px;
+  width: 100%;
   background: $color-creamy;
   border-radius: $radius-card;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -263,9 +264,9 @@
   flex-direction: column;
   padding: 24px;
   gap: 16px;
-  width: 478px;
+  flex: 1;
+  min-width: 0;
   min-height: 209px;
-  flex-shrink: 0;
 }
 
 .gen-step1__list-title {
@@ -366,7 +367,7 @@
   align-items: center;
   gap: 56px;
   width: 100%;
-  padding: 0 68px 64px;
+  padding: 0 $padding-page-fluid 64px;
 }
 
 .gen-step2__title {
@@ -383,7 +384,7 @@
   flex-direction: column;
   align-items: center;
   gap: 56px;
-  width: 721px;
+  width: min(721px, 100%);
 }
 
 // Portions + Chefs Zeile
@@ -459,7 +460,8 @@
   flex-direction: column;
   gap: 40px;
   padding: 32px 24px;
-  width: 721px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .gen-step2__fieldset {
@@ -619,8 +621,8 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px 40px 0px 80px;
-  gap: 96px;
+  padding: 0 $padding-page-fluid;
+  gap: clamp(24px, 6.67vw, 96px);
   width: 100%;
   max-width: 1440px;
   box-sizing: border-box;
@@ -631,25 +633,26 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 610px;
+  flex: 1;
+  min-width: 0;
 }
 
 .gen-results__title {
   font-family: $font-primary;
-  font-size: 54px;
+  font-size: $fs-h2-fluid;
   font-weight: 600;
-  line-height: 65px;
+  line-height: 1.2;
   color: $color-creamy;
-  width: 610px;
+  width: 100%;
 }
 
 .gen-results__subtitle {
   font-family: $font-primary;
-  font-size: 24px;
+  font-size: $fs-h5-fluid;
   font-weight: 500;
-  line-height: 30px;
+  line-height: 1.4;
   color: $color-creamy;
-  width: 617px;
+  width: 100%;
 }
 
 .gen-results__tags {
@@ -698,7 +701,7 @@
   flex-direction: row;
   align-items: flex-start;
   gap: 24px;
-  width: 1281px;
+  width: min(1281px, calc(100% - 80px));
 }
 
 .gen-results__card {
@@ -706,9 +709,10 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 32px 24px;
-  gap: 48px;
-  width: 411px;
-  height: 338px;
+  gap: 24px;
+  flex: 1;
+  min-width: 0;
+  min-height: 338px;
   background: #DBE0DB;
   border-radius: 20px;
   box-sizing: border-box;
@@ -720,8 +724,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  width: 363px;
-  height: 166px;
+  width: 100%;
+  height: auto;
 }
 
 // Text-Gruppe — titel + zeit
@@ -730,7 +734,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  width: 363px;
+  width: 100%;
 }
 
 .gen-results__card-header {
@@ -758,11 +762,11 @@
 
 .gen-results__card-title {
   font-family: $font-primary;
-  font-size: 32px;
+  font-size: clamp(18px, 2.22vw, 32px);
   font-weight: 600;
-  line-height: 40px;
+  line-height: 1.25;
   color: $color-green-dark;
-  width: 363px;
+  width: 100%;
 }
 
 .gen-results__card-time {
@@ -807,7 +811,7 @@
 .gen-results__footer {
   display: flex;
   justify-content: flex-end;
-  width: 1281px;
+  width: min(1281px, calc(100% - 80px));
   margin-top: -64px;
 }
 
@@ -831,6 +835,37 @@
   cursor: pointer;
 
   &:hover { opacity: 0.8; }
+}
+
+// ══════════════════════════════════════════════════════════════
+// MEDIUM  (≤ 1024px) — Step 1 auf column schalten bevor Boxen überlaufen
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 1024px) {
+
+  .gen-step1__content {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .gen-step1__input-box {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .gen-step1__input-inner {
+    width: calc(100% - 48px);
+  }
+
+  .gen-step1__list {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .gen-step1__footer {
+    max-width: 100%;
+  }
 }
 
 // ══════════════════════════════════════════════════════════════

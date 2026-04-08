@@ -76,11 +76,11 @@
 .recipe__title {
   font-family: $font-primary;
   font-weight: 600;
-  font-size: 54px;
-  line-height: 65px;
+  font-size: $fs-h2-fluid;
+  line-height: 1.2;
   color: $color-middle-green;
   margin: 0;
-  width: 619px;
+  width: min(619px, 100%);
 }
 
 .recipe__chefs {
@@ -183,7 +183,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 24px;
+  gap: clamp(12px, 1.67vw, 24px);
+  flex-wrap: wrap;
 }
 
 .recipe__nutrition-item {
@@ -302,13 +303,13 @@
   font-weight: 600;
 }
 
-// Steps grid — 2 columns
+// Steps grid — 2 columns, fluid
 .recipe__steps-grid {
   display: grid;
-  grid-template-columns: 400px 400px;
-  gap: 40px 64px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(24px, 2.78vw, 40px) clamp(24px, 4.44vw, 64px);
   padding: 24px 0;
-  width: 864px;
+  width: 100%;
 }
 
 .recipe__step {
@@ -316,7 +317,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
-  width: 400px;
+  width: 100%;
 }
 
 .recipe__step-header {
@@ -325,7 +326,7 @@
   justify-content: flex-end;
   align-items: center;
   gap: 16px;
-  width: 400px;
+  width: 100%;
   height: 32px;
 }
 
@@ -364,7 +365,7 @@
   line-height: 22px;
   color: $color-green-dark;
   margin: 0;
-  width: 400px;
+  width: 100%;
 }
 
 // ── Like CTA ──────────────────────────────────────────────────
@@ -374,7 +375,7 @@
   align-items: center;
   justify-content: center;
   gap: 24px;
-  width: 1152px;
+  width: 100%;
 }
 
 .recipe__like-cta-text {
@@ -429,9 +430,10 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 40px 0;
-  gap: 32px;
-  width: 1248px;
+  padding: 40px clamp(24px, 3.33vw, 48px);
+  gap: clamp(16px, 2.22vw, 32px);
+  width: 100%;
+  max-width: 1248px;
   background: rgba(57, 96, 57, 0.1);
   border-radius: 20px;
   box-sizing: border-box;
@@ -440,8 +442,8 @@
 .recipe__cookbook-cta-text {
   font-family: $font-primary;
   font-weight: 600;
-  font-size: 24px;
-  line-height: 30px;
+  font-size: clamp(16px, 1.67vw, 24px);
+  line-height: 1.25;
   color: $color-green-dark;
 }
 

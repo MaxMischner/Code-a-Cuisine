@@ -68,22 +68,22 @@
 .cookbook__headline {
   font-family: $font-primary;
   font-weight: 700;
-  font-size: 64px;
-  line-height: 65px;
+  font-size: $fs-h1-fluid;
+  line-height: 1.15;
   color: $color-middle-green;
   margin: 0;
-  width: 454px;
+  width: min(454px, 100%);
 }
 
 // Figma: Quicksand 500, 24px, line-height 30px, color #10310B, width 454, height 120
 .cookbook__desc {
   font-family: $font-primary;
   font-weight: 500;
-  font-size: $font-size-h5;
-  line-height: 30px;
+  font-size: $fs-h5-fluid;
+  line-height: 1.4;
   color: $color-green-dark;
   margin: 0;
-  width: 454px;
+  width: min(454px, 100%);
 }
 
 // ── Most liked (right) ────────────────────────────────────────
@@ -298,8 +298,8 @@
 
 .cookbook__cuisine-grid {
   display: grid;
-  grid-template-columns: repeat(3, 400px);
-  gap: 52px 65px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(24px, 3.61vw, 52px) clamp(24px, 4.51vw, 65px);
 }
 
 // Figma: flex column, gap 8, width 400, height 443

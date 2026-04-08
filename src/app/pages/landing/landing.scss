@@ -20,41 +20,42 @@
 }
 
 // ── Visuals ──────────────────────────────────────────────────
-// Figma: position absolute, width 480, height 1145, left 911, top -42
+// Fluid: right: 0 → klebt am rechten Rand
+// clamp: langsamer Schrumpf — nur 40px Unterschied von Desktop bis Freeze
 .landing__visuals {
   position: absolute;
-  width: 480px;
+  width: clamp(440px, 33.3vw, 480px);
   height: 1145px;
-  left: 911px;
+  right: 0;
+  left: auto;
   top: -42px;
   pointer-events: none;
 }
 
-// Figma: filter drop-shadow(6px -2px 4px rgba(0,0,0,0.25))
+// Prozentuale Breiten + aspect-ratio → skalieren automatisch mit dem Container
+// aspect-ratio verhindert height-Berechnungsfehler bei SVGs mit width: %
 .landing__visual {
   position: absolute;
   display: block;
   filter: drop-shadow(6px -2px 4px rgba(0, 0, 0, 0.25));
+  left: 0;
 
   &--top {
-    width: 420px;
-    height: 420px;
-    left: 0;
-    top: 30px;
+    width: 87.5%;           // 420/480 des Containers
+    aspect-ratio: 1;        // 420×420 (quadratisch)
+    top: clamp(20px, 2.08vw, 30px);
   }
 
   &--mid {
-    width: 435px;
-    height: 435px;
-    left: 0;
-    top: 310px;
+    width: 90.6%;           // 435/480
+    aspect-ratio: 1;        // 435×435 (quadratisch)
+    top: clamp(220px, 21.53vw, 310px);
   }
 
   &--bot {
-    width: 430px;
-    height: 450px;
-    left: 0;
-    top: 560px;
+    width: 89.6%;           // 430/480
+    aspect-ratio: 430 / 450;
+    top: clamp(420px, 38.89vw, 560px);
     transform: rotate(18.91deg);
   }
 }
@@ -66,13 +67,13 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 0;
-  gap: 64px;
+  gap: clamp(32px, 4.44vw, 64px);
 
   position: absolute;
-  width: 755px;
-  height: 303px;
-  left: 65px;
-  top: 240px;
+  width: clamp(260px, 52.4vw, 755px);
+  height: auto;
+  left: clamp(24px, 4.51vw, 65px);
+  top: clamp(140px, 16.67vh, 240px);
 }
 
 // Figma: flex column, width 755, height 179
@@ -80,30 +81,31 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 755px;
-  height: 179px;
+  width: 100%;
+  height: auto;
+  gap: 4px;
 }
 
 // Figma: Quicksand 600, 48px, line-height 60px, color #F5F5DC
 .landing__subtitle {
   font-family: $font-primary;
-  font-size: 48px;
+  font-size: $fs-landing-sub-fluid;
   font-weight: 600;
-  line-height: 60px;
+  line-height: 1.25;
   color: #F5F5DC;
   margin: 0;
-  width: 755px;
+  width: clamp(200px, 52.4vw, 755px);
 }
 
 // Figma: Ubuntu 700, 104px, line-height 119px, color #FAF0E6
 .landing__title {
   font-family: $font-display;
-  font-size: 104px;
+  font-size: $fs-landing-h1-fluid;
   font-weight: 700;
-  line-height: 119px;
+  line-height: 1.15;
   color: $color-creamy;
   margin: 0;
-  width: 755px;
+  width: clamp(220px, 52.4vw, 755px);
 }
 
 // Figma: flex row center, padding 16 26, width 183, height 60, background #FAF0E6
@@ -138,20 +140,21 @@
   gap: 16px;
 
   position: absolute;
-  width: 594px;
-  height: 52px;
-  left: 65px;
-  top: 780px;
+  width: clamp(200px, 41.25vw, 594px);
+  height: auto;
+  left: clamp(24px, 4.51vw, 65px);
+  bottom: clamp(40px, 8vh, 100px);
+  top: auto;
 }
 
 // Figma: Ubuntu 500, 32px, line-height 104%, color #FAF0E6, width 342
 .landing__inspiration {
   font-family: $font-display;
-  font-size: 32px;
+  font-size: clamp(18px, 2.22vw, 32px);
   font-weight: 500;
-  line-height: 104%;
+  line-height: 1.1;
   color: $color-creamy;
-  width: 342px;
+  width: auto;
   white-space: nowrap;
 }
 
@@ -184,77 +187,111 @@
 }
 
 // ══════════════════════════════════════════════════════════════
-// TABLET  (≤ 768px)
+// FREEZE  (≤ 1200px) — Container einfrieren, Bilder skalieren automatisch
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 1200px) {
+
+  // Container einfrieren bei 440px — passt exakt zum clamp-Minimum
+  // Kein Sprung, da clamp bei 1200px ebenfalls ~440px ausgibt
+  .landing__visuals {
+    width: 440px;
+    right: 0;
+    left: auto;
+    top: -42px;
+  }
+
+  // top-Werte proportional einfrieren (440/480 = 91.7% der Desktop-Werte)
+  // Verhindert, dass die Bilder beim weiteren Verkleinern nach oben rutschen
+  .landing__visual {
+    &--top { top: 28px; }
+    &--mid { top: 284px; }
+    &--bot { top: 514px; }
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// HALF-VISIBLE  (≤ 1080px) — Bilder bleiben 400px, ragen 200px in den Viewport
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 1080px) {
+
+  .landing__visuals {
+    right: -220px;   // 440px - 220px sichtbar
+  }
+
+  // CTA-Breite: nicht in die 220px sichtbaren Visuals ragen
+  // left(40px) + width ≤ 100% - 220px(visuals) - 24px(gap)
+  .landing__main-cta {
+    width: calc(100% - 284px);
+    left: 40px;
+  }
+
+  .landing__secondary-cta {
+    width: calc(100% - 284px);
+    left: 40px;
+    top: auto;
+    bottom: clamp(32px, 5vh, 64px);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// TABLET  (≤ 768px) — Typografie + Layout (Visuals erben 1080px-Regeln)
 // ══════════════════════════════════════════════════════════════
 @media (max-width: 768px) {
 
-  .landing__visuals {
-    width: 300px;
-    left: calc(100% - 240px);
-    top: 0;
-  }
-
-  .landing__visual {
-    &--top {
-      width: 240px;
-      height: 240px;
-      top: 20px;
-    }
-    &--mid {
-      width: 250px;
-      height: 250px;
-      top: 220px;
-    }
-    &--bot {
-      width: 245px;
-      height: 260px;
-      top: 460px;
-    }
-  }
-
   .landing__main-cta {
-    width: calc(100% - 80px);
-    left: 40px;
-    top: 180px;
-    gap: 40px;
+    width: calc(100% - 284px);
+    left: clamp(24px, 5.21vw, 40px);
+    top: clamp(120px, 16.67vh, 180px);
+    gap: clamp(24px, 5.21vw, 40px);
   }
 
   .landing__text {
     width: 100%;
     height: auto;
+    gap: 8px;
   }
 
+  // Fluid Typografie innerhalb des Bereichs 481–768px
   .landing__subtitle {
-    font-size: 36px;
-    line-height: 44px;
+    font-size: clamp(18px, 4.69vw, 32px);
+    line-height: 1.25;
     width: 100%;
   }
 
   .landing__title {
-    font-size: 80px;
-    line-height: 90px;
+    font-size: clamp(44px, 10.42vw, 72px);
+    line-height: 1.1;
     width: 100%;
   }
 
   .landing__btn-primary {
-    width: 160px;
-    height: 56px;
+    width: clamp(120px, 20.83vw, 155px);
+    height: 52px;
+    font-size: clamp(15px, 2.6vw, 20px);
   }
 
+  // Secondary CTA: gleiche Breite, immer am unteren Rand sichtbar
   .landing__secondary-cta {
-    width: calc(100% - 80px);
-    left: 40px;
-    top: 700px;
-    flex-direction: column;
-    align-items: flex-start;
+    width: calc(100% - 284px);
+    left: clamp(24px, 5.21vw, 40px);
+    bottom: clamp(24px, 5vh, 56px);
+    flex-direction: row;
+    align-items: center;
     gap: 12px;
     height: auto;
   }
 
   .landing__inspiration {
-    font-size: 26px;
-    white-space: normal;
+    font-size: clamp(14px, 3.39vw, 24px);
+    white-space: nowrap;
     width: auto;
+  }
+
+  .landing__btn-secondary {
+    width: auto;
+    font-size: clamp(13px, 2.34vw, 18px);
+    padding: 8px 12px;
+    white-space: nowrap;
   }
 }
 
@@ -281,38 +318,27 @@
   }
 
   // Figma Mapping (Bildinhalt → CSS-Klasse):
-  // Ellipse 29  Hero Visual 03 = hero_3.svg → .landing__visual--bot
-  // Ellipse 30  Hero Visual 02 = hero_2.svg → .landing__visual--mid
-  // Ellipse 31  Hero Visual 01 = hero_1.svg → .landing__visual--top
+  // Ellipse 29  hero_3.svg → .landing__visual--bot
+  // Ellipse 30  hero_2.svg → .landing__visual--mid
+  // Ellipse 31  hero_1.svg → .landing__visual--top
   //
-  // transform-origin: top left weil Figma-Matrizes von (0,0) ausgehen
+  // Breiten + Positionen werden vom Container geerbt (prozentual) —
+  // nur die Transforms und der Schatten werden überschrieben
   .landing__visual {
     filter: drop-shadow(-6px 2px 4px rgba(0, 0, 0, 0.25));
 
-    // hero_1.svg → oben rechts
     &--top {
-      width: 295px;
-      height: 296px;
-      left: 0.55px;
-      top: 0px;
+      top: 0;
       transform: none;
     }
 
-    // hero_2.svg → mitte
     &--mid {
-      width: 303px;
-      height: 303px;
-      left: 0.55px;
-      top: 238.25px;
+      top: 238px;
       transform: scaleX(-1) rotate(60deg);
     }
 
-    // hero_3.svg → unten
     &--bot {
-      width: 300.71px;
-      height: 316.37px;
-      left: 0.55px;
-      top: 511.62px;
+      top: 510px;
       transform: rotate(240deg) scaleX(-1);
     }
   }
