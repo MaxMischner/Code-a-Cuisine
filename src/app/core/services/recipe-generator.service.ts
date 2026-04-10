@@ -27,7 +27,6 @@ export interface GenerateResponse {
 @Injectable({ providedIn: 'root' })
 export class RecipeGeneratorService {
 
-  /** Letzte Ergebnisse — bleibt bei Navigation erhalten */
   lastResults: GeneratedRecipe[] = [];
 
 

@@ -7,7 +7,7 @@
         "path": "99fd0653-93ca-4a7a-8b1d-ac974aeb7d53",
         "responseMode": "lastNode",
         "options": {
-          "allowedOrigins": "*"
+          "allowedOrigins": "https://maximilian-mischner.developerakademie.net"
         }
       },
       "type": "n8n-nodes-base.webhook",

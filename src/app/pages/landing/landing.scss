@@ -20,20 +20,18 @@
 }
 
 // ── Visuals ──────────────────────────────────────────────────
-// Fluid: right: 0 → klebt am rechten Rand
-// clamp: langsamer Schrumpf — nur 40px Unterschied von Desktop bis Freeze
+// Feste Größe auf Desktop — kein Schrumpfen über Breakpoints hinweg
 .landing__visuals {
   position: absolute;
-  width: clamp(440px, 33.3vw, 480px);
-  height: 1145px;
+  width: 480px;
+  height: calc(100vh + 42px);
   right: 0;
   left: auto;
   top: -42px;
   pointer-events: none;
 }
 
-// Prozentuale Breiten + aspect-ratio → skalieren automatisch mit dem Container
-// aspect-ratio verhindert height-Berechnungsfehler bei SVGs mit width: %
+// Prozentuale Breiten skalieren automatisch mit dem Container
 .landing__visual {
   position: absolute;
   display: block;
@@ -41,22 +39,22 @@
   left: 0;
 
   &--top {
-    width: 87.5%;           // 420/480 des Containers
-    aspect-ratio: 1;        // 420×420 (quadratisch)
-    top: clamp(20px, 2.08vw, 30px);
+    width: 87.5%;
+    aspect-ratio: unset;
+    top: 30px;
   }
 
   &--mid {
-    width: 90.6%;           // 435/480
-    aspect-ratio: 1;        // 435×435 (quadratisch)
-    top: clamp(220px, 21.53vw, 310px);
+    width: 90.6%;
+    aspect-ratio: unset;
+    top: 310px;
   }
 
   &--bot {
-    width: 89.6%;           // 430/480
-    aspect-ratio: 430 / 450;
-    top: clamp(420px, 38.89vw, 560px);
-    transform: rotate(18.91deg);
+    width: 89.6%;
+    aspect-ratio: unset;
+    top: auto;
+    bottom: 0;
   }
 }
 
@@ -187,189 +185,175 @@
 }
 
 // ══════════════════════════════════════════════════════════════
-// FREEZE  (≤ 1200px) — Container einfrieren, Bilder skalieren automatisch
+// LARGE  (≤ 1200px) — Bilder fix 480px, nur CTA-Breite anpassen
 // ══════════════════════════════════════════════════════════════
 @media (max-width: 1200px) {
 
-  // Container einfrieren bei 440px — passt exakt zum clamp-Minimum
-  // Kein Sprung, da clamp bei 1200px ebenfalls ~440px ausgibt
-  .landing__visuals {
-    width: 440px;
-    right: 0;
-    left: auto;
-    top: -42px;
-  }
-
-  // top-Werte proportional einfrieren (440/480 = 91.7% der Desktop-Werte)
-  // Verhindert, dass die Bilder beim weiteren Verkleinern nach oben rutschen
-  .landing__visual {
-    &--top { top: 28px; }
-    &--mid { top: 284px; }
-    &--bot { top: 514px; }
-  }
-}
-
-// ══════════════════════════════════════════════════════════════
-// HALF-VISIBLE  (≤ 1080px) — Bilder bleiben 400px, ragen 200px in den Viewport
-// ══════════════════════════════════════════════════════════════
-@media (max-width: 1080px) {
-
-  .landing__visuals {
-    right: -220px;   // 440px - 220px sichtbar
-  }
-
-  // CTA-Breite: nicht in die 220px sichtbaren Visuals ragen
-  // left(40px) + width ≤ 100% - 220px(visuals) - 24px(gap)
   .landing__main-cta {
-    width: calc(100% - 284px);
-    left: 40px;
+    width: calc(100% - 520px);
+    left: clamp(40px, 4.5vw, 65px);
   }
 
   .landing__secondary-cta {
-    width: calc(100% - 284px);
-    left: 40px;
-    top: auto;
-    bottom: clamp(32px, 5vh, 64px);
+    left: clamp(40px, 4.5vw, 65px);
+    width: calc(100% - 520px);
   }
 }
 
 // ══════════════════════════════════════════════════════════════
-// TABLET  (≤ 768px) — Typografie + Layout (Visuals erben 1080px-Regeln)
+// TABLET  (≤ 1050px) — Bilder eingefroren bei left: 570px
+// Text bekommt feste Breite passend zum eingefrorenen Container
 // ══════════════════════════════════════════════════════════════
-@media (max-width: 768px) {
+@media (max-width: 1050px) {
 
+  .landing__visuals {
+    left: 570px;
+    right: auto;
+  }
+
+  // Feste Breite: 570px Container − 24px left − 20px Abstand = 526px
   .landing__main-cta {
-    width: calc(100% - 284px);
-    left: clamp(24px, 5.21vw, 40px);
-    top: clamp(120px, 16.67vh, 180px);
-    gap: clamp(24px, 5.21vw, 40px);
+    width: 526px;
+    left: 24px;
+    top: clamp(100px, 14vh, 200px);
+    gap: clamp(24px, 4vw, 40px);
   }
 
-  .landing__text {
-    width: 100%;
-    height: auto;
-    gap: 8px;
-  }
+  .landing__text { gap: 8px; }
 
-  // Fluid Typografie innerhalb des Bereichs 481–768px
   .landing__subtitle {
-    font-size: clamp(18px, 4.69vw, 32px);
+    font-size: clamp(18px, 3.2vw, 28px);
     line-height: 1.25;
     width: 100%;
   }
 
   .landing__title {
-    font-size: clamp(44px, 10.42vw, 72px);
+    font-size: clamp(40px, 7.5vw, 80px);
     line-height: 1.1;
     width: 100%;
   }
 
   .landing__btn-primary {
-    width: clamp(120px, 20.83vw, 155px);
     height: 52px;
-    font-size: clamp(15px, 2.6vw, 20px);
+    font-size: clamp(14px, 2vw, 18px);
+    padding: 4px 16px;
   }
 
-  // Secondary CTA: gleiche Breite, immer am unteren Rand sichtbar
   .landing__secondary-cta {
-    width: calc(100% - 284px);
-    left: clamp(24px, 5.21vw, 40px);
-    bottom: clamp(24px, 5vh, 56px);
-    flex-direction: row;
-    align-items: center;
+    left: 24px;
+    width: 526px;
+    bottom: clamp(24px, 5vh, 60px);
+    top: auto;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 12px;
     height: auto;
   }
 
   .landing__inspiration {
-    font-size: clamp(14px, 3.39vw, 24px);
-    white-space: nowrap;
+    font-size: clamp(18px, 2.5vw, 30px);
+    white-space: normal;
     width: auto;
   }
 
   .landing__btn-secondary {
-    width: auto;
-    font-size: clamp(13px, 2.34vw, 18px);
+    font-size: clamp(13px, 1.8vw, 20px);
     padding: 8px 12px;
     white-space: nowrap;
+    width: auto;
+    height: auto;
   }
 }
 
 // ══════════════════════════════════════════════════════════════
-// MOBILE  (≤ 480px) — Figma Mobile Specs
+// SMALL TABLET  (≤ 750px) — Container mitgenommen (right: -300px)
+// Text folgt mit: Viewport − 180px Container-Überhang − 40px Margin
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 750px) {
+
+  .landing__visuals {
+    left: auto;
+    right: -300px;
+  }
+
+  // Container left = viewport − 180px → Text: viewport − 220px
+  .landing__main-cta {
+    width: calc(100vw - 220px);
+    left: 16px;
+    top: clamp(80px, 12vh, 160px);
+    gap: clamp(16px, 3.5vw, 32px);
+  }
+
+  .landing__subtitle {
+    font-size: clamp(14px, 3vw, 22px);
+  }
+
+  .landing__title {
+    font-size: clamp(32px, 8vw, 64px);
+  }
+
+  .landing__secondary-cta {
+    left: 16px;
+    width: calc(100vw - 220px);
+    bottom: clamp(20px, 4vh, 48px);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    height: auto;
+    top: auto;
+  }
+
+  .landing__inspiration {
+    font-size: clamp(14px, 3vw, 22px);
+    white-space: normal;
+  }
+
+  .landing__btn-secondary {
+    font-size: clamp(12px, 2.5vw, 18px);
+    padding: 6px 10px;
+    width: auto;
+    height: auto;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// MOBILE  (≤ 480px) — kein Sprung, Bilder schrumpfen dynamisch
 // ══════════════════════════════════════════════════════════════
 @media (max-width: 480px) {
 
   .landing {
-    width: 100%;
-    max-width: 100%;
     height: 100dvh;
     min-height: 667px;
-    max-height: unset;
+    max-height: 100dvh;
   }
 
-  // ── Visuals: Container nach rechts verschoben ─────────────
-  // Figma: left 238, top 23, width 371, height 810
-  .landing__visuals {
-    width: 371px;
-    height: 810px;
-    left: 238px;
-    top: 23px;
-  }
-
-  // Figma Mapping (Bildinhalt → CSS-Klasse):
-  // Ellipse 29  hero_3.svg → .landing__visual--bot
-  // Ellipse 30  hero_2.svg → .landing__visual--mid
-  // Ellipse 31  hero_1.svg → .landing__visual--top
-  //
-  // Breiten + Positionen werden vom Container geerbt (prozentual) —
-  // nur die Transforms und der Schatten werden überschrieben
+  // Bilder schrumpfen sanft mit dem Viewport — kein Positionssprung
   .landing__visual {
-    filter: drop-shadow(-6px 2px 4px rgba(0, 0, 0, 0.25));
-
-    &--top {
-      top: 0;
-      transform: none;
-    }
-
-    &--mid {
-      top: 238px;
-      transform: scaleX(-1) rotate(60deg);
-    }
-
-    &--bot {
-      top: 510px;
-      transform: rotate(240deg) scaleX(-1);
-    }
+    &--top { width: clamp(150px, 87.5vw, 420px); }
+    &--mid { width: clamp(140px, 90.6vw, 435px); }
+    &--bot { width: clamp(135px, 89.6vw, 430px); }
   }
 
   // ── Main CTA ──────────────────────────────────────────────
   .landing__main-cta {
-    width: 240px;
-    height: 304px;
+    width: min(240px, calc(100vw - 100px));
     left: 16px;
     top: 96px;
     gap: 40px;
   }
 
-  .landing__text {
-    width: 240px;
-    height: 212px;
-    gap: 8px;
-  }
+  .landing__text { gap: 8px; }
 
   .landing__subtitle {
     font-size: 24px;
     line-height: 30px;
-    width: 203px;
-    height: 60px;
+    width: 100%;
   }
 
   .landing__title {
-    font-size: 64px;
-    line-height: 72px;
-    width: 222px;
-    height: 144px;
+    font-size: clamp(36px, 11vw, 64px);
+    line-height: 1.1;
+    width: 100%;
   }
 
   .landing__btn-primary {
@@ -377,43 +361,53 @@
     height: 52px;
     padding: 4px 16px;
     font-size: 16px;
-    line-height: 20px;
   }
 
   // ── Secondary CTA ─────────────────────────────────────────
   .landing__secondary-cta {
     flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    width: 197px;
-    height: 120px;
+    align-items: flex-start;
+    gap: 12px;
+    width: min(220px, calc(100vw - 32px));
     left: 16px;
-    top: min(654px, calc(100dvh - 160px));
+    bottom: clamp(24px, 5vh, 48px);
+    top: auto;
+    height: auto;
   }
 
   .landing__inspiration {
-    font-size: 24px;
-    line-height: 120%;
-    width: 164px;
-    height: 52px;
+    font-size: clamp(18px, 5.5vw, 24px);
     white-space: normal;
+    width: auto;
   }
 
   .landing__btn-secondary {
-    width: 197px;
-    height: 52px;
-    padding: 4px 16px;
-    font-size: 18px;
-    line-height: 22px;
-    justify-content: center;
+    font-size: clamp(14px, 4vw, 18px);
+    padding: 8px 12px;
+    white-space: nowrap;
+    width: auto;
+    height: auto;
   }
 
   .landing__btn-arrow {
-    display: block;
     width: 20px;
     height: auto;
-    transform: scaleX(-1);
-    filter: brightness(0) invert(1) sepia(1) saturate(0.3) hue-rotate(345deg);
-    flex-shrink: 0;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// SMALL MOBILE  (≤ 430px) — Container + Bilder eingefroren
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 430px) {
+
+  .landing__visuals {
+    left: 250px;
+    right: auto;
+  }
+
+  .landing__visual {
+    &--top { width: 376px; }
+    &--mid { width: 390px; }
+    &--bot { width: 385px; }
   }
 }

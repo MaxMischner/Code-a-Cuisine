@@ -42,7 +42,6 @@ export class SupabaseService {
 
   // ── Rezepte ─────────────────────────────────────────────────
 
-  /** Alle Rezepte einer Küche, sortiert nach Likes */
   async getRecipesByCuisine(cuisine: string): Promise<DbRecipe[]> {
     const { data, error } = await this.client
       .from('recipes')
@@ -54,7 +53,6 @@ export class SupabaseService {
     return data ?? [];
   }
 
-  /** Einzelnes Rezept per ID */
   async getRecipeById(id: string): Promise<DbRecipe | null> {
     const { data, error } = await this.client
       .from('recipes')
@@ -66,7 +64,6 @@ export class SupabaseService {
     return data;
   }
 
-  /** Top N Rezepte nach Likes (für Cookbook Most Liked) */
   async getMostLiked(limit = 10): Promise<DbRecipe[]> {
     const { data, error } = await this.client
       .from('recipes')
@@ -78,7 +75,6 @@ export class SupabaseService {
     return data ?? [];
   }
 
-  /** Rezept aus n8n-Webhook eintragen */
   async insertRecipe(recipe: Omit<DbRecipe, 'id' | 'created_at' | 'likes'>): Promise<DbRecipe> {
     const { data, error } = await this.client
       .from('recipes')
@@ -90,7 +86,6 @@ export class SupabaseService {
     return data;
   }
 
-  /** Like eines Rezepts um 1 erhöhen */
   async likeRecipe(id: string): Promise<void> {
     const { error } = await this.client.rpc('increment_likes', { recipe_id: id });
     if (error) throw error;
@@ -128,7 +123,6 @@ export class SupabaseService {
     return { allowed: true, remaining: 3 - ipCount };
   }
 
-  /** Quota-Zähler für eine IP erhöhen (nach erfolgreicher Generierung) */
   async incrementQuota(ip: string): Promise<void> {
     const today = new Date().toISOString().slice(0, 10);
 

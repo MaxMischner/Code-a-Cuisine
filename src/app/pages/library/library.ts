@@ -4,21 +4,21 @@ import { Navbar } from '../../shared/components/navbar/navbar';
 import { SupabaseService, DbRecipe } from '../../core/services/supabase.service';
 
 const CUISINE_IMAGES: Record<string, string> = {
-  italian:  '/cookbook_recipes/Property 1=Italian.svg',
-  german:   '/cookbook_recipes/Property 1=German.svg',
-  japanese: '/cookbook_recipes/Property 1=Japanese.svg',
-  indian:   '/cookbook_recipes/Property 1=Indian.svg',
-  gourmet:  '/cookbook_recipes/Property 1=Gourmet.svg',
-  fusion:   '/cookbook_recipes/Property 1=Fusion.svg',
+  italian:  'cookbook_recipes/Property 1=Italian.svg',
+  german:   'cookbook_recipes/Property 1=German.svg',
+  japanese: 'cookbook_recipes/Property 1=Japanese.svg',
+  indian:   'cookbook_recipes/Property 1=Indian.svg',
+  gourmet:  'cookbook_recipes/Property 1=Gourmet.svg',
+  fusion:   'cookbook_recipes/Property 1=Fusion.svg',
 };
 
 const CUISINE_MOBILE_IMAGES: Record<string, string> = {
-  italian:  '/cookbook_recipes/Mobil/Property 1=Italian.svg',
-  german:   '/cookbook_recipes/Mobil/Property 1=German.svg',
-  japanese: '/cookbook_recipes/Mobil/Property 1=Japanese.svg',
-  indian:   '/cookbook_recipes/Mobil/Property 1=Indian.svg',
-  gourmet:  '/cookbook_recipes/Mobil/Property 1=Gourmet.svg',
-  fusion:   '/cookbook_recipes/Mobil/Property 1=Fusion.svg',
+  italian:  'cookbook_recipes/Mobil/Property 1=Italian.svg',
+  german:   'cookbook_recipes/Mobil/Property 1=German.svg',
+  japanese: 'cookbook_recipes/Mobil/Property 1=Japanese.svg',
+  indian:   'cookbook_recipes/Mobil/Property 1=Indian.svg',
+  gourmet:  'cookbook_recipes/Mobil/Property 1=Gourmet.svg',
+  fusion:   'cookbook_recipes/Mobil/Property 1=Fusion.svg',
 };
 
 const PER_PAGE = 10;
@@ -86,9 +86,6 @@ export class Library implements OnInit {
     }
   }
 
-  /** Geht zur vorherigen Seite (kein Effekt auf Seite 1) */
   prevPage(): void { if (this.page() > 1) this.page.update(p => p - 1); }
-
-  /** Geht zur nächsten Seite (kein Effekt auf der letzten Seite) */
   nextPage(): void { if (this.page() < this.totalPages()) this.page.update(p => p + 1); }
 }

@@ -99,18 +99,15 @@
     height: 32px;
   }
 
-  // Logo auf 95×32 verkleinern
   .navbar__logo img {
     width: 95px;
     height: 32px;
   }
 
-  // Desktop-CTA ausblenden
   .navbar__cta {
     display: none;
   }
 
-  // Back-Button Text verstecken, nur Arrow sichtbar
   .navbar__back-label {
     display: none;
   }

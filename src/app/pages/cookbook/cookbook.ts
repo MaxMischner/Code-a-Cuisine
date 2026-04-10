@@ -31,12 +31,12 @@ export class Cookbook implements OnInit {
   loading   = signal(true);
 
   cuisines: CuisineCategory[] = [
-    { name: 'Italian',  emoji: '🍝', slug: 'italian',  image: '/Cuisine-Bilder/Italian.svg',  mobileImage: '/Cuisine-Bilder/Italian.svg'  },
-    { name: 'German',   emoji: '🍻', slug: 'german',   image: '/Cuisine-Bilder/German.svg',   mobileImage: '/Cuisine-Bilder/German.svg'   },
-    { name: 'Japanese', emoji: '🍢', slug: 'japanese', image: '/Cuisine-Bilder/Japanese.svg', mobileImage: '/Cuisine-Bilder/Japanese.svg' },
-    { name: 'Indian',   emoji: '🍛', slug: 'indian',   image: '/Cuisine-Bilder/Indian.svg',   mobileImage: '/Cuisine-Bilder/Indian.svg'   },
-    { name: 'Gourmet',  emoji: '🤌', slug: 'gourmet',  image: '/Cuisine-Bilder/Gourmet.svg',  mobileImage: '/Cuisine-Bilder/Gourmet.svg'  },
-    { name: 'Fusion',   emoji: '🫕', slug: 'fusion',   image: '/Cuisine-Bilder/Fusion.svg',   mobileImage: '/Cuisine-Bilder/Fusion.svg'   },
+    { name: 'Italian',  emoji: '🍝', slug: 'italian',  image: 'Cuisine-Bilder/Italian.webp',  mobileImage: 'Cuisine-Bilder/Italian.webp'  },
+    { name: 'German',   emoji: '🍻', slug: 'german',   image: 'Cuisine-Bilder/German.webp',   mobileImage: 'Cuisine-Bilder/German.webp'   },
+    { name: 'Japanese', emoji: '🍢', slug: 'japanese', image: 'Cuisine-Bilder/Japanese.webp', mobileImage: 'Cuisine-Bilder/Japanese.webp' },
+    { name: 'Indian',   emoji: '🍛', slug: 'indian',   image: 'Cuisine-Bilder/Indian.webp',   mobileImage: 'Cuisine-Bilder/Indian.webp'   },
+    { name: 'Gourmet',  emoji: '🤌', slug: 'gourmet',  image: 'Cuisine-Bilder/Gourmet.webp',  mobileImage: 'Cuisine-Bilder/Gourmet.webp'  },
+    { name: 'Fusion',   emoji: '🫕', slug: 'fusion',   image: 'Cuisine-Bilder/Fusion.webp',   mobileImage: 'Cuisine-Bilder/Fusion.webp'   },
   ];
 
   private isDragging      = false;
@@ -62,11 +62,6 @@ export class Cookbook implements OnInit {
     }
   }
 
-  /**
-   * Startet Drag-Scroll auf dem Karussell (Mouse-Event).
-   * @param event - Das MouseEvent vom Pointer-Down
-   * @param el - Das scrollbare Container-Element
-   */
   onScrollMouseDown(event: MouseEvent, el: HTMLElement): void {
     this.stopMomentum();
     this.isDragging = true;
@@ -77,11 +72,7 @@ export class Cookbook implements OnInit {
     this.velocitySamples = [];
   }
 
-  /**
-   * Führt Drag-Scroll während Mausbewegung aus und trackt Geschwindigkeit.
-   * @param event - Das MouseEvent vom Pointer-Move
-   * @param el - Das scrollbare Container-Element
-   */
+  /** Trackt Geschwindigkeit für spätere Momentum-Animation */
   onScrollMouseMove(event: MouseEvent, el: HTMLElement): void {
     if (!this.isDragging) return;
     event.preventDefault();
@@ -98,10 +89,6 @@ export class Cookbook implements OnInit {
     if (this.velocitySamples.length > 5) this.velocitySamples.shift();
   }
 
-  /**
-   * Beendet Drag-Scroll und startet Momentum-Animation (Mouse-Event).
-   * @param el - Das scrollbare Container-Element (optional)
-   */
   onScrollMouseUp(el?: HTMLElement): void {
     if (!this.isDragging) return;
     this.isDragging = false;
@@ -109,11 +96,6 @@ export class Cookbook implements OnInit {
     if (el) this.launchMomentum(el);
   }
 
-  /**
-   * Startet Touch-Drag-Scroll auf dem Karussell.
-   * @param event - Das TouchEvent vom Touch-Start
-   * @param el - Das scrollbare Container-Element
-   */
   onScrollTouchStart(event: TouchEvent, el: HTMLElement): void {
     this.stopMomentum();
     this.isDragging = true;
@@ -123,11 +105,6 @@ export class Cookbook implements OnInit {
     this.velocitySamples = [];
   }
 
-  /**
-   * Führt Touch-Drag-Scroll aus und trackt Geschwindigkeit für Momentum.
-   * @param event - Das TouchEvent vom Touch-Move
-   * @param el - Das scrollbare Container-Element
-   */
   onScrollTouchMove(event: TouchEvent, el: HTMLElement): void {
     if (!this.isDragging) return;
     const x = event.touches[0].pageX - el.offsetLeft;
@@ -140,10 +117,6 @@ export class Cookbook implements OnInit {
     if (this.velocitySamples.length > 5) this.velocitySamples.shift();
   }
 
-  /**
-   * Beendet Touch-Drag und startet Momentum-Animation.
-   * @param el - Das scrollbare Container-Element
-   */
   onScrollTouchEnd(el: HTMLElement): void {
     this.isDragging = false;
     this.launchMomentum(el);
@@ -187,40 +160,21 @@ export class Cookbook implements OnInit {
     }
   }
 
-  /**
-   * Aktualisiert die Scroll-Pfeile basierend auf der aktuellen Scroll-Position.
-   * @param el - Das scrollbare Container-Element
-   */
   onScroll(el: HTMLElement): void {
     this.canScrollLeft  = el.scrollLeft > 0;
     this.canScrollRight = el.scrollLeft + el.clientWidth < el.scrollWidth - 1;
   }
 
-  /**
-   * Scrollt das Karussell programmatisch um einen festen Betrag.
-   * @param el - Das scrollbare Container-Element
-   * @param amount - Scroll-Betrag in Pixel (negativ = links, positiv = rechts)
-   */
   scrollBy(el: HTMLElement, amount: number): void {
     this.stopMomentum();
     el.scrollBy({ left: amount, behavior: 'smooth' });
   }
 
-  /**
-   * Erzeugt den CSS-Custom-Property-String für das Hintergrundbild einer Küchen-Kachel.
-   * @param c - Die Küchen-Kategorie
-   * @returns Inline-Style-String mit `--img` und `--img-mob` Variablen
-   */
   cuisineStyle(c: CuisineCategory): string {
     return `--img: url("${c.image}"); --img-mob: url("${c.mobileImage}")`;
   }
 
-  /**
-   * Navigiert zu einem Rezept aus dem Karussell — ignoriert Klicks
-   * die Teil einer Drag-Geste waren.
-   * @param event - Das Klick-Event
-   * @param recipeId - UUID des Zielrezepts
-   */
+  /** Ignoriert Klicks die Teil einer Drag-Geste waren */
   onCardClick(event: MouseEvent, recipeId: string): void {
     if (this.dragMoved) {
       event.preventDefault();

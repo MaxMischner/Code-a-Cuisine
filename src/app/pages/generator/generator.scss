@@ -45,7 +45,6 @@
   padding: 0 $padding-page-fluid 64px;
 }
 
-// Headline
 .gen-step1__header {
   display: flex;
   flex-direction: column;
@@ -72,7 +71,6 @@
   max-width: 919px;
 }
 
-// Content-Zeile (Input-Box + Liste)
 .gen-step1__content {
   display: flex;
   flex-direction: row;
@@ -82,7 +80,6 @@
   max-width: 1087px;
 }
 
-// Input-Box
 .gen-step1__input-box {
   @include green-container(0.3);
   display: flex;
@@ -104,7 +101,6 @@
   width: calc(100% - 48px);
 }
 
-// Label
 .gen-step1__label {
   font-family: $font-primary;
   font-size: $font-size-h6;
@@ -114,14 +110,13 @@
   margin-bottom: 4px;
 }
 
-// Input-Wrapper (relativ für Autocomplete)
+// Position anchor for the autocomplete dropdown
 .gen-step1__input-wrap {
   position: relative;
   flex: 1;
   min-width: 0;
 }
 
-// Textfeld
 .gen-step1__input {
   width: 100%;
   height: 36px;
@@ -139,7 +134,6 @@
   &:focus { box-shadow: 0 0 0 2px $color-olive-green; }
 }
 
-// Autocomplete-Dropdown
 .gen-step1__autocomplete {
   position: absolute;
   top: calc(100% + 4px);
@@ -165,7 +159,6 @@
 
 .gen-step1__field { flex: 1; }
 
-// Mengen-Zeile
 .gen-step1__amount-row { flex-shrink: 0; padding-right: 16px; }
 
 .gen-step1__serving {
@@ -188,7 +181,6 @@
   gap: 8px;
 }
 
-// Mengen-Chip
 .gen-step1__amount-chip {
   display: flex;
   align-items: center;
@@ -217,7 +209,6 @@
   -moz-appearance: textfield;
 }
 
-// Einheit-Chip
 .gen-step1__unit-chip {
   display: flex;
   align-items: center;
@@ -239,7 +230,6 @@
   padding: 0 4px;
 }
 
-// Add-Button
 .gen-step1__add-btn {
   display: flex;
   align-items: center;
@@ -257,7 +247,6 @@
   .material-icons { font-size: 24px; }
 }
 
-// Zutaten-Liste
 .gen-step1__list {
   @include green-container(0.3);
   display: flex;
@@ -283,7 +272,7 @@
   font-style: italic;
 }
 
-.gen-step1__ingredient-list { display: flex; flex-direction: column; gap: 8px; }
+.gen-step1__ingredient-list { display: flex; flex-direction: column; gap: 12px; }
 
 .gen-step1__ingredient-item {
   display: flex;
@@ -324,7 +313,7 @@
   border: none;
   cursor: pointer;
   padding: 2px;
-  opacity: 0.45;
+  opacity: 0.7;
 
   &:hover { opacity: 1; }
 }
@@ -349,7 +338,6 @@
   padding: 4px 8px;
 }
 
-// Footer
 .gen-step1__footer {
   display: flex;
   justify-content: flex-end;
@@ -387,7 +375,6 @@
   width: min(721px, 100%);
 }
 
-// Portions + Chefs Zeile
 .gen-step2__row {
   display: flex;
   flex-direction: row;
@@ -453,7 +440,6 @@
   color: $color-green-dark;
 }
 
-// Präferenzen-Formular
 .gen-step2__form {
   @include green-container(0.2);
   display: flex;
@@ -470,7 +456,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 40px;
 }
 
 .gen-step2__fieldset-legend {
@@ -481,7 +467,7 @@
   font-size: $font-size-h5;
   font-weight: 500;
   color: $color-green-dark;
-  margin-bottom: 0;
+  margin-bottom: 16px;
 }
 
 .gen-step2__icon {
@@ -496,10 +482,11 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
   gap: 20px;
 }
 
-// Chip mit Subtext (Kochzeit)
 .gen-step2__chip {
   display: flex;
   flex-direction: column;
@@ -510,7 +497,6 @@
   cursor: pointer;
   padding: 0;
 
-  // Chip-Pill
   &-label {
     display: flex;
     align-items: center;
@@ -535,7 +521,6 @@
     white-space: nowrap;
   }
 
-  // Einfacher Chip (Cuisine, Diät) — kein Subtext
   &--single {
     padding: 6px 12px;
     background: $color-creamy;
@@ -549,7 +534,6 @@
     transition: background 0.15s, color 0.15s;
   }
 
-  // Aktiver Zustand
   &--active .gen-step2__chip-label,
   &--active#{&}--single {
     background: $color-olive-green;
@@ -616,7 +600,6 @@
   margin: 0 auto;
 }
 
-// Header — Text + Visual
 .gen-results__header {
   display: flex;
   flex-direction: row;
@@ -695,7 +678,6 @@
   }
 }
 
-// Karten
 .gen-results__cards {
   display: flex;
   flex-direction: row;
@@ -718,7 +700,6 @@
   box-sizing: border-box;
 }
 
-// Frame 887 — wrapper für header + text
 .gen-results__card-frame {
   display: flex;
   flex-direction: column;
@@ -728,7 +709,6 @@
   height: auto;
 }
 
-// Text-Gruppe — titel + zeit
 .gen-results__card-text {
   display: flex;
   flex-direction: column;
@@ -807,7 +787,6 @@
   cursor: pointer;
 }
 
-// Footer
 .gen-results__footer {
   display: flex;
   justify-content: flex-end;
@@ -869,9 +848,9 @@
 }
 
 // ══════════════════════════════════════════════════════════════
-// TABLET  (≤ 768px)
+// TABLET  (≤ 850px) — Results Header umbricht, Step1 column
 // ══════════════════════════════════════════════════════════════
-@media (max-width: 768px) {
+@media (max-width: 850px) {
 
   .gen-step1 {
     padding: 0 24px 40px;
@@ -895,33 +874,62 @@
   }
 
   // ── Results ────────────────────────────────────────────
+
+  .gen-results__main {
+    padding: 0 24px;
+    box-sizing: border-box;
+  }
+
   .gen-results__header {
     flex-direction: column;
-    padding: 0 24px;
+    padding: 0;
     gap: 24px;
     width: 100%;
     box-sizing: border-box;
   }
 
+  // Reihenfolge: Titel → Bild → Subtitle+Tags
   .gen-results__header-text {
     width: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
-  .gen-results__title,
-  .gen-results__subtitle {
+  .gen-results__title {
     width: 100%;
+    order: 1;
   }
 
-  .gen-results__header-img--desktop {
+  .gen-results__header-img--mobile {
+    display: block;
+    order: 2;
     width: 100%;
     height: auto;
     min-height: 160px;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+
+    img { width: 100%; height: 100%; object-fit: contain; }
+  }
+
+  .gen-results__subtitle {
+    width: 100%;
+    order: 3;
+  }
+
+  .gen-results__tags {
+    order: 4;
+  }
+
+  .gen-results__header-img--desktop {
+    display: none;
   }
 
   .gen-results__cards {
     flex-direction: column;
     align-items: center;
-    width: calc(100% - 48px);
+    width: 100%;
     gap: 16px;
   }
 
@@ -941,7 +949,7 @@
   }
 
   .gen-results__footer {
-    width: calc(100% - 48px);
+    width: 100%;
     justify-content: center;
     margin-top: 0;
   }
@@ -960,13 +968,13 @@
 
   // ── Step 1 ────────────────────────────────────────────────
   .gen-step1 {
-    padding: 0 0 40px;
+    padding: 0 16px 40px;
     gap: 40px;
     align-items: center;
   }
 
   .gen-step1__header {
-    width: 327px;
+    width: 100%;
     gap: 24px;
     align-items: flex-start;
   }
@@ -983,57 +991,55 @@
     font-weight: 600;
     line-height: 22px;
     text-align: left;
-    max-width: 327px;
+    max-width: 100%;
   }
 
-  // Content: column statt row
   .gen-step1__content {
     flex-direction: column;
     align-items: center;
     gap: 24px;
-    width: 340px;
-    max-width: 100%;
+    width: 100%;
   }
 
-  // Input-Box: column layout
   .gen-step1__input-box {
-    width: 340px;
+    width: 100%;
     min-height: unset;
     flex-direction: column;
     align-items: center;
     padding: 25px 0;
     gap: 16px;
+    box-sizing: border-box;
   }
 
   .gen-step1__input-inner {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-    width: 300px;
+    width: calc(100% - 32px);
   }
 
-  .gen-step1__field { width: 300px; flex: unset; }
+  .gen-step1__field { width: 100%; flex: unset; }
 
-  .gen-step1__input-wrap { width: 300px; }
+  .gen-step1__input-wrap { width: 100%; }
 
   .gen-step1__input {
-    width: 300px;
+    width: 100%;
     height: 36px;
     border-radius: 20px;
   }
 
-  .gen-step1__autocomplete { width: 300px; }
+  .gen-step1__autocomplete { width: 100%; }
 
   .gen-step1__amount-row {
     padding-right: 0;
-    width: 300px;
+    width: 100%;
   }
 
-  // Zutaten-Liste
   .gen-step1__list {
-    width: 340px;
+    width: 100%;
     min-height: unset;
     padding: 24px 16px;
+    box-sizing: border-box;
   }
 
   .gen-step1__ingredient-item {
@@ -1041,6 +1047,12 @@
     height: 30px;
     padding: 2px 2px 2px 0;
     gap: 0;
+  }
+
+  .gen-step1__ingredient-item--editing {
+    height: auto;
+    gap: 8px;
+    padding: 6px 4px;
   }
 
   .gen-step1__ingredient-amount {
@@ -1054,7 +1066,6 @@
     line-height: 20px;
   }
 
-  // Footer + Button
   .gen-step1__footer {
     width: 340px;
     justify-content: center;
@@ -1070,7 +1081,7 @@
 
   // ── Step 2 ────────────────────────────────────────────────
   .gen-step2 {
-    padding: 0 0 40px;
+    padding: 0 16px 40px;
     gap: 40px;
     align-items: center;
   }
@@ -1081,23 +1092,21 @@
     font-weight: 600;
     color: $color-green-dark;
     text-align: left;
-    width: 340px;
+    width: 100%;
   }
 
   .gen-step2__content {
-    width: 340px;
+    width: 100%;
     gap: 32px;
   }
 
-  // Portions + Chefs: column statt row, left-aligned
   .gen-step2__row {
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
-    width: 340px;
+    width: 100%;
   }
 
-  // Label-Abstand zum Stepper verkleinern
   .gen-step2__stepper-group {
     gap: 8px;
   }
@@ -1107,26 +1116,23 @@
     line-height: 20px;
   }
 
-  // Stepper-Wert: 20px ("small H + Labels")
   .gen-step2__stepper-val {
     font-size: 20px;
     line-height: 20px;
   }
 
-  // Stepper-Einheit: H6 18px
   .gen-step2__stepper-unit {
     font-size: 18px;
     line-height: 22px;
   }
 
-  // Preferences form box: 340px, gleiche Padding wie Figma
   .gen-step2__form {
-    width: 340px;
+    width: 100%;
     padding: 32px 24px;
     gap: 40px;
+    box-sizing: border-box;
   }
 
-  // Fieldset legend: Mob. H3 (24px, 600)
   .gen-step2__fieldset-legend {
     font-size: 24px;
     line-height: 30px;
@@ -1141,10 +1147,10 @@
     margin-bottom: 24px;
   }
 
-  // Cooking time: alle drei Chips in einer Zeile, gleiche Höhe (50px)
   .gen-step2__fieldset:first-child .gen-step2__chips {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 8px;
+    justify-content: flex-start;
     align-items: center;
   }
 
@@ -1156,7 +1162,6 @@
     padding: 0;
   }
 
-  // Chip-Label-Pill: original Größe beibehalten
   .gen-step2__chip-label {
     font-size: 20px;
     line-height: 20px;
@@ -1165,19 +1170,17 @@
     white-space: nowrap;
   }
 
-  // Sub-Text: 14px / line-height 10px, kein Wrap
   .gen-step2__chip-sub {
     font-size: 14px;
     line-height: 10px;
     white-space: nowrap;
   }
 
-  // Cuisine + Diet: gap 16px, umbrechen
   .gen-step2__fieldset:not(:first-child) .gen-step2__chips {
     gap: 16px;
+    justify-content: flex-start;
   }
 
-  // Einzelner Chip (Cuisine, Diet): 20px
   .gen-step2__chip--single {
     font-size: 20px;
     line-height: 20px;
@@ -1185,7 +1188,6 @@
     padding: 6px 12px;
   }
 
-  // Generate-Button: 155×52px
   .gen-step2 .gen__btn-primary {
     width: 155px;
     height: 52px;
@@ -1197,51 +1199,48 @@
   // ── Results ───────────────────────────────────────────────
   .gen-results__main {
     gap: 48px;
-    padding: 0;
+    padding: 0 16px;
   }
 
-  // Header: column statt row
   .gen-results__header {
     flex-direction: column;
     padding: 0;
     gap: 16px;
-    width: 340px;
+    width: 100%;
   }
 
   .gen-results__header-text {
-    width: 340px;
+    width: 100%;
     gap: 16px;
   }
 
   .gen-results__title {
     font-size: 32px;
     line-height: 40px;
-    width: 340px;
+    width: 100%;
   }
 
   .gen-results__subtitle {
     font-size: 18px;
     line-height: 22px;
-    width: 340px;
+    width: 100%;
 
     br { display: none; }
   }
 
-  // Tags: 18px
   .gen-results__tag {
     font-size: 18px;
     line-height: 22px;
     height: 32px;
   }
 
-  // Visual Box: 340×131px — Mobile-Version im Text-Container
   .gen-results__header-img--desktop {
     display: none;
   }
 
   .gen-results__header-img--mobile {
     display: block;
-    width: 340px;
+    width: 100%;
     height: 131px;
     flex-shrink: 0;
     background: #ffffff;
@@ -1255,28 +1254,28 @@
     }
   }
 
-  // Karten: column statt row
   .gen-results__cards {
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    width: 340px;
+    width: 100%;
     background: rgba(57, 96, 57, 0.2);
     border-radius: 20px;
     padding: 0;
   }
 
   .gen-results__card {
-    width: 340px;
-    height: 294px;
+    width: 100%;
+    height: auto;
     padding: 32px 24px;
     gap: 32px;
     background: #D7DFD7;
     border-radius: 20px;
+    box-sizing: border-box;
   }
 
   .gen-results__card-frame {
-    width: 299px;
+    width: 100%;
     height: auto;
     gap: 16px;
   }
@@ -1291,14 +1290,14 @@
   }
 
   .gen-results__card-text {
-    width: 299px;
+    width: 100%;
     gap: 16px;
   }
 
   .gen-results__card-title {
     font-size: 24px;
     line-height: 30px;
-    width: 299px;
+    width: 100%;
   }
 
   .gen-results__card-time {
@@ -1309,7 +1308,6 @@
     .material-icons { font-size: 24px; }
   }
 
-  // View-Button: 68×52px, creamy background
   .gen-results__card-btn {
     width: 68px;
     height: 52px;
@@ -1318,9 +1316,8 @@
     line-height: 20px;
   }
 
-  // Footer: Generate new recipe
   .gen-results__footer {
-    width: 340px;
+    width: 100%;
     justify-content: center;
     margin-top: 0;
   }
@@ -1358,7 +1355,7 @@
     font-size: 36px;
     font-weight: 700;
     line-height: 41px;
-    width: 340px;
+    width: 100%;
     text-align: center;
   }
 }
@@ -1468,4 +1465,69 @@
   transition: opacity 0.2s;
 
   &:hover { opacity: 0.85; }
+}
+
+// ══════════════════════════════════════════════════════════════
+// NARROW  (≤ 359px) — 320px Geräte, kein horizontaler Scroll
+// ══════════════════════════════════════════════════════════════
+@media (max-width: 359px) {
+
+  .gen-step1 { padding-left: 12px; padding-right: 12px; }
+  .gen-step2 { padding-left: 12px; padding-right: 12px; }
+
+  .gen-step1__header,
+  .gen-step1__content,
+  .gen-step1__input-box,
+  .gen-step1__list,
+  .gen-step1__footer {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .gen-step1__input-inner,
+  .gen-step1__field,
+  .gen-step1__input-wrap,
+  .gen-step1__input,
+  .gen-step1__autocomplete,
+  .gen-step1__amount-row {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .gen-step2__title,
+  .gen-step2__content,
+  .gen-step2__row,
+  .gen-step2__form {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .gen-results__header {
+    padding: 0 12px;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .gen-results__header-text,
+  .gen-results__title,
+  .gen-results__subtitle { width: 100% !important; }
+
+  .gen-results__header-img--mobile {
+    width: 100% !important;
+    height: auto;
+    min-height: 100px;
+  }
+
+  .gen-results__cards { width: calc(100% - 24px) !important; }
+
+  .gen-results__card,
+  .gen-results__card-frame,
+  .gen-results__card-text,
+  .gen-results__card-title { width: 100% !important; }
+
+  .gen-loading__content { padding: 32px 16px; }
+  .gen-loading__gif { width: 200px; height: auto; }
+  .gen-loading__text { width: 100% !important; }
 }

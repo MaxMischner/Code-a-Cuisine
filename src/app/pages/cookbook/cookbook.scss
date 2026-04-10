@@ -7,7 +7,6 @@
 }
 
 // ── Page wrapper ──────────────────────────────────────────────
-// Figma: display flex, flex-direction column, align-items center, gap 64, background #fff
 .cookbook {
   display: flex;
   flex-direction: column;
@@ -20,7 +19,6 @@
 }
 
 // ── Content wrapper ───────────────────────────────────────────
-// Figma "Whole content": flex column, align-items flex-end, gap 64, width 1330
 .cookbook__content-wrapper {
   display: flex;
   flex-direction: column;
@@ -29,7 +27,6 @@
   width: 1330px;
 }
 
-// Figma "Content": flex column, align-items flex-start, gap 80, width 1330
 .cookbook__content {
   display: flex;
   flex-direction: column;
@@ -39,8 +36,6 @@
 }
 
 // ── Upper part ────────────────────────────────────────────────
-// Figma: flex row, align-items flex-end, padding 40px 24px, gap 17, width 1330, height 281
-// background rgba(57,96,57,0.04), border-radius 20px
 .cookbook__upper {
   display: flex;
   flex-direction: row;
@@ -55,7 +50,6 @@
 }
 
 // ── Intro (left) ──────────────────────────────────────────────
-// Figma "Cookbook": flex column, gap 16, width 454, height 201
 .cookbook__intro {
   display: flex;
   flex-direction: column;
@@ -64,7 +58,6 @@
   flex-shrink: 0;
 }
 
-// Figma: Quicksand 700, 64px, line-height 65px, color #1E5515
 .cookbook__headline {
   font-family: $font-primary;
   font-weight: 700;
@@ -75,7 +68,6 @@
   width: min(454px, 100%);
 }
 
-// Figma: Quicksand 500, 24px, line-height 30px, color #10310B, width 454, height 120
 .cookbook__desc {
   font-family: $font-primary;
   font-weight: 500;
@@ -87,7 +79,6 @@
 }
 
 // ── Most liked (right) ────────────────────────────────────────
-// Figma: flex column, justify-content center, gap 16, width 823, height 170
 .cookbook__most-liked {
   display: flex;
   flex-direction: column;
@@ -96,7 +87,6 @@
   width: 823px;
 }
 
-// Figma: flex row, align-items center, gap 16, width 248, height 30
 .cookbook__most-liked-header {
   display: flex;
   flex-direction: row;
@@ -106,7 +96,6 @@
   height: 30px;
 }
 
-// Figma: Quicksand 600, 24px, line-height 30px, color #1E5515
 .cookbook__most-liked-title {
   font-family: $font-primary;
   font-weight: 600;
@@ -171,7 +160,6 @@
   }
 }
 
-// Figma: flex row, padding 0 20px 0 0, gap 12, overflow-x scroll, border-radius 16px
 .cookbook__scroll-row {
   display: flex;
   flex-direction: row;
@@ -201,8 +189,6 @@
 }
 
 // ── Liked card ────────────────────────────────────────────────
-// Figma: flex ROW, align-items flex-start, padding 16px 12px, gap 24, width 370, height 124
-// background rgba(219,224,219,0.7), border-radius 16px
 .cookbook__liked-card {
   display: flex;
   flex-direction: row;
@@ -221,7 +207,6 @@
   &:hover { background: rgba(219, 224, 219, 0.9); }
 }
 
-// Figma "Frame 924": flex column, gap 8, width 258
 .cookbook__liked-info {
   display: flex;
   flex-direction: column;
@@ -229,7 +214,6 @@
   width: 258px;
 }
 
-// Figma "Frame 751": flex row, align-items center, gap 4, height 24
 .cookbook__liked-meta {
   display: flex;
   flex-direction: row;
@@ -243,7 +227,6 @@
   color: $color-olive-green;
 }
 
-// Figma: Quicksand 500, 16px, line-height 20px, color #396039
 .cookbook__liked-time {
   font-family: $font-primary;
   font-weight: 500;
@@ -252,7 +235,6 @@
   color: $color-olive-green;
 }
 
-// Figma: Quicksand 500, 24px, line-height 30px, color #1E5515, width 263
 .cookbook__liked-title {
   font-family: $font-primary;
   font-weight: 500;
@@ -267,8 +249,6 @@
   -webkit-box-orient: vertical;
 }
 
-// Figma "Frame 935": flex row, align-items center, padding 6px 12px,
-// background rgba(57,96,57,0.3), border-radius 30px
 .cookbook__liked-count {
   display: inline-flex;
   flex-direction: row;
@@ -289,9 +269,6 @@
 }
 
 // ── Cuisine categories ────────────────────────────────────────
-// Figma: width 1330, height 938 — 3×2 grid
-// Card positions: cols at 0/470/929, rows at 0/495, card 400px wide, 443px tall
-// Gaps: col = (1330 - 3*400) / 2 = 65px, row = 495 - 443 = 52px
 .cookbook__categories {
   width: 1330px;
 }
@@ -302,7 +279,6 @@
   gap: clamp(24px, 3.61vw, 52px) clamp(24px, 4.51vw, 65px);
 }
 
-// Figma: flex column, gap 8, width 400, height 443
 .cookbook__cuisine-card {
   display: flex;
   flex-direction: column;
@@ -314,7 +290,6 @@
   &:hover { opacity: 0.9; }
 }
 
-// Figma "Frame 948": flex row, align-items flex-start, gap 8, height 35
 .cookbook__cuisine-label {
   display: flex;
   flex-direction: row;
@@ -323,7 +298,6 @@
   height: 35px;
 }
 
-// Figma: Quicksand 600, 28px, line-height 35px, color #1E5515
 .cookbook__cuisine-name {
   font-family: $font-primary;
   font-weight: 600;
@@ -337,7 +311,6 @@
   line-height: 35px;
 }
 
-// Figma "card": width 400, height 400
 .cookbook__cuisine-img {
   width: 400px;
   height: 400px;
@@ -368,8 +341,6 @@
 }
 
 // ── Footer button ─────────────────────────────────────────────
-// Figma "Secondary button green": flex row center, padding 16 26, gap 10, width 285, height 52, border-radius 5
-// text: Quicksand 500 20px, color #396039
 .cookbook__footer-btn {
   display: flex;
   flex-direction: row;
@@ -494,7 +465,6 @@
 // ══════════════════════════════════════════════════════════════
 @media (max-width: 480px) {
 
-  // ── Page ────────────────────────────────────────────────
   .cookbook {
     gap: 40px;
     padding-top: 24px;
@@ -515,7 +485,6 @@
   }
 
   // ── Upper / "First information" card ────────────────────
-  // Column layout, narrow, keeps the green-tinted background
   .cookbook__upper {
     flex-direction: column;
     align-items: flex-start;
@@ -543,7 +512,6 @@
     width: 100%;
   }
 
-  // ── Most liked ──────────────────────────────────────────
   .cookbook__most-liked {
     width: 100%;
     gap: 16px;
@@ -563,7 +531,6 @@
     gap: 12px;
   }
 
-  // Mob. card: 285×106, gap 16
   .cookbook__liked-card {
     width: 285px;
     min-width: 285px;
@@ -587,7 +554,6 @@
     width: 195px;
   }
 
-  // Liked count badge: 50×24, padding 2px 6px
   .cookbook__liked-count {
     padding: 2px 6px;
     height: 24px;
@@ -597,7 +563,6 @@
   }
 
   // ── Cuisine categories ──────────────────────────────────
-  // Single column, 320px cards, 260px image height
   .cookbook__categories {
     width: 100%;
   }
@@ -620,7 +585,6 @@
   .cookbook__cuisine-img--desktop { display: none; }
   .cookbook__cuisine-img--mobile  { display: block; }
 
-  // ── Footer ──────────────────────────────────────────────
   .cookbook__footer-row {
     width: min(340px, calc(100% - 32px));
   }

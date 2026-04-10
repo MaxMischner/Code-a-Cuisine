@@ -15,7 +15,7 @@
     [showBackButton]="true"
     [backLabel]="backLabel()"
     [backRoute]="backRoute()"
-    backIcon="/recipe view/Arrow 11.svg"
+    backIcon="recipe view/Arrow 11.svg"
     [backState]="backRoute() === '/generator' ? { restoreResults: true } : {}"
   ></app-navbar>
 
@@ -37,11 +37,11 @@
             <div class="recipe__chefs">
               <span class="recipe__chefs-label">Cooking person: {{ chefCount }}</span>
               <span class="recipe__chef-badge recipe__chef-badge--1">
-                <img src="/recipe view/Property 1=Cook 01.svg" width="75" height="27" alt="Chef 1" style="object-fit: contain;" />
+                <img src="recipe view/Property 1=Cook 01.svg" width="75" height="27" alt="Chef 1" style="object-fit: contain;" />
               </span>
               @if (hasChef2) {
                 <span class="recipe__chef-badge recipe__chef-badge--2">
-                  <img src="/recipe view/Property 1=Cook 02.svg" width="70" height="27" alt="Chef 2" style="object-fit: contain;" />
+                  <img src="recipe view/Property 1=Cook 02.svg" width="70" height="27" alt="Chef 2" style="object-fit: contain;" />
                 </span>
               }
             </div>
@@ -78,7 +78,7 @@
           <!-- Ingredients -->
           <div class="recipe__section">
             <div class="recipe__section-hero">
-              <img class="recipe__section-hero-img" src="/recipe view/Hero Ingredients.svg" alt="" aria-hidden="true" />
+              <img class="recipe__section-hero-img" src="recipe view/Hero Ingredients.svg" alt="" aria-hidden="true" />
               <h2 class="recipe__section-title">Ingredients</h2>
             </div>
             <div class="recipe__ingredients-cols">
@@ -110,7 +110,7 @@
           <!-- Directions -->
           <div class="recipe__section">
             <div class="recipe__section-hero">
-              <img class="recipe__section-hero-img" src="/recipe view/Hero Directions.svg" alt="" aria-hidden="true" />
+              <img class="recipe__section-hero-img" src="recipe view/Hero Directions.svg" alt="" aria-hidden="true" />
               <h2 class="recipe__section-title">Directions</h2>
             </div>
             <div class="recipe__steps-grid">
@@ -127,7 +127,7 @@
                       [class.recipe__chef-badge--2]="step.chef === 2"
                     >
                       <img
-                        [src]="step.chef === 1 ? '/recipe view/Property 1=Cook 01.svg' : '/recipe view/Property 1=Cook 02.svg'"
+                        [src]="step.chef === 1 ? 'recipe view/Property 1=Cook 01.svg' : 'recipe view/Property 1=Cook 02.svg'"
                         width="75" height="27" style="object-fit: contain;" [alt]="'Chef ' + step.chef"
                       />
                     </span>
@@ -148,9 +148,9 @@
           </div>
           <button class="recipe__like-btn" (click)="likeRecipe(r.id)" [disabled]="liked()" aria-label="Like recipe">
             @if (liked()) {
-              <img src="/recipe view/Property 1=clicked.svg" width="40" height="35" alt="" aria-hidden="true" />
+              <img src="recipe view/Property 1=clicked.svg" width="40" height="35" alt="" aria-hidden="true" />
             } @else {
-              <img src="/recipe view/favorite.svg" width="40" height="35" alt="" aria-hidden="true" />
+              <img src="recipe view/favorite.svg" width="40" height="35" alt="" aria-hidden="true" />
             }
           </button>
         </div>
@@ -170,7 +170,7 @@
       <a class="recipe__impressum-link" routerLink="/impressum">Impressum</a>
       <a class="recipe__footer-btn" routerLink="/cookbook">
         Go to cookbook
-        <img src="/recipe view/Arrow 11.svg" class="recipe__footer-arrow" width="20" alt="" aria-hidden="true" />
+        <img src="recipe view/Arrow 11.svg" class="recipe__footer-arrow" width="20" alt="" aria-hidden="true" />
       </a>
     </div>
 

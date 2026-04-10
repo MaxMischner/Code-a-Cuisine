@@ -85,6 +85,7 @@
                       class="gen-step1__amount-input"
                       type="number"
                       min="1"
+                      max="9999"
                       [(ngModel)]="amountInput"
                       aria-label="Menge"
                     />
@@ -138,6 +139,7 @@
                           class="gen-step1__amount-input"
                           type="number"
                           min="1"
+                          max="9999"
                           [(ngModel)]="editAmount"
                           aria-label="Menge"
                         />
@@ -168,10 +170,10 @@
                     </span>
                     <span class="gen-step1__ingredient-name">{{ item.name }}</span>
                     <button class="gen-step1__edit-btn" type="button" (click)="startEdit(i)" [attr.aria-label]="'Bearbeite ' + item.name">
-                      <img src="/edit.svg" width="18" alt="" aria-hidden="true" />
+                      <img src="edit.svg" width="18" alt="" aria-hidden="true" />
                     </button>
                     <button class="gen-step1__remove-btn" type="button" (click)="removeIngredient(i)" [attr.aria-label]="'Entferne ' + item.name">
-                      <img src="/delete.svg" width="18" alt="" aria-hidden="true" />
+                      <img src="delete.svg" width="18" alt="" aria-hidden="true" />
                     </button>
                   }
 
@@ -344,7 +346,7 @@
   <div class="gen-loading" role="status" aria-label="Rezepte werden generiert">
     <app-navbar [showGetStarted]="false" [logoLight]="true"></app-navbar>
     <div class="gen-loading__content">
-      <img class="gen-loading__gif" src="/Code_Cuisine_Loading_Spinner.gif" alt="" aria-hidden="true" />
+      <img class="gen-loading__gif" src="Code_Cuisine_Loading_Spinner.gif" alt="" aria-hidden="true" />
       <p class="gen-loading__text">Generating ...</p>
     </div>
   </div>
@@ -365,7 +367,7 @@
         <div class="gen-results__header-text">
           <h1 class="gen-results__title">Generated recipes</h1>
           <div class="gen-results__header-img gen-results__header-img--mobile" aria-hidden="true">
-            <img src="/Results/Visual.svg" alt="" />
+            <img src="Results/Visual.svg" alt="" />
           </div>
           <p class="gen-results__subtitle">
             We took what you have and let our AI do the thinking.<br>
@@ -381,7 +383,7 @@
           </div>
         </div>
         <div class="gen-results__header-img gen-results__header-img--desktop" aria-hidden="true">
-          <img src="/Results/Visual.svg" alt="" />
+          <img src="Results/Visual.svg" alt="" />
         </div>
       </div>
 
@@ -393,7 +395,7 @@
               <header class="gen-results__card-header">
                 <img
                   class="gen-results__card-img"
-                  src="/Results/Dish_icon.svg"
+                  src="Results/Dish_icon.svg"
                   alt=""
                   aria-hidden="true"
                 />

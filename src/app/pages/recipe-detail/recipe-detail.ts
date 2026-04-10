@@ -57,28 +57,17 @@ export class RecipeDetail implements OnInit {
     }
   }
 
-  /**
-   * Gibt an ob das Rezept Schritte für Chef 2 enthält.
-   * Wird verwendet um den zweiten Chef-Avatar anzuzeigen.
-   */
   get hasChef2(): boolean {
     return (this.recipe()?.steps ?? []).some((s: RecipeStep) => s.chef === 2);
   }
 
-  /**
-   * Ermittelt die Anzahl der benötigten Köche aus den Schritten.
-   * Entspricht dem höchsten Chef-Wert in den Steps.
-   */
+  /** Höchster Chef-Wert aus den Steps — bestimmt wie viele Avatare angezeigt werden */
   get chefCount(): number {
     const steps: RecipeStep[] = this.recipe()?.steps ?? [];
     return steps.length > 0 ? Math.max(...steps.map(s => s.chef)) : 1;
   }
 
-  /**
-   * Sendet einen Like für das aktuelle Rezept.
-   * Verhindert mehrfaches Liken (optimistic update mit Rollback bei Fehler).
-   * @param id - UUID des Rezepts
-   */
+  /** Optimistic update — rollt bei Fehler zurück */
   async likeRecipe(id: string): Promise<void> {
     if (this.liked()) return;
     this.liked.set(true);

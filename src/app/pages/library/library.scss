@@ -78,7 +78,7 @@
   justify-content: center;
   font-family: $font-primary;
   font-weight: 500;
-  font-size: $font-size-body;   // 18px
+  font-size: $font-size-body;
   color: $color-middle-green;
 }
 
@@ -254,7 +254,6 @@
 // ══════════════════════════════════════════════════════════════
 @media (max-width: 480px) {
 
-  // ── Page ────────────────────────────────────────────────
   .library {
     gap: 40px;
     padding-top: 24px;
@@ -262,7 +261,6 @@
     align-items: center;
   }
 
-  // ── Hero: 340×94px ──────────────────────────────────────
   .library__hero {
     width: 340px;
     height: 94px;
@@ -277,7 +275,6 @@
     object-fit: cover;
   }
 
-  // ── Recipe list ─────────────────────────────────────────
   .library__list {
     width: min(340px, calc(100% - 32px));
     gap: 32px;
