@@ -52,7 +52,7 @@
               @for (tag of r.tags; track tag) {
                 <span class="recipe__tag">{{ tag }}</span>
               }
-              <button class="recipe__tag recipe__tag--liked" (click)="likeRecipe(r.id)" [disabled]="liked()" [class.recipe__tag--liked-done]="liked()" aria-label="Like recipe">
+              <button class="recipe__tag recipe__tag--liked" (click)="likeRecipe(r.id)" [class.recipe__tag--liked-done]="liked()" aria-label="Like recipe">
                 <span class="material-icons" aria-hidden="true">favorite_border</span>
                 {{ r.likes }}
               </button>
@@ -146,7 +146,7 @@
             <span class="recipe__like-cta-title">Just finished this meal?</span>
             <span class="recipe__like-cta-desc">Give it a heart, so that the others know this is delicious.</span>
           </div>
-          <button class="recipe__like-btn" (click)="likeRecipe(r.id)" [disabled]="liked()" aria-label="Like recipe">
+          <button class="recipe__like-btn" (click)="likeRecipe(r.id)" aria-label="Like recipe">
             @if (liked()) {
               <img src="recipe view/Property 1=clicked.svg" width="40" height="35" alt="" aria-hidden="true" />
             } @else {

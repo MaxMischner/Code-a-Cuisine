@@ -1,9 +1,5 @@
-@use 'styles/variables' as *;
+﻿@use 'styles/variables' as *;
 @use 'styles/mixins' as *;
-
-// ============================================================
-// Code-a-Cuisine — Global Styles
-// ============================================================
 
 *,
 *::before,
@@ -25,8 +21,6 @@ body {
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
 }
-
-// --- Typografie-Basisklassen ---
 h1 { font-family: $font-primary; font-size: $font-size-h1; font-weight: 700; }
 h2 { font-family: $font-primary; font-size: $font-size-h2; font-weight: 600; }
 h3 { font-family: $font-primary; font-size: $font-size-h3; font-weight: 700; }
@@ -34,11 +28,7 @@ h4 { font-family: $font-primary; font-size: $font-size-h5; font-weight: 600; }
 h5 { font-family: $font-primary; font-size: $font-size-h6; font-weight: 500; }
 
 p  { font-family: $font-primary; font-size: $font-size-body; font-weight: 500; line-height: 1.5; }
-
-// Kein Text kleiner als 14px (Anforderung)
 small { font-size: $font-size-small; }
-
-// --- Utility ---
 button {
   cursor: pointer;
   border: none;
@@ -59,3 +49,4 @@ img {
 ul {
   list-style: none;
 }
+

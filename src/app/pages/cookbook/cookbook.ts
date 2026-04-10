@@ -3,7 +3,7 @@ import { RouterLink, Router } from '@angular/router';
 import { Navbar } from '../../shared/components/navbar/navbar';
 import { SupabaseService, DbRecipe } from '../../core/services/supabase.service';
 
-/** Kachel-Daten für eine Küchen-Kategorie in der Übersicht */
+/** Tile data for a cuisine category in the overview */
 interface CuisineCategory {
   name: string;
   emoji: string;
@@ -13,11 +13,11 @@ interface CuisineCategory {
 }
 
 /**
- * Cookbook-Seite — Einstieg in die Rezeptbibliothek.
+ * Cookbook page — entry point into the recipe library.
  *
- * Zeigt alle 6 Küchen-Kategorien als anklickbare Kacheln sowie
- * die am häufigsten gemochten Rezepte in einem horizontal
- * scrollbaren Karussell mit Drag-to-scroll und Momentum-Physik.
+ * Displays all 6 cuisine categories as clickable tiles as well as
+ * the most liked recipes in a horizontally
+ * scrollable carousel with drag-to-scroll and momentum physics.
  */
 @Component({
   selector: 'app-cookbook',
@@ -52,7 +52,7 @@ export class Cookbook implements OnInit {
 
   constructor(private supabase: SupabaseService, private router: Router) {}
 
-  /** Lädt die 5 am häufigsten gemochten Rezepte für das Karussell */
+  /** Loads the 5 most liked recipes for the carousel */
   async ngOnInit(): Promise<void> {
     try {
       const recipes = await this.supabase.getMostLiked(5);
@@ -62,6 +62,7 @@ export class Cookbook implements OnInit {
     }
   }
 
+  /** Starts a new drag gesture and stops any running momentum animation */
   onScrollMouseDown(event: MouseEvent, el: HTMLElement): void {
     this.stopMomentum();
     this.isDragging = true;
@@ -72,7 +73,7 @@ export class Cookbook implements OnInit {
     this.velocitySamples = [];
   }
 
-  /** Trackt Geschwindigkeit für spätere Momentum-Animation */
+  /** Tracks velocity for the subsequent momentum animation */
   onScrollMouseMove(event: MouseEvent, el: HTMLElement): void {
     if (!this.isDragging) return;
     event.preventDefault();
@@ -123,9 +124,9 @@ export class Cookbook implements OnInit {
   }
 
   /**
-   * Berechnet die Anfangsgeschwindigkeit aus den letzten Velocity-Samples
-   * und animiert den Scroll mit exponentieller Abbremsung (Reibung 0.92).
-   * @param el - Das scrollbare Container-Element
+   * Calculates the initial velocity from the last velocity samples
+   * and animates the scroll with exponential deceleration (friction 0.92).
+   * @param el - The scrollable container element
    */
   private launchMomentum(el: HTMLElement): void {
     if (this.velocitySamples.length < 2) return;
@@ -152,7 +153,7 @@ export class Cookbook implements OnInit {
     this.momentumRaf = requestAnimationFrame(step);
   }
 
-  /** Stoppt eine laufende Momentum-Animation */
+  /** Stops a running momentum animation */
   private stopMomentum(): void {
     if (this.momentumRaf) {
       cancelAnimationFrame(this.momentumRaf);
@@ -160,21 +161,29 @@ export class Cookbook implements OnInit {
     }
   }
 
+  /** Updates the scroll indicator flags for the arrow buttons */
   onScroll(el: HTMLElement): void {
     this.canScrollLeft  = el.scrollLeft > 0;
     this.canScrollRight = el.scrollLeft + el.clientWidth < el.scrollWidth - 1;
   }
 
-  scrollBy(el: HTMLElement, amount: number): void {
+  /**
+   * Scrolls the carousel by exactly one card width (including gap).
+   * @param direction - Positive = forward, negative = backward
+   */
+  scrollBy(el: HTMLElement, direction: number): void {
     this.stopMomentum();
-    el.scrollBy({ left: amount, behavior: 'smooth' });
+    const card = el.firstElementChild as HTMLElement | null;
+    const cardWidth = card ? card.getBoundingClientRect().width + 12 : 370;
+    el.scrollBy({ left: Math.sign(direction) * cardWidth, behavior: 'smooth' });
   }
 
+  /** Generates the inline style string with CSS custom properties for background images */
   cuisineStyle(c: CuisineCategory): string {
     return `--img: url("${c.image}"); --img-mob: url("${c.mobileImage}")`;
   }
 
-  /** Ignoriert Klicks die Teil einer Drag-Geste waren */
+  /** Ignores clicks that were part of a drag gesture */
   onCardClick(event: MouseEvent, recipeId: string): void {
     if (this.dragMoved) {
       event.preventDefault();

@@ -5,24 +5,26 @@ Smart web application that generates AI-powered recipes from your available ingr
 ## Features
 
 - **Ingredient input** with autocomplete from a curated ingredient list
-- **Preference selection** — cuisine style, diet, time budget, portions, number of cooks
+- **Custom unit dropdown** — g, ml, piece, tbsp, tsp
+- **Preference selection** — cuisine style, diet, time budget, portions (1–12), number of cooks (1–4)
 - **3 AI-generated recipes** per request via Google Gemini
-- **Step-by-step instructions** optimised for 1–4 cooks with task assignment
+- **Step-by-step instructions** optimised for 1–4 cooks with task assignment per chef
 - **Nutritional information** (calories, protein, fat, carbs) per recipe
 - **IP-based quota system** — 3 recipes per IP per day, 12 system-wide per day
-- **Public recipe library** — all generated recipes browsable by cuisine
-- **Fully responsive** — desktop, tablet, and mobile
+- **Public recipe library** — all generated recipes browsable by cuisine with pagination
+- **Like / Unlike** — IP-based deduplication, atomic DB operations, optimistic UI updates
+- **Fully responsive** — desktop, tablet, and mobile (down to 320px)
 
 ## Tech Stack
 
 | Layer | Technology |
 |---|---|
-| Frontend | Angular 21 (Signals) |
-| Automation & AI | n8n + Google Gemini (via LangChain node) |
+| Frontend | Angular 21 (Signals, lazy-loaded routes) |
+| Automation & AI | n8n + Google Gemini |
 | Database | Supabase (PostgreSQL) |
 | Styling | SCSS with fluid typography (`clamp()`) |
-
-> **Note on database:** Requirements originally specified Firebase. Supabase was chosen instead due to better developer familiarity and an equivalent feature set. There are no functional differences for this use case.
+| Icons | Material Icons |
+| Fonts | Quicksand · Mulish · Ubuntu (Google Fonts) |
 
 ## Architecture
 
@@ -75,14 +77,13 @@ Create `src/environments/environment.prod.ts` with `production: true` and your p
 
 ### 3. Supabase setup
 
-Create the following tables in your Supabase project:
-
 **`recipes`** table:
 ```sql
 create table recipes (
   id uuid primary key default gen_random_uuid(),
   title text not null,
   time text,
+  portions integer,
   cuisine text,
   diet text,
   tags text[],
@@ -105,23 +106,31 @@ create table quota (
 );
 ```
 
-**`increment_quota` RPC function:**
+**`likes`** table (IP-based deduplication):
 ```sql
-create or replace function increment_quota(user_ip text, quota_date date)
-returns void as $$
-begin
-  insert into quota (ip, count, date) values (user_ip, 1, quota_date)
-  on conflict (ip, date) do update set count = quota.count + 1;
-end;
-$$ language plpgsql;
+create table likes (
+  id uuid primary key default gen_random_uuid(),
+  recipe_id uuid references recipes(id) on delete cascade,
+  ip text not null,
+  constraint likes_recipe_ip_unique unique (recipe_id, ip)
+);
 ```
 
-**`increment_likes` RPC function:**
+**RPC functions:**
 ```sql
+-- Increment like counter
 create or replace function increment_likes(recipe_id uuid)
 returns void as $$
 begin
   update recipes set likes = likes + 1 where id = recipe_id;
+end;
+$$ language plpgsql;
+
+-- Decrement like counter (min 0)
+create or replace function decrement_likes(recipe_id uuid)
+returns void as $$
+begin
+  update recipes set likes = greatest(likes - 1, 0) where id = recipe_id;
 end;
 $$ language plpgsql;
 ```
@@ -131,9 +140,9 @@ $$ language plpgsql;
 1. Open your n8n instance
 2. Import `n8n/workflows/Code-A-Cuisine.json`
 3. Configure credentials:
-   - **Google Gemini (PaLM) API** — add your Google AI API key
+   - **Google Gemini API** — add your Google AI API key
    - **Supabase** — add your Supabase project URL and service role key
-4. Activate the workflow (toggle top-right → Active)
+4. Activate the workflow
 5. Copy the production webhook URL into `environment.prod.ts`
 
 ### 5. Run locally
@@ -150,7 +159,7 @@ Open [http://localhost:4200](http://localhost:4200)
 ng build
 ```
 
-Output in `dist/` — deploy to any static host (Netlify, Vercel, Firebase Hosting, etc.).
+Output in `dist/` — deploy via FTP or any static host.
 
 ## Project Structure
 
@@ -158,20 +167,22 @@ Output in `dist/` — deploy to any static host (Netlify, Vercel, Firebase Hosti
 src/
 ├── app/
 │   ├── core/services/
-│   │   ├── recipe-generator.service.ts   # n8n webhook communication
-│   │   └── supabase.service.ts           # database operations
+│   │   ├── recipe-generator.service.ts   # n8n webhook communication + result cache
+│   │   └── supabase.service.ts           # recipes, quota, likes
 │   ├── pages/
 │   │   ├── landing/                      # hero / entry point
-│   │   ├── generator/                    # ingredient input + AI generation
-│   │   ├── cookbook/                     # cuisine hub + most liked
+│   │   ├── generator/                    # ingredient input + AI generation (multi-step)
+│   │   ├── cookbook/                     # cuisine hub + most-liked carousel
 │   │   ├── library/                      # paginated recipe list by cuisine
-│   │   ├── recipe-detail/                # full recipe view
+│   │   ├── recipe-detail/                # full recipe view + like toggle
 │   │   └── impressum/                    # legal notice
 │   └── shared/components/
 │       ├── navbar/
-│       └── footer/
+│       ├── footer/
+│       ├── tag-chip/
+│       └── loading-spinner/
 ├── styles/
-│   ├── _variables.scss                   # design tokens
+│   ├── _variables.scss                   # design tokens (colours, fonts, spacing)
 │   └── _mixins.scss
 └── environments/                         # gitignored — create manually
 n8n/
@@ -187,11 +198,33 @@ n8n/
 | System-wide per day | 12 generations |
 
 Quota is enforced at two layers:
-- **Frontend** — `SupabaseService.checkQuota()` before sending request
-- **n8n** — `Get Quota from Supabase` node at workflow entry, before any AI calls
+- **Frontend** — `SupabaseService.checkQuota()` before sending the request
+- **n8n** — quota node at workflow entry, before any AI calls
+
+## Like System
+
+Every recipe can be liked or unliked once per IP address:
+
+- `likes` table stores one row per `(recipe_id, ip)` combination (UNIQUE constraint)
+- `increment_likes` / `decrement_likes` RPC functions update the counter atomically
+- UI updates optimistically; corrected silently if the DB state diverges
+
+## Responsive Breakpoints
+
+| Breakpoint | Change |
+|---|---|
+| 1380px | Cookbook layout switches to fluid widths |
+| 1200px | Landing text area narrows |
+| 1050px | Landing visuals freeze position |
+| 900px | Cookbook stacks intro above carousel |
+| 768px | Library: mobile hero, recipe title wraps |
+| 750px | Landing visuals follow viewport |
+| 480px | Mobile layout for all pages |
+| 430px | Landing visuals freeze again |
+| 320px | Minimum supported width |
 
 ## Git Workflow
 
 - Commit after every coding session
-- Use descriptive commit messages (`feat:`, `fix:`, `style:`, `refactor:`)
+- Use conventional commit prefixes: `feat:`, `fix:`, `style:`, `refactor:`
 - `src/environments/` is gitignored — never commit API keys

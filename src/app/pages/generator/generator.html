@@ -92,16 +92,21 @@
                   </div>
 
                   <!-- Einheit-Dropdown -->
-                  <div class="gen-step1__unit-chip">
-                    <select
-                      class="gen-step1__unit-select"
-                      [(ngModel)]="unitInput"
-                      aria-label="Einheit"
-                    >
-                      @for (unit of units; track unit) {
-                        <option [value]="unit">{{ unit }}</option>
-                      }
-                    </select>
+                  <div class="gen-step1__unit-chip" (click)="toggleUnitDropdown()" (keydown.escape)="closeUnitDropdown()">
+                    <span class="gen-step1__unit-value">{{ unitInput }}</span>
+                    <span class="material-icons gen-step1__unit-arrow">expand_more</span>
+                    @if (unitDropdownOpen()) {
+                      <ul class="gen-step1__unit-dropdown" role="listbox" aria-label="Einheit wählen">
+                        @for (unit of units; track unit) {
+                          <li
+                            class="gen-step1__unit-option"
+                            [class.gen-step1__unit-option--active]="unit === unitInput"
+                            role="option"
+                            (click)="selectUnit(unit); $event.stopPropagation()"
+                          >{{ unit }}</li>
+                        }
+                      </ul>
+                    }
                   </div>
 
                   <!-- Add Button -->

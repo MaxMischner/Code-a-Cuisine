@@ -18,6 +18,7 @@ export type Cuisine = 'German' | 'Italian' | 'Indian' | 'Japanese' | 'Gourmet' |
 
 export type Diet = 'Vegetarian' | 'Vegan' | 'Keto' | 'No preferences';
 
+/** Steps of the multi-step generator flow */
 export type GeneratorStep = 'step1' | 'step2' | 'loading' | 'results';
 
 @Component({
@@ -48,6 +49,7 @@ export class Generator implements OnInit {
 
   readonly autocompleteVisible = signal(false);
   readonly autocompleteResults = signal<string[]>([]);
+  readonly unitDropdownOpen = signal(false);
 
   readonly editingIndex = signal<number | null>(null);
   editAmount = 100;
@@ -111,8 +113,10 @@ export class Generator implements OnInit {
   readonly errorMsg       = signal<string | null>(null);
   readonly showQuotaModal = signal(false);
 
+  /** Step 1 is complete as soon as at least one ingredient has been added */
   readonly canProceedToStep2 = computed(() => this.ingredients().length > 0);
 
+  /** Step 2 is complete when all three required fields (time, cuisine, diet) are set */
   readonly canGenerate = computed(() =>
     this.selectedTime() !== null &&
     this.selectedCuisine() !== null &&
@@ -131,6 +135,7 @@ export class Generator implements OnInit {
 
   readonly diets: Diet[] = ['Vegetarian', 'Vegan', 'Keto', 'No preferences'];
 
+  /** Filters the autocomplete list based on the input value (from 2 characters, prefix match) */
   onIngredientInput(value: string): void {
     this.ingredientInput = value;
     if (value.length < 2) {
@@ -147,6 +152,19 @@ export class Generator implements OnInit {
   selectSuggestion(name: string): void {
     this.ingredientInput = name;
     this.autocompleteVisible.set(false);
+  }
+
+  toggleUnitDropdown(): void {
+    this.unitDropdownOpen.update(v => !v);
+  }
+
+  closeUnitDropdown(): void {
+    this.unitDropdownOpen.set(false);
+  }
+
+  selectUnit(unit: Unit): void {
+    this.unitInput = unit;
+    this.unitDropdownOpen.set(false);
   }
 
   // Special characters are sanitized and the name is capped at 50 chars before adding.
@@ -189,6 +207,7 @@ export class Generator implements OnInit {
     this.editingIndex.set(null);
   }
 
+  /** Maps internal unit keys to display strings (e.g. 'gram' → 'g') */
   formatUnit(unit: Unit): string {
     const map: Record<Unit, string> = {
       gram: 'g', ml: 'ml', piece: 'x', tbsp: 'tbsp', tsp: 'tsp'
@@ -205,6 +224,11 @@ export class Generator implements OnInit {
   goToStep2(): void { if (this.canProceedToStep2()) this.step.set('step2'); }
   goToStep1(): void { this.step.set('step1'); }
 
+  /**
+   * Sends all form values to the RecipeGeneratorService.
+   * On `quota_exceeded` a modal is shown instead of an inline error message;
+   * all other errors are stored as text in the `errorMsg` signal on step 2.
+   */
   async generate(): Promise<void> {
     if (!this.canGenerate()) return;
 
@@ -234,6 +258,7 @@ export class Generator implements OnInit {
     }
   }
 
+  /** Closes the quota modal and navigates to the cookbook as an alternative */
   goToCookbook(): void {
     this.showQuotaModal.set(false);
     this.generatorService.lastResults = [];

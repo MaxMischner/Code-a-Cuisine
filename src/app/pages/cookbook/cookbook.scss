@@ -1,12 +1,8 @@
-@use '../../../styles/variables' as *;
-
-// ── Host ──────────────────────────────────────────────────────
+﻿@use '../../../styles/variables' as *;
 :host {
   display: block;
   background: $color-white;
 }
-
-// ── Page wrapper ──────────────────────────────────────────────
 .cookbook {
   display: flex;
   flex-direction: column;
@@ -17,8 +13,6 @@
   width: 100%;
   margin: 0 auto;
 }
-
-// ── Content wrapper ───────────────────────────────────────────
 .cookbook__content-wrapper {
   display: flex;
   flex-direction: column;
@@ -34,8 +28,6 @@
   gap: 80px;
   width: 1330px;
 }
-
-// ── Upper part ────────────────────────────────────────────────
 .cookbook__upper {
   display: flex;
   flex-direction: row;
@@ -48,8 +40,6 @@
   border-radius: 20px;
   box-sizing: border-box;
 }
-
-// ── Intro (left) ──────────────────────────────────────────────
 .cookbook__intro {
   display: flex;
   flex-direction: column;
@@ -77,8 +67,6 @@
   margin: 0;
   width: min(454px, 100%);
 }
-
-// ── Most liked (right) ────────────────────────────────────────
 .cookbook__most-liked {
   display: flex;
   flex-direction: column;
@@ -109,8 +97,6 @@
   font-size: 20px;
   color: $color-heart;
 }
-
-// ── Scroll wrapper (arrow buttons + fade masks) ───────────────
 .cookbook__scroll-wrapper {
   position: relative;
   width: 823px;
@@ -118,7 +104,7 @@
 
 .cookbook__scroll-btn {
   position: absolute;
-  top: 50%;
+  top: calc(50% + 8px);
   transform: translateY(-50%);
   z-index: 2;
   width: 36px;
@@ -187,8 +173,6 @@
   color: $color-green-dark;
   margin: 0;
 }
-
-// ── Liked card ────────────────────────────────────────────────
 .cookbook__liked-card {
   display: flex;
   flex-direction: row;
@@ -267,8 +251,6 @@
 
   .material-icons { font-size: 20px; }
 }
-
-// ── Cuisine categories ────────────────────────────────────────
 .cookbook__categories {
   width: 1330px;
 }
@@ -320,8 +302,6 @@
 }
 
 .cookbook__cuisine-img--mobile { display: none; }
-
-// ── Footer row ────────────────────────────────────────────────
 .cookbook__footer-row {
   display: flex;
   flex-direction: row;
@@ -339,8 +319,6 @@
 
   &:hover { text-decoration: underline; }
 }
-
-// ── Footer button ─────────────────────────────────────────────
 .cookbook__footer-btn {
   display: flex;
   flex-direction: row;
@@ -366,10 +344,6 @@
   transform: scaleX(-1);
   filter: invert(35%) sepia(30%) saturate(500%) hue-rotate(80deg) brightness(60%);
 }
-
-// ══════════════════════════════════════════════════════════════
-// FLUID  (≤ 1380px) — Content breiter als Viewport verhindern
-// ══════════════════════════════════════════════════════════════
 @media (max-width: 1380px) {
 
   .cookbook__content-wrapper,
@@ -412,10 +386,6 @@
     height: 300px;
   }
 }
-
-// ══════════════════════════════════════════════════════════════
-// TABLET  (≤ 900px)
-// ══════════════════════════════════════════════════════════════
 @media (max-width: 900px) {
 
   .cookbook__upper {
@@ -459,10 +429,6 @@
     height: 260px;
   }
 }
-
-// ══════════════════════════════════════════════════════════════
-// MOBILE  (≤ 480px) — Figma Mobile Specs
-// ══════════════════════════════════════════════════════════════
 @media (max-width: 480px) {
 
   .cookbook {
@@ -479,19 +445,17 @@
   }
 
   .cookbook__content {
-    width: min(340px, calc(100% - 32px));
+    width: calc(100% - 32px);
     gap: 40px;
     align-items: center;
   }
-
-  // ── Upper / "First information" card ────────────────────
   .cookbook__upper {
     flex-direction: column;
     align-items: flex-start;
-    width: min(340px, calc(100% - 32px));
+    width: 100%;
     height: auto;
-    padding: 16px 24px;
-    gap: 24px;
+    padding: 24px 16px;
+    gap: 32px;
   }
 
   .cookbook__intro {
@@ -524,45 +488,33 @@
 
   .cookbook__scroll-wrapper {
     width: 100%;
-  }
-
-  .cookbook__scroll-row {
-    width: 100%;
-    gap: 12px;
+    overflow: hidden;
   }
 
   .cookbook__liked-card {
-    width: 285px;
-    min-width: 285px;
-    height: 106px;
-    padding: 16px 12px;
-    gap: 16px;
+    display: block;
+    min-width: 250px;
+    padding: 12px;
+    gap: 12px;
   }
 
   .cookbook__liked-info {
-    width: 195px;
-    gap: 8px;
-  }
-
-  .cookbook__liked-clock {
-    font-size: 16px;
+    gap: 6px;
   }
 
   .cookbook__liked-title {
-    font-size: 18px;
-    line-height: 22px;
-    width: 195px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .cookbook__liked-time {
+    font-size: 12px;
   }
 
   .cookbook__liked-count {
-    padding: 2px 6px;
-    height: 24px;
-    width: 50px;
-
-    .material-icons { font-size: 20px; }
+    font-size: 12px;
+    .material-icons { font-size: 14px; }
   }
-
-  // ── Cuisine categories ──────────────────────────────────
   .cookbook__categories {
     width: 100%;
   }
@@ -597,3 +549,4 @@
     line-height: 22px;
   }
 }
+

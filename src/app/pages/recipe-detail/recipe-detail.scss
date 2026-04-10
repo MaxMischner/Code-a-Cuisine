@@ -1,11 +1,9 @@
-@use '../../../styles/variables' as *;
+﻿@use '../../../styles/variables' as *;
 
 :host {
   display: block;
   background: #ffffff;
 }
-
-// ── Page wrapper ──────────────────────────────────────────────
 .recipe__page {
   display: flex;
   flex-direction: column;
@@ -24,8 +22,6 @@
   gap: 56px;
   width: 1248px;
 }
-
-// ── Recipe card ───────────────────────────────────────────────
 .recipe__card {
   box-sizing: border-box;
   display: flex;
@@ -38,8 +34,6 @@
   border: 4px solid #FAF0E6;
   border-radius: 20px;
 }
-
-// ── Header card ───────────────────────────────────────────────
 .recipe__header {
   display: flex;
   flex-direction: row;
@@ -210,8 +204,6 @@
   text-align: center;
   color: $color-green-dark;
 }
-
-// ── Ingredients + Directions body ─────────────────────────────
 .recipe__body {
   display: flex;
   flex-direction: column;
@@ -365,8 +357,6 @@
   margin: 0;
   width: 100%;
 }
-
-// ── Like CTA ──────────────────────────────────────────────────
 .recipe__like-cta {
   display: flex;
   flex-direction: row;
@@ -421,8 +411,6 @@
     cursor: not-allowed;
   }
 }
-
-// ── Cookbook CTA ──────────────────────────────────────────────
 .recipe__cookbook-cta {
   display: flex;
   flex-direction: row;
@@ -464,8 +452,6 @@
   color: #FAF0E6;
   text-decoration: none;
 }
-
-// ── Footer ────────────────────────────────────────────────────
 .recipe__footer {
   display: flex;
   flex-direction: row;
@@ -511,10 +497,6 @@
   text-decoration: none;
   cursor: pointer;
 }
-
-// ══════════════════════════════════════════════════════════════
-// FLUID  (≤ 1300px)
-// ══════════════════════════════════════════════════════════════
 @media (max-width: 1300px) {
 
   .recipe__content {
@@ -559,10 +541,6 @@
     width: 100%;
   }
 }
-
-// ══════════════════════════════════════════════════════════════
-// TABLET  (≤ 768px)
-// ══════════════════════════════════════════════════════════════
 @media (max-width: 768px) {
 
   .recipe__card {
@@ -593,10 +571,6 @@
     padding-left: 0;
   }
 }
-
-// ══════════════════════════════════════════════════════════════
-// MOBILE  (≤ 480px) — Figma Mobile Specs
-// ══════════════════════════════════════════════════════════════
 @media (max-width: 480px) {
 
   .recipe__page {
@@ -830,8 +804,6 @@
     box-sizing: border-box;
   }
 }
-
-// ── Loading / Error ───────────────────────────────────────────
 .recipe__loading,
 .recipe__error {
   display: flex;
@@ -842,3 +814,4 @@
   font-size: 20px;
   color: $color-green-dark;
 }
+

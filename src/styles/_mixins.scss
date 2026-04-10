@@ -1,24 +1,15 @@
-// ============================================================
-// Code-a-Cuisine — SCSS Mixins
-// ============================================================
-@use 'variables' as *;
+﻿@use 'variables' as *;
 @use 'sass:color';
-
-/// Flex Row zentriert
 @mixin flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-/// Flex Row space-between
 @mixin flex-between {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-
-/// Pill-förmiger Tag/Chip
 @mixin tag-chip($bg: $color-tag-bg) {
   display: inline-flex;
   align-items: center;
@@ -30,8 +21,6 @@
   font-weight: 500;
   color: $color-green-dark;
 }
-
-/// Primary Button
 @mixin btn-primary {
   display: flex;
   align-items: center;
@@ -51,8 +40,6 @@
     background: color.scale($color-olive-green, $lightness: -8%);
   }
 }
-
-/// Secondary Button
 @mixin btn-secondary {
   display: flex;
   align-items: center;
@@ -67,8 +54,6 @@
   cursor: pointer;
   text-decoration: none;
 }
-
-/// Nummernkreis (Zubereitungsschritte / Listeneinträge)
 @mixin number-circle {
   display: flex;
   align-items: center;
@@ -83,14 +68,10 @@
   color: $color-middle-green;
   flex-shrink: 0;
 }
-
-/// Container mit grünem Hintergrund (Formulare)
 @mixin green-container($opacity: 0.2) {
   background: rgba(57, 96, 57, $opacity);
   border-radius: $radius-large;
 }
-
-/// Text-Link mit Pfeil ("Generate new recipe →")
 @mixin arrow-link($color: $color-middle-green) {
   display: inline-flex;
   align-items: center;
@@ -103,6 +84,7 @@
   cursor: pointer;
 
   &::after {
-    content: '→';
+    content: 'â†’';
   }
 }
+

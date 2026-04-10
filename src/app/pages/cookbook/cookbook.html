@@ -37,7 +37,7 @@
               @if (canScrollLeft) {
                 <button class="cookbook__scroll-btn cookbook__scroll-btn--left"
                   type="button" aria-label="Scroll left"
-                  (click)="scrollBy(scrollRow, -394)">
+                  (click)="scrollBy(scrollRow, -1)">
                   <span class="material-icons">chevron_left</span>
                 </button>
                 <div class="cookbook__scroll-fade cookbook__scroll-fade--left"></div>
@@ -84,7 +84,7 @@
                 <div class="cookbook__scroll-fade cookbook__scroll-fade--right"></div>
                 <button class="cookbook__scroll-btn cookbook__scroll-btn--right"
                   type="button" aria-label="Scroll right"
-                  (click)="scrollBy(scrollRow, 394)">
+                  (click)="scrollBy(scrollRow, 1)">
                   <span class="material-icons">chevron_right</span>
                 </button>
               }

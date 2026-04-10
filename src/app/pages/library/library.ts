@@ -1,7 +1,8 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, Router, NavigationEnd } from '@angular/router';
 import { Navbar } from '../../shared/components/navbar/navbar';
 import { SupabaseService, DbRecipe } from '../../core/services/supabase.service';
+import { filter } from 'rxjs/operators';
 
 const CUISINE_IMAGES: Record<string, string> = {
   italian:  'cookbook_recipes/Property 1=Italian.svg',
@@ -24,10 +25,10 @@ const CUISINE_MOBILE_IMAGES: Record<string, string> = {
 const PER_PAGE = 10;
 
 /**
- * Bibliotheks-Seite — zeigt alle Rezepte einer Küche paginiert an.
+ * Library page — displays all recipes of a cuisine with pagination.
  *
- * Die Küche wird aus dem Route-Parameter `:cuisine` gelesen.
- * Rezepte werden nach Likes absteigend sortiert.
+ * The cuisine is read from the route parameter `:cuisine`.
+ * Recipes are sorted by likes descending.
  */
 @Component({
   selector: 'app-library',
@@ -46,38 +47,49 @@ export class Library implements OnInit {
   loading = signal(true);
   page    = signal(1);
 
-  /** Gesamtanzahl der Seiten basierend auf den geladenen Rezepten */
+  /** Total number of pages based on the loaded recipes */
   readonly totalPages = computed(() =>
     Math.ceil(this.recipes().length / PER_PAGE)
   );
 
-  /** Rezepte der aktuellen Seite (Slice aus dem vollständigen Array) */
+  /** Recipes for the current page (slice of the full array) */
   readonly pagedRecipes = computed(() => {
     const start = (this.page() - 1) * PER_PAGE;
     return this.recipes().slice(start, start + PER_PAGE);
   });
 
-  /** Array mit Seitenzahlen [1, 2, …, n] für die Paginierungs-UI */
+  /** Array of page numbers [1, 2, …, n] for the pagination UI */
   readonly pageNumbers = computed(() =>
     Array.from({ length: this.totalPages() }, (_, i) => i + 1)
   );
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private supabase: SupabaseService,
   ) {}
 
-  /**
-   * Liest den Küchen-Slug aus der Route und lädt die passenden Rezepte.
-   * Setzt Bild-Pfade für Desktop und Mobile anhand des Slugs.
-   */
   async ngOnInit(): Promise<void> {
+    await this.loadRecipes();
+
+    // Reload data when navigating back to the library
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd)
+    ).subscribe(() => this.loadRecipes());
+  }
+
+  /**
+   * Reads the `:cuisine` parameter from the route, sets all display signals
+   * (label, image URLs) and loads the filtered recipes from Supabase.
+   */
+  private async loadRecipes(): Promise<void> {
     const slug = this.route.snapshot.paramMap.get('cuisine') ?? 'italian';
     this.cuisineSlug.set(slug);
     this.cuisineLabel.set(slug.charAt(0).toUpperCase() + slug.slice(1));
-    this.cuisineImage.set(CUISINE_IMAGES[slug] ?? '/cookbook_recipes/Property 1=Italian.svg');
-    this.cuisineMobileImage.set(CUISINE_MOBILE_IMAGES[slug] ?? '/cookbook_recipes/Mobil/Property 1=Italian.svg');
+    this.cuisineImage.set(CUISINE_IMAGES[slug] ?? 'cookbook_recipes/Property 1=Italian.svg');
+    this.cuisineMobileImage.set(CUISINE_MOBILE_IMAGES[slug] ?? 'cookbook_recipes/Mobil/Property 1=Italian.svg');
 
+    this.loading.set(true);
     try {
       const recipes = await this.supabase.getRecipesByCuisine(slug);
       this.recipes.set(recipes);

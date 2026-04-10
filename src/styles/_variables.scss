@@ -1,10 +1,4 @@
-// ============================================================
-// Code-a-Cuisine — Design Tokens
-// Alle Werte direkt aus Figma-Export
-// ============================================================
-
-// --- FARBEN ---
-$color-olive-green:   #396039;
+﻿$color-olive-green:   #396039;
 $color-middle-green:  #1E5515;
 $color-green-dark:    #10310B;
 $color-creamy:        #FAF0E6;
@@ -21,8 +15,6 @@ $color-tag-bg-strong: rgba(57, 96, 57, 0.3);
 $color-tag-border:    rgba(57, 96, 57, 0.5);
 $color-liked-card:    rgba(219, 224, 219, 0.7);
 $color-btn-secondary-bg: rgba(250, 240, 230, 0.6);
-
-// CSS Custom Properties (für Templates)
 :root {
   --color-olive-green:      #{$color-olive-green};
   --color-middle-green:     #{$color-middle-green};
@@ -37,13 +29,11 @@ $color-btn-secondary-bg: rgba(250, 240, 230, 0.6);
   --color-tag-bg:           #{$color-tag-bg};
   --color-tag-bg-strong:    #{$color-tag-bg-strong};
 }
-
-// --- TYPOGRAFIE ---
 $font-primary:   'Quicksand', sans-serif;
 $font-secondary: 'Mulish', sans-serif;
 $font-display:   'Ubuntu', sans-serif;   // Landing Page Headlines
 
-$font-size-landing-h1: 104px;   // Ubuntu, Landing Page "Code à Cuisine"
+$font-size-landing-h1: 104px;   // Ubuntu, Landing Page "Code Ã  Cuisine"
 $font-size-h1:   64px;
 $font-size-h2:   54px;
 $font-size-h3:   40px;
@@ -52,43 +42,30 @@ $font-size-h5:   24px;
 $font-size-h6:   20px;
 $font-size-body: 18px;
 $font-size-label: 16px;
-$font-size-small: 14px;   // Minimum! Nur für Captions & Back-Button
-
-// --- SPACING ---
+$font-size-small: 14px;   // Minimum! Nur fÃ¼r Captions & Back-Button
 $gap-xs:  8px;
 $gap-sm:  10px;
 $gap-md:  32px;
 $gap-lg:  64px;
 $gap-xl:  96px;
-
-// --- BORDER RADIUS ---
 $radius-btn:   5px;
 $radius-label: 6px;
 $radius-card:  16px;
 $radius-large: 20px;
 $radius-pill:  30px;
 $radius-circle: 50%;
-
-// --- LAYOUT ---
 $page-width:     1440px;
 $content-width:  900px;
 $padding-page:   68px;
 $navbar-height:  136px;
-
-// --- FLUID TOKENS (clamp) ---
-// Skalieren automatisch zwischen Mobile-Min und Desktop-Max.
-// Kein zusätzlicher Breakpoint nötig — Browser interpoliert kontinuierlich.
-
-// Fluid Typography  (min → max bei 1440px)
-$fs-h1-fluid:          clamp(36px, 4.44vw,  64px);   // 64px Desktop → 36px Mobile
-$fs-h2-fluid:          clamp(26px, 3.75vw,  54px);   // 54px → 26px
-$fs-h3-fluid:          clamp(22px, 2.78vw,  40px);   // 40px → 22px
-$fs-card-fluid:        clamp(20px, 1.94vw,  28px);   // 28px → 20px
-$fs-h5-fluid:          clamp(18px, 1.67vw,  24px);   // 24px → 18px
-$fs-landing-h1-fluid:  clamp(52px, 7.22vw, 104px);   // 104px Landing-Hero → 52px
-$fs-landing-sub-fluid: clamp(22px, 3.33vw,  48px);   // 48px Landing-Subtitle → 22px
-
-// Fluid Spacing
+$fs-h1-fluid:          clamp(36px, 4.44vw,  64px);   // 64px Desktop â†’ 36px Mobile
+$fs-h2-fluid:          clamp(26px, 3.75vw,  54px);   // 54px â†’ 26px
+$fs-h3-fluid:          clamp(22px, 2.78vw,  40px);   // 40px â†’ 22px
+$fs-card-fluid:        clamp(20px, 1.94vw,  28px);   // 28px â†’ 20px
+$fs-h5-fluid:          clamp(18px, 1.67vw,  24px);   // 24px â†’ 18px
+$fs-landing-h1-fluid:  clamp(52px, 7.22vw, 104px);   // 104px Landing-Hero â†’ 52px
+$fs-landing-sub-fluid: clamp(22px, 3.33vw,  48px);   // 48px Landing-Subtitle â†’ 22px
 $padding-page-fluid:   clamp(16px, 4.72vw,  68px);   // Seiten-Padding
 $gap-section-fluid:    clamp(32px, 4.44vw,  64px);   // Section-Gap
 $gap-content-fluid:    clamp(24px, 3.33vw,  48px);   // Content-Gap
+

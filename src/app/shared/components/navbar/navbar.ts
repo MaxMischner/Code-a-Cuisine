@@ -8,24 +8,24 @@ import { RouterLink } from '@angular/router';
   styleUrl: './navbar.scss',
 })
 export class Navbar {
-  /** Zeigt den Back-Button an */
+  /** Shows the back button */
   @Input() showBackButton = false;
 
-  /** Text des Back-Links */
+  /** Text of the back link */
   @Input() backLabel = 'Back';
 
-  /** Route für den Back-Link */
+  /** Route for the back link */
   @Input() backRoute = '/';
 
-  /** Zeigt den "Get started"-Button rechts an */
+  /** Shows the "Get started" button on the right */
   @Input() showGetStarted = true;
 
-  /** Logo in cremy (#FAF0E6) färben — für dunkle Hintergründe */
+  /** Color the logo in creamy (#FAF0E6) — for dark backgrounds */
   @Input() logoLight = false;
 
-  /** Optionales Icon vor dem Back-Label */
+  /** Optional icon before the back label */
   @Input() backIcon: string | null = null;
 
-  /** Optionaler Router-State für den Back-Link */
+  /** Optional router state for the back link */
   @Input() backState: Record<string, unknown> = {};
 }

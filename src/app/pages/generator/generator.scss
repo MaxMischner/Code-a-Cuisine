@@ -1,7 +1,5 @@
-@use '../../../styles/variables' as *;
+﻿@use '../../../styles/variables' as *;
 @use '../../../styles/mixins' as *;
-
-// ── Shared ──────────────────────────────────────────────────
 
 :host { display: block; }
 
@@ -31,10 +29,6 @@
     cursor: not-allowed;
   }
 }
-
-// ══════════════════════════════════════════════════════════════
-// STEP 1
-// ══════════════════════════════════════════════════════════════
 
 .gen-step1 {
   display: flex;
@@ -109,8 +103,6 @@
   display: block;
   margin-bottom: 4px;
 }
-
-// Position anchor for the autocomplete dropdown
 .gen-step1__input-wrap {
   position: relative;
   flex: 1;
@@ -202,32 +194,64 @@
   color: $color-green-dark;
   text-align: center;
   outline: none;
-
-  // Spinner ausblenden
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button { -webkit-appearance: none; }
   -moz-appearance: textfield;
 }
 
 .gen-step1__unit-chip {
+  position: relative;
   display: flex;
   align-items: center;
-  padding: 0 5px;
+  gap: 2px;
+  padding: 0 8px;
   height: 36px;
   background: $color-creamy;
   border-radius: 48px;
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
 }
 
-.gen-step1__unit-select {
-  border: none;
-  background: transparent;
+.gen-step1__unit-value {
   font-family: $font-primary;
   font-size: $font-size-label;
   font-weight: 500;
   color: $color-green-dark;
-  outline: none;
+}
+
+.gen-step1__unit-arrow {
+  font-size: 18px;
+  color: $color-green-dark;
+}
+
+.gen-step1__unit-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 100%;
+  background: $color-creamy;
+  border-radius: $radius-card;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 8px 0;
+  list-style: none;
+  z-index: 20;
+}
+
+.gen-step1__unit-option {
+  padding: 8px 16px;
+  font-family: $font-primary;
+  font-size: $font-size-label;
+  color: $color-green-dark;
   cursor: pointer;
-  padding: 0 4px;
+  white-space: nowrap;
+
+  &:hover { color: $color-olive-green; }
+
+  &--active {
+    font-weight: 600;
+    color: $color-olive-green;
+  }
 }
 
 .gen-step1__add-btn {
@@ -344,10 +368,6 @@
   width: 100%;
   max-width: 1087px;
 }
-
-// ══════════════════════════════════════════════════════════════
-// STEP 2
-// ══════════════════════════════════════════════════════════════
 
 .gen-step2 {
   display: flex;
@@ -541,10 +561,6 @@
   }
 }
 
-// ══════════════════════════════════════════════════════════════
-// LOADING
-// ══════════════════════════════════════════════════════════════
-
 .gen-loading {
   display: flex;
   flex-direction: column;
@@ -577,10 +593,6 @@
   color: $color-creamy;
   text-align: center;
 }
-
-// ══════════════════════════════════════════════════════════════
-// RESULTS
-// ══════════════════════════════════════════════════════════════
 
 .gen-results {
   display: flex;
@@ -815,10 +827,6 @@
 
   &:hover { opacity: 0.8; }
 }
-
-// ══════════════════════════════════════════════════════════════
-// MEDIUM  (≤ 1024px) — Step 1 auf column schalten bevor Boxen überlaufen
-// ══════════════════════════════════════════════════════════════
 @media (max-width: 1024px) {
 
   .gen-step1__content {
@@ -846,10 +854,6 @@
     max-width: 100%;
   }
 }
-
-// ══════════════════════════════════════════════════════════════
-// TABLET  (≤ 850px) — Results Header umbricht, Step1 column
-// ══════════════════════════════════════════════════════════════
 @media (max-width: 850px) {
 
   .gen-step1 {
@@ -873,8 +877,6 @@
     box-sizing: border-box;
   }
 
-  // ── Results ────────────────────────────────────────────
-
   .gen-results__main {
     padding: 0 24px;
     box-sizing: border-box;
@@ -887,8 +889,6 @@
     width: 100%;
     box-sizing: border-box;
   }
-
-  // Reihenfolge: Titel → Bild → Subtitle+Tags
   .gen-results__header-text {
     width: 100%;
     display: flex;
@@ -954,10 +954,6 @@
     margin-top: 0;
   }
 }
-
-// ══════════════════════════════════════════════════════════════
-// MOBILE  (≤ 480px) — Figma Mobile Specs
-// ══════════════════════════════════════════════════════════════
 @media (max-width: 480px) {
 
   :host { background: #FFFFFF; }
@@ -965,8 +961,6 @@
   .generator {
     gap: 0;
   }
-
-  // ── Step 1 ────────────────────────────────────────────────
   .gen-step1 {
     padding: 0 16px 40px;
     gap: 40px;
@@ -1006,7 +1000,7 @@
     min-height: unset;
     flex-direction: column;
     align-items: center;
-    padding: 25px 0;
+    padding: 25px 16px;
     gap: 16px;
     box-sizing: border-box;
   }
@@ -1015,7 +1009,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-    width: calc(100% - 32px);
+    width: 100%;
   }
 
   .gen-step1__field { width: 100%; flex: unset; }
@@ -1078,8 +1072,6 @@
     font-size: 16px;
     line-height: 20px;
   }
-
-  // ── Step 2 ────────────────────────────────────────────────
   .gen-step2 {
     padding: 0 16px 40px;
     gap: 40px;
@@ -1195,8 +1187,6 @@
     font-size: 16px;
     line-height: 20px;
   }
-
-  // ── Results ───────────────────────────────────────────────
   .gen-results__main {
     gap: 48px;
     padding: 0 16px;
@@ -1330,8 +1320,6 @@
     white-space: nowrap;
     padding: 4px 24px;
   }
-
-  // ── Loading ───────────────────────────────────────────────
   .gen-loading {
     min-height: 812px;
   }
@@ -1359,10 +1347,6 @@
     text-align: center;
   }
 }
-
-// ══════════════════════════════════════════════════════════════
-// QUOTA MODAL
-// ══════════════════════════════════════════════════════════════
 
 .quota-modal__overlay {
   position: fixed;
@@ -1466,10 +1450,6 @@
 
   &:hover { opacity: 0.85; }
 }
-
-// ══════════════════════════════════════════════════════════════
-// NARROW  (≤ 359px) — 320px Geräte, kein horizontaler Scroll
-// ══════════════════════════════════════════════════════════════
 @media (max-width: 359px) {
 
   .gen-step1 { padding-left: 12px; padding-right: 12px; }
@@ -1531,3 +1511,4 @@
   .gen-loading__gif { width: 200px; height: auto; }
   .gen-loading__text { width: 100% !important; }
 }
+

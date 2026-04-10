@@ -1,12 +1,8 @@
-@use '../../../styles/variables' as *;
-
-// ── Host ──────────────────────────────────────────────────────
+﻿@use '../../../styles/variables' as *;
 :host {
   display: block;
   background: $color-white;
 }
-
-// ── Page wrapper ──────────────────────────────────────────────
 .library {
   max-width: $page-width;
   margin: 0 auto;
@@ -16,8 +12,6 @@
   align-items: center;
   gap: 40px;
 }
-
-// ── Hero banner ───────────────────────────────────────────────
 .library__hero {
   width: 100%;
   overflow: hidden;
@@ -30,8 +24,6 @@
 }
 
 .library__hero-img--mobile { display: none; }
-
-// ── Recipe list ───────────────────────────────────────────────
 .library__list {
   width: $content-width;      // 900px
   max-width: calc(100% - 32px);
@@ -48,8 +40,6 @@
   flex-direction: column;
   gap: 8px;
 }
-
-// ── Single recipe row ─────────────────────────────────────────
 .library__recipe-row {
   display: flex;
   flex-direction: row;
@@ -65,8 +55,6 @@
     background: rgba($color-card-bg, 0.5);
   }
 }
-
-// ── Number circle ─────────────────────────────────────────────
 .library__num {
   flex: 0 0 30px;
   width: 30px;
@@ -81,8 +69,6 @@
   font-size: $font-size-body;
   color: $color-middle-green;
 }
-
-// ── Recipe info ───────────────────────────────────────────────
 .library__recipe-info {
   flex: 1;
   display: flex;
@@ -116,8 +102,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-// ── Actions (tags + view) ─────────────────────────────────────
 .library__recipe-actions {
   flex: 0 0 auto;
   display: flex;
@@ -180,8 +164,6 @@
     opacity: 0.85;
   }
 }
-
-// ── Pagination ────────────────────────────────────────────────
 .library__pagination {
   display: flex;
   flex-direction: row;
@@ -223,10 +205,6 @@
     cursor: default;
   }
 }
-
-// ══════════════════════════════════════════════════════════════
-// TABLET  (≤ 768px)
-// ══════════════════════════════════════════════════════════════
 @media (max-width: 768px) {
 
   .library__list {
@@ -248,10 +226,6 @@
     gap: 6px;
   }
 }
-
-// ══════════════════════════════════════════════════════════════
-// MOBILE  (≤ 480px) — Figma Mobile Specs
-// ══════════════════════════════════════════════════════════════
 @media (max-width: 480px) {
 
   .library {
@@ -262,7 +236,7 @@
   }
 
   .library__hero {
-    width: 340px;
+    width: 100%;
     height: 94px;
   }
 
@@ -283,9 +257,6 @@
   .library__recipe-list {
     gap: 32px;
   }
-
-  // Recipe row: flex-wrap so [num + info] on row 1, [actions] on row 2
-  // row-gap 16px (between the two rows), column-gap 8px (between num and info)
   .library__recipe-row {
     flex-wrap: wrap;
     align-items: flex-start;
@@ -294,21 +265,15 @@
     gap: 16px 8px;
     border-radius: 16px;
   }
-
-  // Alternating backgrounds: even rows = creamy
   .library__recipe-row:nth-child(even) {
     background: rgba(250, 240, 230, 0.7);
   }
-
-  // Num circle: stays fixed at start of row 1
   .library__num {
     flex: 0 0 30px;
     font-size: 18px;
     align-self: flex-start;
     margin-top: 4px;
   }
-
-  // Info: takes remaining width in row 1
   .library__recipe-info {
     flex: 1;
     min-width: 0;
@@ -318,8 +283,6 @@
   .library__recipe-time {
     .material-icons { font-size: 16px; }
   }
-
-  // Title: 18px/600, wraps instead of ellipsis
   .library__recipe-title {
     font-size: 18px;
     line-height: 22px;
@@ -328,31 +291,39 @@
     overflow: visible;
     text-overflow: unset;
   }
-
-  // Actions: full-width second row — tags left, view-btn right
   .library__recipe-actions {
     flex-basis: 100%;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     gap: 8px;
+    min-width: 0;
   }
 
   .library__tags {
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
+    min-width: 0;
   }
 
   .library__tag {
-    font-size: 18px;
+    font-size: clamp(13px, 4vw, 18px);
     height: 32px;
-    padding: 6px 12px;
+    padding: 6px 10px;
   }
 
   .library__liked-count {
     height: 32px;
-    padding: 6px 12px;
+    padding: 6px 10px;
+    flex-shrink: 0;
 
-    .material-icons { font-size: 18px; }
+    .material-icons { font-size: 16px; }
+  }
+
+  .library__view-btn {
+    flex-shrink: 0;
+    font-size: clamp(12px, 3.5vw, 16px);
+    padding: 6px 14px;
   }
 }
+
