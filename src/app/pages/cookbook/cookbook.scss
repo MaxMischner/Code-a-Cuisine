@@ -226,7 +226,8 @@
   line-height: 30px;
   color: $color-middle-green;
   margin: 0;
-  width: 263px;
+  width: 100%;
+  max-width: 263px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -313,7 +314,7 @@
 .cookbook__impressum-link {
   font-family: $font-primary;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   color: $color-olive-green;
   text-decoration: none;
 
@@ -488,32 +489,52 @@
 
   .cookbook__scroll-wrapper {
     width: 100%;
-    overflow: hidden;
+    overflow-x: auto;
   }
 
+  .cookbook__scroll-row {
+    width: max-content;
+  }
+
+  .cookbook__scroll-btn,
+  .cookbook__scroll-fade { display: none; }
+
   .cookbook__liked-card {
-    display: block;
+    display: flex;
+    width: 250px;
     min-width: 250px;
-    padding: 12px;
+    height: 150px;
+    padding: 16px;
     gap: 12px;
   }
 
   .cookbook__liked-info {
+    width: 0;
+    flex: 1;
     gap: 6px;
   }
 
   .cookbook__liked-title {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 18px;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .cookbook__liked-meta {
+    height: auto;
+    flex-wrap: wrap;
   }
 
   .cookbook__liked-time {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .cookbook__liked-count {
-    font-size: 12px;
-    .material-icons { font-size: 14px; }
+    font-size: 16px;
+    .material-icons { font-size: 16px; }
   }
   .cookbook__categories {
     width: 100%;

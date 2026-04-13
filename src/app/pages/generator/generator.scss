@@ -542,6 +542,9 @@
   }
 
   &--single {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 6px 12px;
     background: $color-creamy;
     border-radius: $radius-pill;
@@ -653,6 +656,7 @@
 .gen-results__tags {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   gap: 16px;
 }
@@ -1163,7 +1167,7 @@
   }
 
   .gen-step2__chip-sub {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 10px;
     white-space: nowrap;
   }

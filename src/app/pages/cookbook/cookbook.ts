@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, signal } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { Navbar } from '../../shared/components/navbar/navbar';
 import { SupabaseService, DbRecipe } from '../../core/services/supabase.service';
@@ -25,7 +25,9 @@ interface CuisineCategory {
   templateUrl: './cookbook.html',
   styleUrl: './cookbook.scss',
 })
-export class Cookbook implements OnInit {
+export class Cookbook implements OnInit, AfterViewInit {
+
+  @ViewChild('scrollRow') scrollRowRef!: ElementRef<HTMLElement>;
 
   mostLiked = signal<DbRecipe[]>([]);
   loading   = signal(true);
@@ -59,6 +61,17 @@ export class Cookbook implements OnInit {
       this.mostLiked.set(recipes);
     } finally {
       this.loading.set(false);
+      setTimeout(() => {
+        if (this.scrollRowRef?.nativeElement) {
+          this.onScroll(this.scrollRowRef.nativeElement);
+        }
+      }, 0);
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (this.scrollRowRef?.nativeElement) {
+      this.onScroll(this.scrollRowRef.nativeElement);
     }
   }
 

@@ -13,8 +13,9 @@
   gap: 40px;
 }
 .library__hero {
-  width: 100%;
+  width: calc(100% - 40px);
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .library__hero-img {
@@ -236,8 +237,9 @@
   }
 
   .library__hero {
-    width: 100%;
-    height: 94px;
+    width: calc(100% - 30px);
+    height: auto;
+    margin: 0 auto;
   }
 
   .library__hero-img--desktop { display: none; }
@@ -245,12 +247,12 @@
 
   .library__hero-img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: unset;
   }
 
   .library__list {
-    width: min(340px, calc(100% - 32px));
+    width: min(340px, calc(100% - 30px));
     gap: 32px;
   }
 
@@ -326,4 +328,13 @@
     padding: 6px 14px;
   }
 }
+@media (max-width: 320px) {
 
+  .library__hero {
+    width: calc(100% - 30px);
+  }
+
+  .library__list {
+    width: calc(100% - 30px);
+  }
+}
